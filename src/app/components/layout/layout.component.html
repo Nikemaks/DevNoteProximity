@@ -1,0 +1,60 @@
+<header>
+  <mat-toolbar color="primary">
+    <button mat-icon-button class="example-icon" aria-label="menu" (click)="drawer.toggle()">
+      <mat-icon>menu</mat-icon>
+    </button>
+    <span>My Account</span>
+    <span class="spacer"></span>
+    <button mat-icon-button aria-label="icon-button">
+      <mat-icon>settings</mat-icon>
+    </button>
+    <button mat-icon-button aria-label="icon-button">
+      <mat-icon>account_circle</mat-icon>
+    </button>
+  </mat-toolbar>
+</header>
+<main>
+  <mat-drawer-container class="container">
+    <mat-drawer #drawer mode="side" opened>
+      <mat-nav-list role="list">
+        <a
+          mat-list-item
+          [routerLink]="['/home']"
+          routerLinkActive="active" ariaCurrentWhenActive="page">Home</a>
+        <a
+          mat-list-item
+          [routerLink]="['/test-accounts']"
+          routerLinkActive="active" ariaCurrentWhenActive="page">
+          Test Accounts</a>
+
+        <mat-expansion-panel [class.mat-elevation-z0]="true" dense
+                             (opened)="panelOpenState = true"
+                             (closed)="panelOpenState = false">
+          <mat-expansion-panel-header>
+            <mat-panel-title>
+              Notes
+            </mat-panel-title>
+          </mat-expansion-panel-header>
+          <a
+            mat-list-item
+            [routerLink]="['/notes-short']"
+            routerLinkActive="active" ariaCurrentWhenActive="page">
+            Short notes</a>
+          <a
+            mat-list-item
+            [routerLink]="['/notes-full']"
+            routerLinkActive="active" ariaCurrentWhenActive="page">
+            Full notes</a>
+        </mat-expansion-panel>
+        <a
+          mat-list-item
+          [routerLink]="['/calendar']"
+          routerLinkActive="active" ariaCurrentWhenActive="page">
+          Calendar</a>
+      </mat-nav-list>
+    </mat-drawer>
+    <mat-drawer-content class="content">
+      <router-outlet></router-outlet>
+    </mat-drawer-content>
+  </mat-drawer-container>
+</main>

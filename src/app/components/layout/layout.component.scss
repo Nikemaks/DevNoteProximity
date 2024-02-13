@@ -1,0 +1,17 @@
+.container {
+  width: 100%;
+  height: calc(100vh - 64px);
+  padding: 10px;
+}
+
+.spacer {
+  flex: 1 1 auto;
+}
+
+mat-drawer {
+  width: 250px;
+}
+
+.content{
+  padding: 15px;
+}

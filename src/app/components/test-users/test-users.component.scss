@@ -1,0 +1,19 @@
+.header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+  .controls {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    .search {
+      margin-right: 20px;
+    }
+  }
+}
+
+.content {
+  margin-bottom: 50px;
+  overflow-y: auto;
+}
