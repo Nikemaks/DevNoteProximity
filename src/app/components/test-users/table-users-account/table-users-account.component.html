@@ -1,0 +1,43 @@
+<mat-tab-group>
+  <mat-tab label="First">
+    <div class="mat-elevation-z8">
+      <table mat-table [dataSource]="dataSource">
+
+        <!-- Group Column -->
+        <ng-container matColumnDef="group">
+          <th mat-header-cell *matHeaderCellDef>Group</th>
+          <td mat-cell *matCellDef="let element"> {{element?.group}}</td>
+        </ng-container>
+
+        <!-- Email Column -->
+        <ng-container matColumnDef="email">
+          <th mat-header-cell *matHeaderCellDef>Email</th>
+          <td mat-cell *matCellDef="let element"> {{element?.email}}</td>
+        </ng-container>
+
+        <!-- password Column -->
+        <ng-container matColumnDef="password">
+          <th mat-header-cell *matHeaderCellDef>Password</th>
+          <td mat-cell *matCellDef="let element"> {{element?.password}}</td>
+        </ng-container>
+
+        <ng-container matColumnDef="addComment">
+          <th mat-header-cell *matHeaderCellDef>Comment</th>
+          <td mat-cell *matCellDef="let element">{{element?.addComment}}</td>
+        </ng-container>
+
+
+        <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+        <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+      </table>
+
+      <mat-paginator [pageSizeOptions]="[5, 10, 20]"
+                     showFirstLastButtons
+                     aria-label="Select page of periodic elements">
+      </mat-paginator>
+    </div>
+
+  </mat-tab>
+  <mat-tab label="Second"> Content 2</mat-tab>
+  <mat-tab label="Third"> Content 3</mat-tab>
+</mat-tab-group>
