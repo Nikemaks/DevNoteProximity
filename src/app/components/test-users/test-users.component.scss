@@ -15,11 +15,20 @@
   overflow-y: auto;
 }
 
-.search-form-field {
-  width: 450px;
+.search {
+  margin-top: 20px;
+
+  &-form-field {
+    width: 450px;
+  }
 }
 
 .title {
   font-weight: bold;
   font-size: 26px;
+}
+
+.mat-mdc-form-field {
+  font-size: 14px;
+  width: 40%;
 }

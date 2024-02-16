@@ -3,7 +3,7 @@ import {MatPaginator, MatPaginatorModule} from "@angular/material/paginator";
 import {MatTabsModule} from "@angular/material/tabs";
 import {MatTableDataSource, MatTableModule} from "@angular/material/table";
 import {TestUserAccount} from "../../../interfaces/test-user-account";
-import {TestAccountsServiceStore} from "../../../services/test-accounts.service";
+import {TestAccountsServiceStore} from "../../../store/test-accounts-store.service";
 
 
 const ELEMENT_DATA: TestUserAccount[] = [

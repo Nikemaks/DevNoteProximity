@@ -1,4 +1,4 @@
-import {Component} from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {MatButtonModule} from "@angular/material/button";
 import {MatInputModule} from "@angular/material/input";
 import {MatFormFieldModule} from "@angular/material/form-field";
@@ -7,9 +7,9 @@ import {FormsModule} from "@angular/forms";
 import {MatDialog} from "@angular/material/dialog";
 import {AddUserModalComponent} from "./modal/modal.component";
 import {TestUserAccount} from "../../interfaces/test-user-account";
-import {TestAccountsServiceStore} from "../../services/test-accounts.service";
 import {CommonModule} from "@angular/common";
 import {TableUsersAccountComponent} from "./table-users-account/table-users-account.component";
+import {TestAccountsServiceStore} from "../../store/test-accounts-store.service";
 
 @Component({
   selector: 'test-users',
@@ -26,7 +26,7 @@ import {TableUsersAccountComponent} from "./table-users-account/table-users-acco
   templateUrl: './test-users.component.html',
   styleUrl: './test-users.component.scss'
 })
-export class TestUsersComponent {
+export class TestUsersComponent implements OnInit {
   value = '';
 
   dataSource$ = this.testAccountsServiceStore.userAccounts$;
@@ -43,9 +43,13 @@ export class TestUsersComponent {
 
     dialogRef.afterClosed().subscribe((result: TestUserAccount) => {
       if (result) {
-        this.testAccountsServiceStore.addUserAccount(result);
+        //this.testAccountsServiceStore.addUserAccount(result);
       }
     });
+  }
+
+  ngOnInit(): void {
+    this.testAccountsServiceStore.getAllUserAccounts$();
   }
 }
 
