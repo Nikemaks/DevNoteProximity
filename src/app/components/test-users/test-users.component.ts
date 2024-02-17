@@ -10,6 +10,7 @@ import {TestUserAccount} from "../../interfaces/test-user-account";
 import {CommonModule} from "@angular/common";
 import {TableUsersAccountComponent} from "./table-users-account/table-users-account.component";
 import {TestAccountsServiceStore} from "../../store/test-accounts-store.service";
+import {MatCardModule} from "@angular/material/card";
 
 @Component({
   selector: 'test-users',
@@ -21,7 +22,8 @@ import {TestAccountsServiceStore} from "../../store/test-accounts-store.service"
     MatInputModule,
     FormsModule,
     MatIconModule,
-    TableUsersAccountComponent
+    TableUsersAccountComponent,
+    MatCardModule
   ],
   templateUrl: './test-users.component.html',
   styleUrl: './test-users.component.scss'
@@ -29,7 +31,7 @@ import {TestAccountsServiceStore} from "../../store/test-accounts-store.service"
 export class TestUsersComponent implements OnInit {
   value = '';
 
-  dataSource$ = this.testAccountsServiceStore.userAccounts$;
+  dataSource$ = this.testAccountsServiceStore.selectUserAccounts$;
 
 
   constructor(public dialog: MatDialog, private testAccountsServiceStore: TestAccountsServiceStore) {
@@ -41,9 +43,9 @@ export class TestUsersComponent implements OnInit {
       width: '450px',
     });
 
-    dialogRef.afterClosed().subscribe((result: TestUserAccount) => {
-      if (result) {
-        //this.testAccountsServiceStore.addUserAccount(result);
+    dialogRef.afterClosed().subscribe((account: TestUserAccount) => {
+      if (account) {
+        this.testAccountsServiceStore.saveUserAccount$(account);
       }
     });
   }

@@ -2,11 +2,18 @@
   display: flex;
   align-items: center;
   justify-content: space-between;
+  margin-bottom: 20px;
 
   .controls {
     display: flex;
     align-items: center;
     justify-content: space-between;
+
+    button {
+      position: fixed;
+      bottom: 50px;
+      right: 50px;
+    }
   }
 }
 
@@ -16,6 +23,8 @@
 }
 
 .search {
+  display: flex;
+  justify-content: flex-end;
   margin-top: 20px;
 
   &-form-field {
@@ -30,5 +39,5 @@
 
 .mat-mdc-form-field {
   font-size: 14px;
-  width: 40%;
+  width: 20%;
 }

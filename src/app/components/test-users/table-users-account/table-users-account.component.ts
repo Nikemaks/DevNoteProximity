@@ -4,6 +4,8 @@ import {MatTabsModule} from "@angular/material/tabs";
 import {MatTableDataSource, MatTableModule} from "@angular/material/table";
 import {TestUserAccount} from "../../../interfaces/test-user-account";
 import {TestAccountsServiceStore} from "../../../store/test-accounts-store.service";
+import {MatIconModule} from "@angular/material/icon";
+import {MatButtonModule} from "@angular/material/button";
 
 
 const ELEMENT_DATA: TestUserAccount[] = [
@@ -21,7 +23,9 @@ const ELEMENT_DATA: TestUserAccount[] = [
   imports: [
     MatTabsModule,
     MatTableModule,
-    MatPaginatorModule
+    MatPaginatorModule,
+    MatIconModule,
+    MatButtonModule
   ],
   templateUrl: './table-users-account.component.html',
   styleUrl: './table-users-account.component.scss'
@@ -29,19 +33,25 @@ const ELEMENT_DATA: TestUserAccount[] = [
 export class TableUsersAccountComponent implements AfterViewInit, OnInit {
   @ViewChild(MatPaginator) paginator!: MatPaginator;
 
-  displayedColumns: string[] = ['group', 'email', 'password', 'addComment'];
+  displayedColumns: string[] = ['group', 'email', 'password', 'addComment', 'action'];
   dataSource = new MatTableDataSource<TestUserAccount>(ELEMENT_DATA);
 
   constructor(private testAccountsServiceStore: TestAccountsServiceStore) {
   }
 
   ngOnInit(): void {
-    this.testAccountsServiceStore.userAccounts$.subscribe(users => {
+    this.testAccountsServiceStore.selectUserAccounts$.subscribe(users => {
       this.dataSource.data = users;
     });
   }
 
   ngAfterViewInit() {
     this.dataSource.paginator = this.paginator;
+  }
+
+  delete() {
+  }
+
+  edit() {
   }
 }

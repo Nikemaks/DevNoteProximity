@@ -1,8 +1,8 @@
 import {Injectable} from '@angular/core';
 import {TestUserAccount} from "../interfaces/test-user-account";
 import {ComponentStore, tapResponse} from '@ngrx/component-store';
-import {Observable} from "rxjs";
-import {exhaustMap} from "rxjs/operators";
+import {Observable, EMPTY} from "rxjs";
+import {catchError, exhaustMap, switchMap, tap} from "rxjs/operators";
 import {TestAccountsService} from "../services/test-accounts/test-accounts.service";
 import {HttpErrorResponse} from "@angular/common/http";
 
@@ -19,9 +19,9 @@ export class TestAccountsServiceStore extends ComponentStore<StoreTestUserAccoun
     super({userAccounts: []})
   }
 
-  readonly userAccounts$: Observable<TestUserAccount[]> = this.select(state => state.userAccounts);
+  readonly selectUserAccounts$: Observable<TestUserAccount[]> = this.select(state => state.userAccounts);
 
-  readonly addUserAccount = this.updater((state, userAccount: TestUserAccount[]) => ({
+  readonly addUserAccounts = this.updater((state, userAccount: TestUserAccount[]) => ({
     userAccounts: [...state.userAccounts, ...userAccount],
   }));
 
@@ -30,11 +30,23 @@ export class TestAccountsServiceStore extends ComponentStore<StoreTestUserAccoun
       exhaustMap(() =>
         this.testAccountsService.fetchAllTestAccounts().pipe(
           tapResponse({
-            next: (accounts: TestUserAccount[]) => this.addUserAccount(accounts),
+            next: (accounts: TestUserAccount[]) => this.addUserAccounts(accounts),
             error: (error: HttpErrorResponse) => console.error(error),
           })
         )
       )
     )
   );
+
+
+  readonly saveUserAccount$ = this.effect((account$:  Observable<TestUserAccount>) => {
+    return account$.pipe(
+      switchMap((account) => this.testAccountsService.saveTestUser(account).pipe(
+        tapResponse(
+          (accounts) => this.addUserAccounts(accounts),
+          (error: HttpErrorResponse) => console.log(error),
+        ),
+      )),
+    );
+  });
 }
