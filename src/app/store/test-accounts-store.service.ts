@@ -8,6 +8,7 @@ import {HttpErrorResponse} from "@angular/common/http";
 
 export interface StoreTestUserAccounts {
   userAccounts: TestUserAccount[];
+  filters: string;
 }
 
 @Injectable({
@@ -16,15 +17,37 @@ export interface StoreTestUserAccounts {
 export class TestAccountsServiceStore extends ComponentStore<StoreTestUserAccounts> {
 
   constructor(private testAccountsService: TestAccountsService) {
-    super({userAccounts: []})
+    super({userAccounts: [], filters: ''})
   }
 
+  // selects
   readonly selectUserAccounts$: Observable<TestUserAccount[]> = this.select(state => state.userAccounts);
 
+  readonly selectFiltersUserAccounts$: Observable<TestUserAccount[]> =
+    this.select(state => state.userAccounts.filter((itm) => {
+      return itm.group.includes(state.filters) || itm.addComment.includes(state.filters) || itm.email.includes(state.filters);
+    }));
+
+
+  // updaters
   readonly addUserAccounts = this.updater((state, userAccount: TestUserAccount[]) => ({
+    ...state,
     userAccounts: [...state.userAccounts, ...userAccount],
   }));
 
+
+  readonly removeUser = this.updater((state, removeId: string) => ({
+    ...state,
+    userAccounts: [...state.userAccounts.filter(itm => itm.id !== removeId)],
+  }));
+
+  readonly changeFilters = this.updater((state, filters: string) => ({
+    ...state,
+    filters: filters,
+  }));
+
+
+  // effects
   readonly getAllUserAccounts$ = this.effect<void>(
     (trigger$) => trigger$.pipe(
       exhaustMap(() =>
@@ -38,8 +61,7 @@ export class TestAccountsServiceStore extends ComponentStore<StoreTestUserAccoun
     )
   );
 
-
-  readonly saveUserAccount$ = this.effect((account$:  Observable<TestUserAccount>) => {
+  readonly saveUserAccount$ = this.effect((account$: Observable<TestUserAccount>) => {
     return account$.pipe(
       switchMap((account) => this.testAccountsService.saveTestUser(account).pipe(
         tapResponse(
@@ -49,4 +71,16 @@ export class TestAccountsServiceStore extends ComponentStore<StoreTestUserAccoun
       )),
     );
   });
+
+  readonly removeUserAccount$ = this.effect((id$: Observable<string>) => {
+    return id$.pipe(
+      switchMap((account) => this.testAccountsService.removeTestUser(account).pipe(
+        tapResponse(
+          (id) => this.removeUser(id),
+          (error: HttpErrorResponse) => console.log(error),
+        ),
+      )),
+    );
+  });
+
 }

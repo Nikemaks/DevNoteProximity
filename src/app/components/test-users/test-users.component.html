@@ -1,9 +1,9 @@
 <div class="header">
   <h1 class="title">Test Accounts</h1>
   <div class="controls">
-      <button (click)="openDialog()" mat-fab color="warn" aria-label="add button">
-        <mat-icon>add</mat-icon>
-      </button>
+    <button (click)="openDialog()" mat-fab color="warn" aria-label="add button">
+      <mat-icon>add</mat-icon>
+    </button>
   </div>
 </div>
 <mat-card>
@@ -11,9 +11,9 @@
     <div class="search">
       <mat-form-field appearance="outline" class="search-form-field">
         <mat-label>Filtering</mat-label>
-        <input matInput type="text" [(ngModel)]="value">
-        @if (value) {
-        <button matSuffix mat-icon-button aria-label="Clear" (click)="value=''">
+        <input matInput type="text" [formControl]="searchControl">
+        @if (searchControl.value) {
+        <button matSuffix mat-icon-button aria-label="Clear" (click)="searchControl.reset('')">
           <mat-icon>close</mat-icon>
         </button>
         }

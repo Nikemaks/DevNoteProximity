@@ -11,6 +11,9 @@ import {CommonModule} from "@angular/common";
 import {TableUsersAccountComponent} from "./table-users-account/table-users-account.component";
 import {TestAccountsServiceStore} from "../../store/test-accounts-store.service";
 import {MatCardModule} from "@angular/material/card";
+import {FormControl, ReactiveFormsModule} from '@angular/forms';
+import {debounceTime} from "rxjs/operators";
+import {MatSnackBar} from "@angular/material/snack-bar";
 
 @Component({
   selector: 'test-users',
@@ -23,18 +26,18 @@ import {MatCardModule} from "@angular/material/card";
     FormsModule,
     MatIconModule,
     TableUsersAccountComponent,
-    MatCardModule
+    MatCardModule,
+    ReactiveFormsModule
   ],
   templateUrl: './test-users.component.html',
   styleUrl: './test-users.component.scss'
 })
 export class TestUsersComponent implements OnInit {
-  value = '';
-
   dataSource$ = this.testAccountsServiceStore.selectUserAccounts$;
 
+  searchControl = new FormControl('');
 
-  constructor(public dialog: MatDialog, private testAccountsServiceStore: TestAccountsServiceStore) {
+  constructor(public dialog: MatDialog, private testAccountsServiceStore: TestAccountsServiceStore, private _snackBar: MatSnackBar) {
   }
 
   openDialog() {
@@ -46,12 +49,16 @@ export class TestUsersComponent implements OnInit {
     dialogRef.afterClosed().subscribe((account: TestUserAccount) => {
       if (account) {
         this.testAccountsServiceStore.saveUserAccount$(account);
+        this._snackBar.open('User added!', 'Close');
       }
     });
   }
 
   ngOnInit(): void {
     this.testAccountsServiceStore.getAllUserAccounts$();
+    this.searchControl.valueChanges.pipe(debounceTime(600)).subscribe((value) => {
+      this.testAccountsServiceStore.changeFilters(value || '');
+    })
   }
 }
 

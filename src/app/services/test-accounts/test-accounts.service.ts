@@ -19,10 +19,23 @@ export class TestAccountsService {
 
   saveTestUser(testAccount: TestUserAccount): Observable<TestUserAccount[]> {
     return this.fetchAllTestAccounts().pipe(switchMap((accounts: TestUserAccount[]) => {
+      testAccount.id = this.generateId();
       const newArray = [testAccount, ...accounts];
       this.localStorage.setStorage<TestUserAccount[]>(this.storageKey, newArray);
       return of([testAccount]);
-    }))
+    }));
+  }
+
+  removeTestUser(id: string): Observable<string> {
+    return this.fetchAllTestAccounts().pipe(switchMap((accounts: TestUserAccount[]) => {
+      const newArray = accounts.filter(itm => itm.id !== id);
+      this.localStorage.setStorage<TestUserAccount[]>(this.storageKey, newArray);
+      return of(id);
+    }));
+  }
+
+  generateId():  string {
+    return Math.random().toString(36).substring(2, 8);
   }
 
   removeAccount() {
