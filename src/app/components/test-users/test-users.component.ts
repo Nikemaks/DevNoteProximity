@@ -49,7 +49,9 @@ export class TestUsersComponent implements OnInit {
     dialogRef.afterClosed().subscribe((account: TestUserAccount) => {
       if (account) {
         this.testAccountsServiceStore.saveUserAccount$(account);
-        this._snackBar.open('User added!', 'Close');
+        this._snackBar.open('User added!', 'Close', {
+          duration: 2500
+        });
       }
     });
   }

@@ -8,17 +8,24 @@ import {MatIconModule} from "@angular/material/icon";
 import {MatButtonModule} from "@angular/material/button";
 import {MatDialog} from "@angular/material/dialog";
 import {ConfirmActionComponent} from "../../modals/confirm-action/confirm-action.component";
+import {ClipboardModule} from "@angular/cdk/clipboard";
+import {MatSnackBar} from "@angular/material/snack-bar";
+import {CommonModule} from "@angular/common";
+import {MatCardModule} from "@angular/material/card";
 
 
 @Component({
   selector: 'table-users-account',
   standalone: true,
   imports: [
+    CommonModule,
     MatTabsModule,
     MatTableModule,
     MatPaginatorModule,
     MatIconModule,
-    MatButtonModule
+    MatButtonModule,
+    ClipboardModule,
+    MatCardModule
   ],
   templateUrl: './table-users-account.component.html',
   styleUrl: './table-users-account.component.scss'
@@ -26,10 +33,12 @@ import {ConfirmActionComponent} from "../../modals/confirm-action/confirm-action
 export class TableUsersAccountComponent implements AfterViewInit, OnInit {
   @ViewChild(MatPaginator) paginator!: MatPaginator;
 
-  displayedColumns: string[] = ['group', 'email', 'password', 'addComment', 'action'];
+  displayedColumns: string[] = ['avatar', 'group', 'email', 'password', 'addComment', 'action'];
   dataSource = new MatTableDataSource<TestUserAccount>();
 
-  constructor(private testAccountsServiceStore: TestAccountsServiceStore, public dialog: MatDialog) {
+  constructor(private testAccountsServiceStore: TestAccountsServiceStore,
+              private _snackBar: MatSnackBar,
+              public dialog: MatDialog) {
   }
 
   ngOnInit(): void {
@@ -52,6 +61,9 @@ export class TableUsersAccountComponent implements AfterViewInit, OnInit {
     });
   }
 
-  edit() {
+  notifyCopy(value: string | null) {
+    this._snackBar.open(`Value "${value}" copied to clipboard!`, 'Close', {
+      duration: 2500
+    });
   }
 }

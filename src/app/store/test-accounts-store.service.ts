@@ -35,6 +35,11 @@ export class TestAccountsServiceStore extends ComponentStore<StoreTestUserAccoun
     userAccounts: [...state.userAccounts, ...userAccount],
   }));
 
+  readonly setUserAccounts = this.updater((state, userAccounts: TestUserAccount[]) => ({
+    ...state,
+    userAccounts,
+  }));
+
 
   readonly removeUser = this.updater((state, removeId: string) => ({
     ...state,
@@ -53,7 +58,7 @@ export class TestAccountsServiceStore extends ComponentStore<StoreTestUserAccoun
       exhaustMap(() =>
         this.testAccountsService.fetchAllTestAccounts().pipe(
           tapResponse({
-            next: (accounts: TestUserAccount[]) => this.addUserAccounts(accounts),
+            next: (accounts: TestUserAccount[]) => this.setUserAccounts(accounts),
             error: (error: HttpErrorResponse) => console.error(error),
           })
         )
