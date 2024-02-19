@@ -7,7 +7,7 @@ import {isPlatformBrowser} from "@angular/common";
 })
 export class StorageService {
 
-  constructor(@Inject(PLATFORM_ID) private platformId: Object) {
+  constructor(@Inject(PLATFORM_ID) private platformId: object) {
   }
 
   setStorage<T>(key: string, value: T): void {
