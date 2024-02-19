@@ -2,13 +2,17 @@
   display: flex;
   align-items: center;
   justify-content: space-between;
+  margin-bottom: 20px;
 
   .controls {
     display: flex;
     align-items: center;
     justify-content: space-between;
-    .search {
-      margin-right: 20px;
+
+    button {
+      position: fixed;
+      bottom: 50px;
+      right: 50px;
     }
   }
 }
@@ -16,4 +20,24 @@
 .content {
   margin-bottom: 50px;
   overflow-y: auto;
+}
+
+.search {
+  display: flex;
+  justify-content: flex-end;
+  margin-top: 20px;
+
+  &-form-field {
+    width: 450px;
+  }
+}
+
+.title {
+  font-weight: bold;
+  font-size: 26px;
+}
+
+.mat-mdc-form-field {
+  font-size: 14px;
+  width: 20%;
 }
