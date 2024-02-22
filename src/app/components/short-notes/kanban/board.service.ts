@@ -1,5 +1,5 @@
 import {Injectable} from "@angular/core";
-import {Board, Task} from "./board.model";
+import {BASE_BOARDS, Board, Task} from "./board.model";
 import {BehaviorSubject} from "rxjs";
 
 @Injectable({
@@ -7,10 +7,13 @@ import {BehaviorSubject} from "rxjs";
 })
 export class BoardService {
   constructor() {
+    BASE_BOARDS.forEach((itm: Board) => {
+      this.collection.set(itm.id || '', itm);
+    });
   }
 
   collection = new Map<string, Board>();
-  allBoards = new BehaviorSubject<Board[]>([]);
+  allBoards = new BehaviorSubject<Board[]>(BASE_BOARDS);
 
   /**
    * Creates a new board for the current user
@@ -21,7 +24,6 @@ export class BoardService {
 
 
     this.allBoards.next(Array.from(this.collection, ([name, value]) => {
-      console.log(name);
       return value;
     }));
   }
@@ -30,7 +32,11 @@ export class BoardService {
    * Delete board
    */
   deleteBoard(boardId: string) {
-    console.log(boardId);
+    this.collection.delete(boardId);
+
+    this.allBoards.next(Array.from(this.collection, ([name, value]) => {
+      return value;
+    }));
   }
 
   /**
@@ -40,10 +46,8 @@ export class BoardService {
     const currentBoard = this.collection.get(boardId);
     const updatedBoard = Object.assign({}, currentBoard, {tasks});
     this.collection.set(boardId, updatedBoard);
-    console.log(this.collection);
 
     this.allBoards.next(Array.from(this.collection, ([name, value]) => {
-      console.log(name);
       return value;
     }));
 
@@ -53,7 +57,14 @@ export class BoardService {
    * Remove a specifc task from the board
    */
   removeTask(boardId: string, task: Task) {
-      console.log(boardId, task);
+    const currentBoard = this.collection.get(boardId);
+    const updatedBoard = Object.assign({}, currentBoard,
+      {tasks: currentBoard?.tasks?.filter(itm => itm.description !== task.description)});
+    this.collection.set(boardId, updatedBoard);
+
+    this.allBoards.next(Array.from(this.collection, ([name, value]) => {
+      return value;
+    }));
   }
 
   /**
