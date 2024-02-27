@@ -49,5 +49,5 @@ jobs:
         id: changelog
         uses: TriPSs/conventional-changelog-action@v3
         with:
-          github-token: ${{ secrets.TOKEN_GITHUB_ACTION }}
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           output-file: "false"
