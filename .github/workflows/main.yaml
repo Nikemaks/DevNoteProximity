@@ -45,9 +45,3 @@ jobs:
       - name: Test
         run: |
           npm run test:prod
-      - name: Conventional Changelog Action
-        id: changelog
-        uses: TriPSs/conventional-changelog-action@v3
-        with:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          output-file: "false"
