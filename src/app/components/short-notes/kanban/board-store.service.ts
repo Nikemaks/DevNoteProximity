@@ -54,7 +54,7 @@ export class BoardStoreService extends ComponentStore<StoreBoards> {
       )
     )
   );
-
+  //@todo
   readonly saveBoards$ = this.effect((boards$: Observable<Board[]>) => {
     return boards$.pipe(
       switchMap(() => this.boardService.saveBoards().pipe(
