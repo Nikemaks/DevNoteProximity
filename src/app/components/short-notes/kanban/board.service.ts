@@ -26,7 +26,7 @@ export class BoardService {
   saveBoards() {
     return this.fetchAllBoards().pipe(switchMap((boards: Board[]) => {
       this.localStorage.setStorage<Board[]>(this.storageKey, boards);
-      return of([boards]);
+      return of(boards);
     }));
   }
 
