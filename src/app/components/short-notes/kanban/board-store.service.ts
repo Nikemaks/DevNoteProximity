@@ -57,7 +57,7 @@ export class BoardStoreService extends ComponentStore<StoreBoards> {
 
   readonly saveBoards$ = this.effect((boards$: Observable<Board[]>) => {
     return boards$.pipe(
-      switchMap((boards$) => this.boardService.saveBoards(boards$).pipe(
+      switchMap(() => this.boardService.saveBoards().pipe(
         tapResponse(
           (boards$) => this.setBoards(boards$),
           (error: HttpErrorResponse) => console.log(error),
