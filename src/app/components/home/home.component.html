@@ -1,37 +1,14 @@
 <div class="container">
-  <mat-card class="card">
+  <mat-card *ngFor="let item of items" class="card">
     <mat-card-header>
-      <mat-card-title>Test Accounts</mat-card-title>
+      <mat-card-title>{{item.title}}</mat-card-title>
     </mat-card-header>
-    <img mat-card-image src="../../../assets/preview/test_accounts.png" alt="Test accounts preview">
+    <img mat-card-image [src]="item.img" alt="Test accounts preview">
     <mat-card-content>
-      <p>
-        This page allows users to swiftly create new accounts with ease. Simply fill in the required fields such as email
-        and password, and you're all set to access our platform's features. Our streamlined process ensures a hassle-free
-        registration experience. Once your account is created, easily copy your generated password and email for
-        convenient access.
-      </p>
+      <p>{{item.description}}</p>
     </mat-card-content>
     <mat-card-actions>
       <button mat-button (click)="goToItems('test-accounts')">LIKE</button>
-    </mat-card-actions>
-  </mat-card>
-  
-  <mat-card class="card">
-    <mat-card-header>
-      <mat-card-title>Short Notes</mat-card-title>
-    </mat-card-header>
-    <img mat-card-image src="../../../assets/preview/test_accounts.png" alt="Test accounts preview">
-    <mat-card-content>
-      <p>
-        This page allows users to swiftly create new accounts with ease. Simply fill in the required fields such as email
-        and password, and you're all set to access our platform's features. Our streamlined process ensures a hassle-free
-        registration experience. Once your account is created, easily copy your generated password and email for
-        convenient access.
-      </p>
-    </mat-card-content>
-    <mat-card-actions>
-      <button mat-button (click)="goToItems('notes-short')">LIKE</button>
     </mat-card-actions>
   </mat-card>
 </div>

@@ -12,6 +12,22 @@ import {Router} from "@angular/router";
   styleUrl: './home.component.scss'
 })
 export class HomeComponent {
+  items = [
+    {
+      title: 'Test Accounts',
+      img: '../../../assets/preview/test_accounts.png',
+      description: `This page allows users to swiftly create new accounts with ease. Simply fill in the required fields such as email
+                    and password, and you're all set to access our platform's features. Our streamlined process ensures a hassle-free
+                    registration experience. Once your account is created, easily copy your generated password and email for
+                    convenient access.`
+    },
+    {
+      title: 'Short Notes',
+      img: '../../../assets/preview/test_accounts.png',
+      description: `Here, you'll find a user-friendly interface with customizable boards where you can effortlessly add new notes
+                    or simply drag and drop existing ones. Stay organized and inspired with our intuitive platform`
+    }
+  ]
 
   constructor(private router: Router) {
   }
