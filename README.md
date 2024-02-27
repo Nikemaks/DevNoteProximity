@@ -1,3 +1,5 @@
+[![Angular GitHub CI/CD](https://github.com/Nikemaks/DevNoteProximity/actions/workflows/main.yaml/badge.svg)](https://github.com/Nikemaks/DevNoteProximity/actions/workflows/main.yaml)
+
 # DevNoteProximity
 
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 17.0.3.
