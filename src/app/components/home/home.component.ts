@@ -19,13 +19,15 @@ export class HomeComponent {
       description: `This page allows users to swiftly create new accounts with ease. Simply fill in the required fields such as email
                     and password, and you're all set to access our platform's features. Our streamlined process ensures a hassle-free
                     registration experience. Once your account is created, easily copy your generated password and email for
-                    convenient access.`
+                    convenient access.`,
+      route: 'test-accounts',
     },
     {
       title: 'Short Notes',
-      img: '../../../assets/preview/test_accounts.png',
+      img: '../../../assets/preview/short_notes.png',
       description: `Here, you'll find a user-friendly interface with customizable boards where you can effortlessly add new notes
-                    or simply drag and drop existing ones. Stay organized and inspired with our intuitive platform`
+                    or simply drag and drop existing ones. Stay organized and inspired with our intuitive platform`,
+      route: 'notes-short',
     }
   ]
 

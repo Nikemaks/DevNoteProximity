@@ -3,12 +3,12 @@
     <mat-card-header>
       <mat-card-title>{{item.title}}</mat-card-title>
     </mat-card-header>
-    <img mat-card-image [src]="item.img" alt="Test accounts preview">
+    <img class="item__img" mat-card-image [src]="item.img" alt="Test accounts preview">
     <mat-card-content>
-      <p>{{item.description}}</p>
+      <p class="item__text">{{item.description}}</p>
     </mat-card-content>
-    <mat-card-actions>
-      <button mat-button (click)="goToItems('test-accounts')">LIKE</button>
+    <mat-card-actions class="item__btn">
+      <button mat-button (click)="goToItems(item.route)">LIKE</button>
     </mat-card-actions>
   </mat-card>
 </div>
