@@ -1,19 +1,38 @@
 import {Injectable} from "@angular/core";
 import {BASE_BOARDS, Board, Task} from "./board.model";
-import {BehaviorSubject} from "rxjs";
+import {StorageService} from "../../../services/storage/storage.service";
+import {Observable, of, BehaviorSubject} from "rxjs";
+import {switchMap} from "rxjs/operators";
 
 @Injectable({
   providedIn: "root"
 })
 export class BoardService {
-  constructor() {
+  collection = new Map<string, Board>();
+  allBoards = new BehaviorSubject<Board[]>(BASE_BOARDS);
+
+  storageKey = 'BOARDS';
+
+  constructor(private localStorage: StorageService) {
     BASE_BOARDS.forEach((itm: Board) => {
       this.collection.set(itm.id || '', itm);
     });
   }
 
-  collection = new Map<string, Board>();
-  allBoards = new BehaviorSubject<Board[]>(BASE_BOARDS);
+  fetchAllBoards(): Observable<Board[]> {
+    return this.localStorage.getStorageItem<Board[]>(this.storageKey);
+  }
+
+  saveBoards() {
+    return this.fetchAllBoards().pipe(switchMap((boards: Board[]) => {
+      this.localStorage.setStorage<Board[]>(this.storageKey, boards);
+      return of([boards]);
+    }));
+  }
+
+  generateId(): string {
+    return Math.random().toString(36).substring(2, 8);
+  }
 
   /**
    * Creates a new board for the current user
@@ -23,8 +42,8 @@ export class BoardService {
     this.collection.set(data?.id || '', data);
 
 
-    this.allBoards.next(Array.from(this.collection, ([name, value]) => {
-      return value;
+    return this.allBoards.next(Array.from(this.collection, (value) => {
+      return value[1];
     }));
   }
 
@@ -34,8 +53,8 @@ export class BoardService {
   deleteBoard(boardId: string) {
     this.collection.delete(boardId);
 
-    this.allBoards.next(Array.from(this.collection, ([name, value]) => {
-      return value;
+    return this.allBoards.next(Array.from(this.collection, (value) => {
+      return value[1];
     }));
   }
 
@@ -47,8 +66,8 @@ export class BoardService {
     const updatedBoard = Object.assign({}, currentBoard, {tasks});
     this.collection.set(boardId, updatedBoard);
 
-    this.allBoards.next(Array.from(this.collection, ([name, value]) => {
-      return value;
+    return this.allBoards.next(Array.from(this.collection, (value) => {
+      return value[1];
     }));
 
   }
@@ -62,8 +81,8 @@ export class BoardService {
       {tasks: currentBoard?.tasks?.filter(itm => itm.description !== task.description)});
     this.collection.set(boardId, updatedBoard);
 
-    this.allBoards.next(Array.from(this.collection, ([name, value]) => {
-      return value;
+    return this.allBoards.next(Array.from(this.collection, (value) => {
+      return value[1];
     }));
   }
 
