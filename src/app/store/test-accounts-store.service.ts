@@ -1,10 +1,10 @@
-import {Injectable} from '@angular/core';
-import {TestUserAccount} from "../interfaces/test-user-account";
-import {ComponentStore, tapResponse} from '@ngrx/component-store';
-import {Observable} from "rxjs";
-import {exhaustMap, switchMap} from "rxjs/operators";
-import {TestAccountsService} from "../services/test-accounts/test-accounts.service";
-import {HttpErrorResponse} from "@angular/common/http";
+import { Injectable } from '@angular/core';
+import { TestUserAccount } from '../interfaces/test-user-account';
+import { ComponentStore, tapResponse } from '@ngrx/component-store';
+import { Observable } from 'rxjs';
+import { exhaustMap, switchMap } from 'rxjs/operators';
+import { TestAccountsService } from '../services/test-accounts/test-accounts.service';
+import { HttpErrorResponse } from '@angular/common/http';
 
 export interface StoreTestUserAccounts {
   userAccounts: TestUserAccount[];
@@ -12,34 +12,43 @@ export interface StoreTestUserAccounts {
 }
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class TestAccountsServiceStore extends ComponentStore<StoreTestUserAccounts> {
-
   constructor(private testAccountsService: TestAccountsService) {
-    super({userAccounts: [], filters: ''})
+    super({ userAccounts: [], filters: '' });
   }
 
   // selects
-  readonly selectUserAccounts$: Observable<TestUserAccount[]> = this.select(state => state.userAccounts);
+  readonly selectUserAccounts$: Observable<TestUserAccount[]> = this.select(
+    state => state.userAccounts
+  );
 
   readonly selectFiltersUserAccounts$: Observable<TestUserAccount[]> =
-    this.select(state => state.userAccounts.filter((itm) => {
-      return itm.group.includes(state.filters) || itm.addComment.includes(state.filters) || itm.email.includes(state.filters);
-    }));
-
+    this.select(state =>
+      state.userAccounts.filter(itm => {
+        return (
+          itm.group.includes(state.filters) ||
+          itm.addComment.includes(state.filters) ||
+          itm.email.includes(state.filters)
+        );
+      })
+    );
 
   // updaters
-  readonly addUserAccounts = this.updater((state, userAccount: TestUserAccount[]) => ({
-    ...state,
-    userAccounts: [...state.userAccounts, ...userAccount],
-  }));
+  readonly addUserAccounts = this.updater(
+    (state, userAccount: TestUserAccount[]) => ({
+      ...state,
+      userAccounts: [...state.userAccounts, ...userAccount],
+    })
+  );
 
-  readonly setUserAccounts = this.updater((state, userAccounts: TestUserAccount[]) => ({
-    ...state,
-    userAccounts,
-  }));
-
+  readonly setUserAccounts = this.updater(
+    (state, userAccounts: TestUserAccount[]) => ({
+      ...state,
+      userAccounts,
+    })
+  );
 
   readonly removeUser = this.updater((state, removeId: string) => ({
     ...state,
@@ -51,14 +60,14 @@ export class TestAccountsServiceStore extends ComponentStore<StoreTestUserAccoun
     filters: filters,
   }));
 
-
   // effects
-  readonly getAllUserAccounts$ = this.effect<void>(
-    (trigger$) => trigger$.pipe(
+  readonly getAllUserAccounts$ = this.effect<void>(trigger$ =>
+    trigger$.pipe(
       exhaustMap(() =>
         this.testAccountsService.fetchAllTestAccounts().pipe(
           tapResponse({
-            next: (accounts: TestUserAccount[]) => this.setUserAccounts(accounts),
+            next: (accounts: TestUserAccount[]) =>
+              this.setUserAccounts(accounts),
             error: (error: HttpErrorResponse) => console.error(error),
           })
         )
@@ -66,26 +75,31 @@ export class TestAccountsServiceStore extends ComponentStore<StoreTestUserAccoun
     )
   );
 
-  readonly saveUserAccount$ = this.effect((account$: Observable<TestUserAccount>) => {
-    return account$.pipe(
-      switchMap((account) => this.testAccountsService.saveTestUser(account).pipe(
-        tapResponse(
-          (accounts) => this.addUserAccounts(accounts),
-          (error: HttpErrorResponse) => console.log(error),
-        ),
-      )),
-    );
-  });
+  readonly saveUserAccount$ = this.effect(
+    (account$: Observable<TestUserAccount>) => {
+      return account$.pipe(
+        switchMap(account =>
+          this.testAccountsService.saveTestUser(account).pipe(
+            tapResponse(
+              accounts => this.addUserAccounts(accounts),
+              (error: HttpErrorResponse) => console.log(error)
+            )
+          )
+        )
+      );
+    }
+  );
 
   readonly removeUserAccount$ = this.effect((id$: Observable<string>) => {
     return id$.pipe(
-      switchMap((account) => this.testAccountsService.removeTestUser(account).pipe(
-        tapResponse(
-          (id) => this.removeUser(id),
-          (error: HttpErrorResponse) => console.log(error),
-        ),
-      )),
+      switchMap(account =>
+        this.testAccountsService.removeTestUser(account).pipe(
+          tapResponse(
+            id => this.removeUser(id),
+            (error: HttpErrorResponse) => console.log(error)
+          )
+        )
+      )
     );
   });
-
 }

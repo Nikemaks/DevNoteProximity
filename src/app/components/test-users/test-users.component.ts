@@ -1,19 +1,19 @@
-import {Component, OnInit} from '@angular/core';
-import {MatButtonModule} from "@angular/material/button";
-import {MatInputModule} from "@angular/material/input";
-import {MatFormFieldModule} from "@angular/material/form-field";
-import {MatIconModule} from "@angular/material/icon";
-import {FormsModule} from "@angular/forms";
-import {MatDialog} from "@angular/material/dialog";
-import {AddUserModalComponent} from "./modal/modal.component";
-import {TestUserAccount} from "../../interfaces/test-user-account";
-import {CommonModule} from "@angular/common";
-import {TableUsersAccountComponent} from "./table-users-account/table-users-account.component";
-import {TestAccountsServiceStore} from "../../store/test-accounts-store.service";
-import {MatCardModule} from "@angular/material/card";
-import {FormControl, ReactiveFormsModule} from '@angular/forms';
-import {debounceTime} from "rxjs/operators";
-import {MatSnackBar} from "@angular/material/snack-bar";
+import { Component, OnInit } from '@angular/core';
+import { MatButtonModule } from '@angular/material/button';
+import { MatInputModule } from '@angular/material/input';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatIconModule } from '@angular/material/icon';
+import { FormsModule } from '@angular/forms';
+import { MatDialog } from '@angular/material/dialog';
+import { AddUserModalComponent } from './modal/modal.component';
+import { TestUserAccount } from '../../interfaces/test-user-account';
+import { CommonModule } from '@angular/common';
+import { TableUsersAccountComponent } from './table-users-account/table-users-account.component';
+import { TestAccountsServiceStore } from '../../store/test-accounts-store.service';
+import { MatCardModule } from '@angular/material/card';
+import { FormControl, ReactiveFormsModule } from '@angular/forms';
+import { debounceTime } from 'rxjs/operators';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 @Component({
   selector: 'test-users',
@@ -27,18 +27,21 @@ import {MatSnackBar} from "@angular/material/snack-bar";
     MatIconModule,
     TableUsersAccountComponent,
     MatCardModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
   ],
   templateUrl: './test-users.component.html',
-  styleUrl: './test-users.component.scss'
+  styleUrl: './test-users.component.scss',
 })
 export class TestUsersComponent implements OnInit {
   dataSource$ = this.testAccountsServiceStore.selectUserAccounts$;
 
   searchControl = new FormControl('');
 
-  constructor(public dialog: MatDialog, private testAccountsServiceStore: TestAccountsServiceStore, private _snackBar: MatSnackBar) {
-  }
+  constructor(
+    public dialog: MatDialog,
+    private testAccountsServiceStore: TestAccountsServiceStore,
+    private _snackBar: MatSnackBar
+  ) {}
 
   openDialog() {
     const dialogRef = this.dialog.open(AddUserModalComponent, {
@@ -50,7 +53,7 @@ export class TestUsersComponent implements OnInit {
       if (account) {
         this.testAccountsServiceStore.saveUserAccount$(account);
         this._snackBar.open('User added!', 'Close', {
-          duration: 2500
+          duration: 2500,
         });
       }
     });
@@ -58,10 +61,8 @@ export class TestUsersComponent implements OnInit {
 
   ngOnInit(): void {
     this.testAccountsServiceStore.getAllUserAccounts$();
-    this.searchControl.valueChanges.pipe(debounceTime(600)).subscribe((value) => {
+    this.searchControl.valueChanges.pipe(debounceTime(600)).subscribe(value => {
       this.testAccountsServiceStore.changeFilters(value || '');
-    })
+    });
   }
 }
-
-
