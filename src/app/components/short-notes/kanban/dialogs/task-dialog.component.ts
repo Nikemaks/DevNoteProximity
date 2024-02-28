@@ -1,6 +1,5 @@
 import {Component, Inject} from "@angular/core";
 import {MAT_DIALOG_DATA, MatDialogModule, MatDialogRef} from "@angular/material/dialog";
-import {BoardService} from "../board.service";
 import {CommonModule} from "@angular/common";
 import {DeleteButtonComponent} from "../delete-button/delete-button.component";
 import {FormsModule} from "@angular/forms";
@@ -10,6 +9,7 @@ import {MatButtonToggleModule} from "@angular/material/button-toggle";
 import {MatInputModule} from "@angular/material/input";
 import {MatIconModule} from "@angular/material/icon";
 import {Task} from "../board.model";
+import {BoardStoreService} from "../board-store.service";
 
 
 @Component({
@@ -65,13 +65,13 @@ export class TaskDialogComponent {
 
   constructor(
     public dialog: MatDialogRef<TaskDialogComponent>,
-    @Inject(MAT_DIALOG_DATA) public data: {boardId: string, task: Task, isNew: boolean},
-    private boardService: BoardService
+    @Inject(MAT_DIALOG_DATA) public data: { boardId: string, task: Task, isNew: boolean },
+    private boardStore: BoardStoreService
   ) {
   }
 
   handleDelete() {
-    this.boardService.removeTask(this.data.boardId, this.data.task);
+    this.boardStore.removeAndSaveTasks$({boardId: this.data.boardId, task: this.data.task});
     this.dialog.close();
   }
 }
