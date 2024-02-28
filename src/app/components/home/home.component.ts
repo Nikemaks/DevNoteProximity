@@ -1,16 +1,16 @@
-import {Component} from '@angular/core';
-import {CommonModule} from '@angular/common';
-import {MatButtonModule} from "@angular/material/button";
-import {MatCardModule} from "@angular/material/card";
-import {Router} from "@angular/router";
-import {Items} from '../../interfaces/item';
+import { Component } from '@angular/core';
+import { CommonModule } from '@angular/common';
+import { MatButtonModule } from '@angular/material/button';
+import { MatCardModule } from '@angular/material/card';
+import { Router } from '@angular/router';
+import { Items } from '../../interfaces/item';
 
 @Component({
   selector: 'app-home',
   standalone: true,
   imports: [CommonModule, MatCardModule, MatButtonModule],
   templateUrl: './home.component.html',
-  styleUrl: './home.component.scss'
+  styleUrl: './home.component.scss',
 })
 export class HomeComponent {
   items: Items[] = [
@@ -29,11 +29,10 @@ export class HomeComponent {
       description: `Here, you'll find a user-friendly interface with customizable boards where you can effortlessly add new notes
                     or simply drag and drop existing ones. Stay organized and inspired with our intuitive platform`,
       route: 'notes-short',
-    }
-  ]
+    },
+  ];
 
-  constructor(private router: Router) {
-  }
+  constructor(private router: Router) {}
 
   goToItems(route: string) {
     this.router.navigate([route]);
