@@ -1,11 +1,11 @@
-import {Injectable} from "@angular/core";
-import {BASE_BOARDS, Board, Task} from "./board.model";
-import {StorageService} from "../../../services/storage/storage.service";
-import {Observable, of, BehaviorSubject} from "rxjs";
-import {switchMap} from "rxjs/operators";
+import { Injectable } from '@angular/core';
+import { BASE_BOARDS, Board, Task } from './board.model';
+import { StorageService } from '../../../services/storage/storage.service';
+import { Observable, of, BehaviorSubject } from 'rxjs';
+import { switchMap } from 'rxjs/operators';
 
 @Injectable({
-  providedIn: "root"
+  providedIn: 'root',
 })
 export class BoardService {
   collection = new Map<string, Board>();
@@ -24,10 +24,12 @@ export class BoardService {
   }
 
   saveBoards() {
-    return this.fetchAllBoards().pipe(switchMap((boards: Board[]) => {
-      this.localStorage.setStorage<Board[]>(this.storageKey, boards);
-      return of(boards);
-    }));
+    return this.fetchAllBoards().pipe(
+      switchMap((boards: Board[]) => {
+        this.localStorage.setStorage<Board[]>(this.storageKey, boards);
+        return of(boards);
+      })
+    );
   }
 
   generateId(): string {
@@ -41,10 +43,11 @@ export class BoardService {
     data.id = Math.random().toString(36).substring(2, 8);
     this.collection.set(data?.id || '', data);
 
-
-    return this.allBoards.next(Array.from(this.collection, (value) => {
-      return value[1];
-    }));
+    return this.allBoards.next(
+      Array.from(this.collection, value => {
+        return value[1];
+      })
+    );
   }
 
   /**
@@ -53,9 +56,11 @@ export class BoardService {
   deleteBoard(boardId: string) {
     this.collection.delete(boardId);
 
-    return this.allBoards.next(Array.from(this.collection, (value) => {
-      return value[1];
-    }));
+    return this.allBoards.next(
+      Array.from(this.collection, value => {
+        return value[1];
+      })
+    );
   }
 
   /**
@@ -63,13 +68,14 @@ export class BoardService {
    */
   updateTasks(boardId: string, tasks: Task[]) {
     const currentBoard = this.collection.get(boardId);
-    const updatedBoard = Object.assign({}, currentBoard, {tasks});
+    const updatedBoard = Object.assign({}, currentBoard, { tasks });
     this.collection.set(boardId, updatedBoard);
 
-    return this.allBoards.next(Array.from(this.collection, (value) => {
-      return value[1];
-    }));
-
+    return this.allBoards.next(
+      Array.from(this.collection, value => {
+        return value[1];
+      })
+    );
   }
 
   /**
@@ -77,13 +83,18 @@ export class BoardService {
    */
   removeTask(boardId: string, task: Task) {
     const currentBoard = this.collection.get(boardId);
-    const updatedBoard = Object.assign({}, currentBoard,
-      {tasks: currentBoard?.tasks?.filter(itm => itm.description !== task.description)});
+    const updatedBoard = Object.assign({}, currentBoard, {
+      tasks: currentBoard?.tasks?.filter(
+        itm => itm.description !== task.description
+      ),
+    });
     this.collection.set(boardId, updatedBoard);
 
-    return this.allBoards.next(Array.from(this.collection, (value) => {
-      return value[1];
-    }));
+    return this.allBoards.next(
+      Array.from(this.collection, value => {
+        return value[1];
+      })
+    );
   }
 
   /**

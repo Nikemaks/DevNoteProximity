@@ -5,23 +5,20 @@
     <mat-card-title>
       {{ board.title }}
     </mat-card-title>
-    <mat-card-subtitle>
-    </mat-card-subtitle>
+    <mat-card-subtitle> </mat-card-subtitle>
   </mat-card-header>
 
   <div
     class="tasks"
     cdkDropList
     cdkDropListOrientation="vertical"
-    (cdkDropListDropped)="taskDrop($event)"
-  >
-    <div
-      class="inner-card"
-    >
-      <a cdkDrag
-         href="javascript:void(0)"
-         *ngFor="let task of board.tasks; let i = index"
-         (click)="openDialog(task, i)">
+    (cdkDropListDropped)="taskDrop($event)">
+    <div class="inner-card">
+      <a
+        cdkDrag
+        href="javascript:void(0)"
+        *ngFor="let task of board.tasks; let i = index"
+        (click)="openDialog(task, i)">
         <mat-card [ngClass]="task.label"> {{ task.description }}</mat-card>
       </a>
     </div>

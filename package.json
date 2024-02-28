@@ -10,7 +10,9 @@
     "test:prod": "ng test --no-watch --no-progress --browsers=ChromeHeadless",
     "serve:ssr:DevNote-Proximity": "node dist/dev-note-proximity/server/server.mjs",
     "deploy": "ng deploy --base-href=/angular-ci-cd-with-github-actions/",
-    "lint": "ng lint"
+    "lint": "ng lint",
+    "prettier": "npx prettier --write .",
+    "prettier:check": "npx prettier --check ."
   },
   "private": true,
   "dependencies": {
@@ -49,12 +51,16 @@
     "@typescript-eslint/parser": "6.19.0",
     "angular-cli-ghpages": "^2.0.0-beta.2",
     "eslint": "^8.56.0",
+    "eslint-config-prettier": "^9.1.0",
+    "eslint-plugin-prettier": "^5.1.3",
     "jasmine-core": "~5.1.0",
     "karma": "~6.4.0",
     "karma-chrome-launcher": "~3.2.0",
     "karma-coverage": "~2.2.0",
     "karma-jasmine": "~5.1.0",
     "karma-jasmine-html-reporter": "~2.1.0",
+    "prettier": "^3.2.5",
+    "prettier-eslint": "^16.3.0",
     "typescript": "~5.2.2"
   }
 }

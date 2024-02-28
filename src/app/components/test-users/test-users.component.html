@@ -11,11 +11,15 @@
     <div class="search">
       <mat-form-field appearance="outline" class="search-form-field">
         <mat-label>Filtering</mat-label>
-        <input matInput type="text" [formControl]="searchControl">
+        <input matInput type="text" [formControl]="searchControl" />
         @if (searchControl.value) {
-        <button matSuffix mat-icon-button aria-label="Clear" (click)="searchControl.reset('')">
-          <mat-icon>close</mat-icon>
-        </button>
+          <button
+            matSuffix
+            mat-icon-button
+            aria-label="Clear"
+            (click)="searchControl.reset('')">
+            <mat-icon>close</mat-icon>
+          </button>
         }
       </mat-form-field>
     </div>
@@ -24,4 +28,3 @@
     </div>
   </mat-card-content>
 </mat-card>
-

@@ -1,11 +1,18 @@
 <header>
   <mat-toolbar color="primary">
-    <button (click)="drawer.toggle()" aria-label="menu" class="example-icon" mat-icon-button>
+    <button
+      (click)="drawer.toggle()"
+      aria-label="menu"
+      class="example-icon"
+      mat-icon-button>
       <mat-icon>menu</mat-icon>
     </button>
     <span>My Account</span>
     <span class="spacer"></span>
-    <button mat-icon-button aria-label="icon-button" [routerLink]="['/settings']">
+    <button
+      mat-icon-button
+      aria-label="icon-button"
+      [routerLink]="['/settings']">
       <mat-icon>settings</mat-icon>
     </button>
     <button aria-label="icon-button" mat-icon-button>
@@ -20,16 +27,23 @@
         <a
           mat-list-item
           [routerLink]="['/home']"
-          routerLinkActive="active" ariaCurrentWhenActive="page">Home</a>
+          routerLinkActive="active"
+          ariaCurrentWhenActive="page"
+          >Home</a
+        >
         <a
           [routerLink]="['/test-accounts']"
           ariaCurrentWhenActive="page"
-          mat-list-item routerLinkActive="active">
-          Test Accounts</a>
+          mat-list-item
+          routerLinkActive="active">
+          Test Accounts</a
+        >
 
-        <mat-expansion-panel (closed)="panelOpenState = false" (opened)="panelOpenState = true"
-                             [class.mat-elevation-z0]="true"
-                             dense>
+        <mat-expansion-panel
+          (closed)="panelOpenState = false"
+          (opened)="panelOpenState = true"
+          [class.mat-elevation-z0]="true"
+          dense>
           <mat-expansion-panel-header>
             <mat-panel-title>
               <a mat-list-item>Notes</a>
@@ -38,19 +52,25 @@
           <a
             [routerLink]="['/notes-short']"
             ariaCurrentWhenActive="page"
-            mat-list-item routerLinkActive="active">
-            Short notes</a>
+            mat-list-item
+            routerLinkActive="active">
+            Short notes</a
+          >
           <a
             [routerLink]="['/notes-full']"
             ariaCurrentWhenActive="page"
-            mat-list-item routerLinkActive="active">
-            Full notes</a>
+            mat-list-item
+            routerLinkActive="active">
+            Full notes</a
+          >
         </mat-expansion-panel>
         <a
           [routerLink]="['/calendar']"
           ariaCurrentWhenActive="page"
-          mat-list-item routerLinkActive="active">
-          Calendar</a>
+          mat-list-item
+          routerLinkActive="active">
+          Calendar</a
+        >
       </mat-nav-list>
     </mat-drawer>
     <mat-drawer-content class="content">
