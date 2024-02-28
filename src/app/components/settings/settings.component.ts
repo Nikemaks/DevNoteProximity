@@ -13,7 +13,7 @@ import { MatCardModule } from '@angular/material/card';
     MatSlideToggleModule,
     MatButtonModule,
     MatMenuModule,
-    MatCardModule
+    MatCardModule,
   ],
   templateUrl: './settings.component.html',
   styleUrl: './settings.component.scss',
