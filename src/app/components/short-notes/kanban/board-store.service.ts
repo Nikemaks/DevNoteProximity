@@ -1,10 +1,10 @@
-import {Injectable} from '@angular/core';
-import {BASE_BOARDS, Board, Task} from './board.model';
-import {ComponentStore, tapResponse} from '@ngrx/component-store';
-import {Observable} from 'rxjs';
-import {BoardService} from './board.service';
-import {HttpErrorResponse} from '@angular/common/http';
-import {exhaustMap, switchMap} from 'rxjs/operators';
+import { Injectable } from '@angular/core';
+import { BASE_BOARDS, Board, Task } from './board.model';
+import { ComponentStore, tapResponse } from '@ngrx/component-store';
+import { Observable } from 'rxjs';
+import { BoardService } from './board.service';
+import { HttpErrorResponse } from '@angular/common/http';
+import { exhaustMap, switchMap } from 'rxjs/operators';
 
 export interface StoreBoards {
   boards: Board[];
@@ -25,8 +25,7 @@ interface RemoveInterface {
 })
 export class BoardStoreService extends ComponentStore<StoreBoards> {
   constructor(private boardService: BoardService) {
-    super({boards: BASE_BOARDS})
-;
+    super({ boards: BASE_BOARDS });
   }
 
   // select
@@ -50,27 +49,35 @@ export class BoardStoreService extends ComponentStore<StoreBoards> {
     boards: [...boards],
   }));
 
+  readonly updateTasks = this.updater(
+    (state: StoreBoards, { boardId, tasks }: UpdateInterface) => ({
+      ...state,
+      boards: [
+        ...state.boards.map((board: Board) => {
+          if (boardId === board.id) {
+            board.tasks = [...tasks];
+          }
+          return board;
+        }),
+      ],
+    })
+  );
 
-  readonly updateTasks = this.updater((state: StoreBoards, {boardId, tasks}: UpdateInterface) => ({
-    ...state,
-    boards: [...state.boards.map((board: Board) => {
-      if (boardId === board.id) {
-        board.tasks = [...tasks];
-      }
-      return board;
-    })],
-  }));
-
-  readonly removeTask = this.updater((state: StoreBoards, {boardId, task}: RemoveInterface) => ({
-    ...state,
-    boards: [...state.boards.map((board: Board) => {
-      if (boardId === board.id) {
-        board.tasks = board.tasks?.filter(itm => itm.description !== task.description);
-      }
-      return board;
-    })],
-  }));
-
+  readonly removeTask = this.updater(
+    (state: StoreBoards, { boardId, task }: RemoveInterface) => ({
+      ...state,
+      boards: [
+        ...state.boards.map((board: Board) => {
+          if (boardId === board.id) {
+            board.tasks = board.tasks?.filter(
+              itm => itm.description !== task.description
+            );
+          }
+          return board;
+        }),
+      ],
+    })
+  );
 
   // effect
   readonly getAllBoards$ = this.effect<void>(trigger$ =>
@@ -88,7 +95,7 @@ export class BoardStoreService extends ComponentStore<StoreBoards> {
 
   readonly saveBoard$ = this.effect((board$: Observable<Board>) => {
     return board$.pipe(
-      switchMap((board) =>
+      switchMap(board =>
         this.boardService.saveBoards(board).pipe(
           tapResponse(
             boards$ => this.setBoards(boards$),
@@ -99,38 +106,46 @@ export class BoardStoreService extends ComponentStore<StoreBoards> {
     );
   });
 
-
   readonly removeBoard$ = this.effect((id$: Observable<string>) => {
     return id$.pipe(
-      switchMap((id: string) => this.boardService.removeBoard(id).pipe(
-        tapResponse(
-          (id) => this.removeBoard(id),
-          (error: HttpErrorResponse) => console.log(error),
-        ),
-      )),
+      switchMap((id: string) =>
+        this.boardService.removeBoard(id).pipe(
+          tapResponse(
+            id => this.removeBoard(id),
+            (error: HttpErrorResponse) => console.log(error)
+          )
+        )
+      )
     );
   });
 
-  readonly updateAndSaveTasks$ = this.effect((updateData$: Observable<UpdateInterface>) => {
-    return updateData$.pipe(
-      switchMap(({boardId, tasks}) => this.boardService.updateTasks(boardId, tasks).pipe(
-        tapResponse(
-          (updateData) => this.updateTasks(updateData),
-          (error: HttpErrorResponse) => console.log(error),
-        ),
-      )),
-    );
-  });
+  readonly updateAndSaveTasks$ = this.effect(
+    (updateData$: Observable<UpdateInterface>) => {
+      return updateData$.pipe(
+        switchMap(({ boardId, tasks }) =>
+          this.boardService.updateTasks(boardId, tasks).pipe(
+            tapResponse(
+              updateData => this.updateTasks(updateData),
+              (error: HttpErrorResponse) => console.log(error)
+            )
+          )
+        )
+      );
+    }
+  );
 
-  readonly removeAndSaveTasks$ = this.effect((updateData$: Observable<RemoveInterface>) => {
-    return updateData$.pipe(
-      switchMap(({boardId, task}) => this.boardService.removeTask(boardId, task).pipe(
-        tapResponse(
-          (removeData) => this.removeTask(removeData),
-          (error: HttpErrorResponse) => console.log(error),
-        ),
-      )),
-    );
-  });
-
+  readonly removeAndSaveTasks$ = this.effect(
+    (updateData$: Observable<RemoveInterface>) => {
+      return updateData$.pipe(
+        switchMap(({ boardId, task }) =>
+          this.boardService.removeTask(boardId, task).pipe(
+            tapResponse(
+              removeData => this.removeTask(removeData),
+              (error: HttpErrorResponse) => console.log(error)
+            )
+          )
+        )
+      );
+    }
+  );
 }

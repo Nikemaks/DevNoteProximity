@@ -13,7 +13,7 @@ import { CommonModule } from '@angular/common';
 import { DeleteButtonComponent } from '../delete-button/delete-button.component';
 import { MatIconModule } from '@angular/material/icon';
 import { MatButtonModule } from '@angular/material/button';
-import {BoardStoreService} from "../board-store.service";
+import { BoardStoreService } from '../board-store.service';
 
 @Component({
   selector: 'app-board',
@@ -32,8 +32,11 @@ import {BoardStoreService} from "../board-store.service";
 export class BoardComponent {
   @Input() board!: Board;
 
-  constructor(private boardService: BoardService, private dialog: MatDialog, private boardStore: BoardStoreService) {
-  }
+  constructor(
+    private boardService: BoardService,
+    private dialog: MatDialog,
+    private boardStore: BoardStoreService
+  ) {}
 
   taskDrop(event: CdkDragDrop<string[]>) {
     moveItemInArray(
@@ -41,7 +44,10 @@ export class BoardComponent {
       event.previousIndex,
       event.currentIndex
     );
-    this.boardStore.updateAndSaveTasks$({boardId: this.board.id || '', tasks: this.board.tasks || []});
+    this.boardStore.updateAndSaveTasks$({
+      boardId: this.board.id || '',
+      tasks: this.board.tasks || [],
+    });
   }
 
   openDialog(task?: Task, idx?: number): void {
@@ -58,15 +64,16 @@ export class BoardComponent {
         const boardTasks = this.board.tasks || [];
         if (result.isNew) {
           this.boardStore.updateAndSaveTasks$({
-            boardId: this.board.id || '', tasks: [
-              ...boardTasks,
-              result.task
-            ]
+            boardId: this.board.id || '',
+            tasks: [...boardTasks, result.task],
           });
         } else {
           const update = boardTasks;
           update.splice(result.idx, 1, result.task);
-          this.boardStore.updateAndSaveTasks$({boardId: this.board.id || '', tasks: this.board.tasks || []});
+          this.boardStore.updateAndSaveTasks$({
+            boardId: this.board.id || '',
+            tasks: this.board.tasks || [],
+          });
         }
       }
     });

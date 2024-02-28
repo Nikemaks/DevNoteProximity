@@ -1,8 +1,8 @@
-import {Injectable} from '@angular/core';
-import { Board, Task} from './board.model';
-import {StorageService} from '../../../services/storage/storage.service';
-import {Observable, of} from 'rxjs';
-import {switchMap} from 'rxjs/operators';
+import { Injectable } from '@angular/core';
+import { Board, Task } from './board.model';
+import { StorageService } from '../../../services/storage/storage.service';
+import { Observable, of } from 'rxjs';
+import { switchMap } from 'rxjs/operators';
 
 @Injectable({
   providedIn: 'root',
@@ -10,8 +10,7 @@ import {switchMap} from 'rxjs/operators';
 export class BoardService {
   storageKey = 'BOARDS';
 
-  constructor(private localStorage: StorageService) {
-  }
+  constructor(private localStorage: StorageService) {}
 
   /**
    * Get all boards owned by current user
@@ -24,23 +23,33 @@ export class BoardService {
    * Save board
    */
   saveBoards(newBoards: Board) {
-    return this.fetchAllBoards().pipe(switchMap((boards: Board[]) => {
-      newBoards.id = this.generateId();
-      const newArray = [newBoards, ...boards];
-      this.localStorage.setStorage<Board[]>(this.storageKey, this.filterUniqueById(newArray));
-      return of(newArray);
-    }));
+    return this.fetchAllBoards().pipe(
+      switchMap((boards: Board[]) => {
+        newBoards.id = this.generateId();
+        const newArray = [newBoards, ...boards];
+        this.localStorage.setStorage<Board[]>(
+          this.storageKey,
+          this.filterUniqueById(newArray)
+        );
+        return of(newArray);
+      })
+    );
   }
 
   /**
    * Delete board
    */
   removeBoard(id: string): Observable<string> {
-    return this.fetchAllBoards().pipe(switchMap((boards: Board[]) => {
-      const newArray = boards.filter(itm => itm.id !== id);
-      this.localStorage.setStorage<Board[]>(this.storageKey, this.filterUniqueById(newArray));
-      return of(id);
-    }));
+    return this.fetchAllBoards().pipe(
+      switchMap((boards: Board[]) => {
+        const newArray = boards.filter(itm => itm.id !== id);
+        this.localStorage.setStorage<Board[]>(
+          this.storageKey,
+          this.filterUniqueById(newArray)
+        );
+        return of(id);
+      })
+    );
   }
 
   generateId(): string {
@@ -51,28 +60,42 @@ export class BoardService {
    * Updates the tasks on board
    */
   updateTasks(boardId: string, tasks: Task[]) {
-    return this.fetchAllBoards().pipe(switchMap((boards: Board[]) => {
-      const currentBoard = boards.find(itm => itm.id === boardId);
-      const updatedBoard = Object.assign({}, currentBoard, { tasks });
-      const newArray = [updatedBoard, ...boards];
+    return this.fetchAllBoards().pipe(
+      switchMap((boards: Board[]) => {
+        const currentBoard = boards.find(itm => itm.id === boardId);
+        const updatedBoard = Object.assign({}, currentBoard, { tasks });
+        const newArray = [updatedBoard, ...boards];
 
-      this.localStorage.setStorage<Board[]>(this.storageKey, this.filterUniqueById(newArray));
-      return of({boardId, tasks});
-    }));
+        this.localStorage.setStorage<Board[]>(
+          this.storageKey,
+          this.filterUniqueById(newArray)
+        );
+        return of({ boardId, tasks });
+      })
+    );
   }
 
   /**
    * Remove a specifc task from the board
    */
   removeTask(boardId: string, task: Task) {
-    return this.fetchAllBoards().pipe(switchMap((boards: Board[]) => {const currentBoard = boards.find(itm => itm.id ===boardId);
-    const updatedBoard = Object.assign({}, currentBoard,{
-      tasks: currentBoard?.tasks?.filter(itm => itm.description !== task.description),});
-    const newArray = [ updatedBoard, ...boards];
+    return this.fetchAllBoards().pipe(
+      switchMap((boards: Board[]) => {
+        const currentBoard = boards.find(itm => itm.id === boardId);
+        const updatedBoard = Object.assign({}, currentBoard, {
+          tasks: currentBoard?.tasks?.filter(
+            itm => itm.description !== task.description
+          ),
+        });
+        const newArray = [updatedBoard, ...boards];
 
-      this.localStorage.setStorage<Board[]>(this.storageKey, this.filterUniqueById(newArray));
-      return of({boardId, task});
-    }));
+        this.localStorage.setStorage<Board[]>(
+          this.storageKey,
+          this.filterUniqueById(newArray)
+        );
+        return of({ boardId, task });
+      })
+    );
   }
 
   /**

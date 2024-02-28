@@ -13,7 +13,7 @@ import { MatButtonToggleModule } from '@angular/material/button-toggle';
 import { MatInputModule } from '@angular/material/input';
 import { MatIconModule } from '@angular/material/icon';
 import { Task } from '../board.model';
-import { BoardStoreService } from "../board-store.service";
+import { BoardStoreService } from '../board-store.service';
 
 @Component({
   selector: 'app-task-dialog',
@@ -71,7 +71,10 @@ export class TaskDialogComponent {
   ) {}
 
   handleDelete() {
-    this.boardStore.removeAndSaveTasks$({boardId: this.data.boardId, task: this.data.task});
+    this.boardStore.removeAndSaveTasks$({
+      boardId: this.data.boardId,
+      task: this.data.task,
+    });
     this.dialog.close();
   }
 }
