@@ -1,26 +1,28 @@
-<section>
-  <h1 class="title">Settings</h1>
-  <div class="settings">
-    <div class="settings__item">
-      <div class="settings__name">
-        <mat-icon>brightness_4</mat-icon>
-        Dark mode
+<mat-card class="settings__card">
+  <section class="settings__section">
+    <h1 class="title">Settings</h1>
+    <div class="settings">
+      <div class="settings__item">
+        <div class="settings__name">
+          <mat-icon>brightness_4</mat-icon>
+          Dark mode
+        </div>
+        <div class="settings__props">
+          <mat-slide-toggle></mat-slide-toggle>
+        </div>
       </div>
-      <div class="settings__props">
-        <mat-slide-toggle></mat-slide-toggle>
+      <div class="settings__item">
+        <div class="settings__name">Language</div>
+        <div class="settings__props">
+          <button class="language-switcher" [matMenuTriggerFor]="menu" mat-button>
+            {{ selectedMenuItem || 'EN' }}
+          </button>
+          <mat-menu #menu="matMenu">
+            <button mat-menu-item (click)="selectMenuItem('UA')">UA</button>
+            <button mat-menu-item (click)="selectMenuItem('EN')">EN</button>
+          </mat-menu>
+        </div>
       </div>
     </div>
-    <div class="settings__item">
-      <div class="settings__name">Language</div>
-      <div class="settings__props">
-        <button class="language-switcher" [matMenuTriggerFor]="menu" mat-button>
-          {{ selectedMenuItem || 'EN' }}
-        </button>
-        <mat-menu #menu="matMenu">
-          <button mat-menu-item (click)="selectMenuItem('UA')">UA</button>
-          <button mat-menu-item (click)="selectMenuItem('EN')">EN</button>
-        </mat-menu>
-      </div>
-    </div>
-  </div>
-</section>
+  </section>
+</mat-card>
