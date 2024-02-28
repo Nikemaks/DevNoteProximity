@@ -13,6 +13,7 @@ import { CommonModule } from '@angular/common';
 import { DeleteButtonComponent } from '../delete-button/delete-button.component';
 import { MatIconModule } from '@angular/material/icon';
 import { MatButtonModule } from '@angular/material/button';
+import { BoardStoreService } from '../board-store.service';
 
 @Component({
   selector: 'app-board',
@@ -33,7 +34,8 @@ export class BoardComponent {
 
   constructor(
     private boardService: BoardService,
-    private dialog: MatDialog
+    private dialog: MatDialog,
+    private boardStore: BoardStoreService
   ) {}
 
   taskDrop(event: CdkDragDrop<string[]>) {
@@ -42,7 +44,10 @@ export class BoardComponent {
       event.previousIndex,
       event.currentIndex
     );
-    this.boardService.updateTasks(this.board.id || '', this.board.tasks || []);
+    this.boardStore.updateAndSaveTasks$({
+      boardId: this.board.id || '',
+      tasks: this.board.tasks || [],
+    });
   }
 
   openDialog(task?: Task, idx?: number): void {
@@ -58,23 +63,23 @@ export class BoardComponent {
       if (result) {
         const boardTasks = this.board.tasks || [];
         if (result.isNew) {
-          this.boardService.updateTasks(this.board.id || '', [
-            ...boardTasks,
-            result.task,
-          ]);
+          this.boardStore.updateAndSaveTasks$({
+            boardId: this.board.id || '',
+            tasks: [...boardTasks, result.task],
+          });
         } else {
           const update = boardTasks;
           update.splice(result.idx, 1, result.task);
-          this.boardService.updateTasks(
-            this.board.id || '',
-            this.board.tasks || []
-          );
+          this.boardStore.updateAndSaveTasks$({
+            boardId: this.board.id || '',
+            tasks: this.board.tasks || [],
+          });
         }
       }
     });
   }
 
   handleDelete() {
-    this.boardService.deleteBoard(this.board.id || '');
+    this.boardStore.removeBoard$(this.board.id || '');
   }
 }
