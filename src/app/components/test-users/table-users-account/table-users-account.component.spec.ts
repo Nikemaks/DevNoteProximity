@@ -1,7 +1,7 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { TableUsersAccountComponent } from './table-users-account.component';
-import {NoopAnimationsModule} from "@angular/platform-browser/animations";
+import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 
 describe('TableUsersAccountComponent', () => {
   let component: TableUsersAccountComponent;
@@ -9,9 +9,8 @@ describe('TableUsersAccountComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [TableUsersAccountComponent, NoopAnimationsModule]
-    })
-    .compileComponents();
+      imports: [TableUsersAccountComponent, NoopAnimationsModule],
+    }).compileComponents();
 
     fixture = TestBed.createComponent(TableUsersAccountComponent);
     component = fixture.componentInstance;

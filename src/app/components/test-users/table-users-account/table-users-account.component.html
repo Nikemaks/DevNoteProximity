@@ -1,18 +1,17 @@
 <div class="mat-elevation-z8">
   <table mat-table [dataSource]="dataSource">
-
     <!-- Group Column -->
     <ng-container matColumnDef="avatar">
       <th mat-header-cell *matHeaderCellDef></th>
       <td mat-cell *matCellDef="let element">
-        <span class="header-image">{{element?.email[0]  | uppercase}}</span>
+        <span class="header-image">{{ element?.email[0] | uppercase }}</span>
       </td>
     </ng-container>
 
     <!-- Group Column -->
     <ng-container matColumnDef="group">
       <th mat-header-cell *matHeaderCellDef>Group</th>
-      <td mat-cell *matCellDef="let element"> {{element?.group}}</td>
+      <td mat-cell *matCellDef="let element">{{ element?.group }}</td>
     </ng-container>
 
     <!-- Email Column -->
@@ -20,8 +19,12 @@
       <th mat-header-cell *matHeaderCellDef>Email</th>
       <td mat-cell *matCellDef="let element">
         <div class="table-align">
-          {{element?.email}}
-          <button [cdkCopyToClipboard]="element?.email" mat-icon-button aria-label="copy" (click)="notifyCopy(element?.email)">
+          {{ element?.email }}
+          <button
+            [cdkCopyToClipboard]="element?.email"
+            mat-icon-button
+            aria-label="copy"
+            (click)="notifyCopy(element?.email)">
             <mat-icon>content_copy</mat-icon>
           </button>
         </div>
@@ -33,8 +36,12 @@
       <th mat-header-cell *matHeaderCellDef>Password</th>
       <td mat-cell *matCellDef="let element">
         <div class="table-align">
-          {{element?.password}}
-          <button [cdkCopyToClipboard]="element?.password" (click)="notifyCopy(element?.password)" mat-icon-button aria-label="copy">
+          {{ element?.password }}
+          <button
+            [cdkCopyToClipboard]="element?.password"
+            (click)="notifyCopy(element?.password)"
+            mat-icon-button
+            aria-label="copy">
             <mat-icon>content_copy</mat-icon>
           </button>
         </div>
@@ -43,20 +50,21 @@
 
     <ng-container matColumnDef="addComment">
       <th mat-header-cell *matHeaderCellDef>Comment</th>
-      <td mat-cell *matCellDef="let element">{{element?.addComment}}</td>
+      <td mat-cell *matCellDef="let element">{{ element?.addComment }}</td>
     </ng-container>
-
 
     <ng-container matColumnDef="action">
       <th mat-header-cell *matHeaderCellDef>Action</th>
       <td mat-cell *matCellDef="let element">
-        <button mat-icon-button color="primary" (click)="delete(element?.id)"
-                aria-label="Icon button with a delete icon">
+        <button
+          mat-icon-button
+          color="primary"
+          (click)="delete(element?.id)"
+          aria-label="Icon button with a delete icon">
           <mat-icon>delete</mat-icon>
         </button>
       </td>
     </ng-container>
-
 
     <tr class="mat-row" *matNoDataRow>
       <td class="mat-cell" [attr.colspan]="displayedColumns.length">
@@ -65,7 +73,7 @@
     </tr>
 
     <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-    <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+    <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
   </table>
 
   <mat-paginator

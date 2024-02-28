@@ -1,11 +1,11 @@
-import {Injectable} from "@angular/core";
-import {Board, Task} from "./board.model";
-import {StorageService} from "../../../services/storage/storage.service";
-import {Observable, of} from "rxjs";
-import {switchMap} from "rxjs/operators";
+import {Injectable} from '@angular/core';
+import { Board, Task} from './board.model';
+import {StorageService} from '../../../services/storage/storage.service';
+import {Observable, of} from 'rxjs';
+import {switchMap} from 'rxjs/operators';
 
 @Injectable({
-  providedIn: "root"
+  providedIn: 'root',
 })
 export class BoardService {
   storageKey = 'BOARDS';
@@ -53,7 +53,7 @@ export class BoardService {
   updateTasks(boardId: string, tasks: Task[]) {
     return this.fetchAllBoards().pipe(switchMap((boards: Board[]) => {
       const currentBoard = boards.find(itm => itm.id === boardId);
-      const updatedBoard = Object.assign({}, currentBoard, {tasks});
+      const updatedBoard = Object.assign({}, currentBoard, { tasks });
       const newArray = [updatedBoard, ...boards];
 
       this.localStorage.setStorage<Board[]>(this.storageKey, this.filterUniqueById(newArray));
@@ -65,11 +65,10 @@ export class BoardService {
    * Remove a specifc task from the board
    */
   removeTask(boardId: string, task: Task) {
-    return this.fetchAllBoards().pipe(switchMap((boards: Board[]) => {
-      const currentBoard = boards.find(itm => itm.id === boardId);
-      const updatedBoard = Object.assign({}, currentBoard,
-        {tasks: currentBoard?.tasks?.filter(itm => itm.description !== task.description)});
-      const newArray = [updatedBoard, ...boards];
+    return this.fetchAllBoards().pipe(switchMap((boards: Board[]) => {const currentBoard = boards.find(itm => itm.id ===boardId);
+    const updatedBoard = Object.assign({}, currentBoard,{
+      tasks: currentBoard?.tasks?.filter(itm => itm.description !== task.description),});
+    const newArray = [ updatedBoard, ...boards];
 
       this.localStorage.setStorage<Board[]>(this.storageKey, this.filterUniqueById(newArray));
       return of({boardId, task});

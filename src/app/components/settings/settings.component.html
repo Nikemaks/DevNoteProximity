@@ -13,7 +13,9 @@
     <div class="settings__item">
       <div class="settings__name">Language</div>
       <div class="settings__props">
-        <button class="language-switcher" [matMenuTriggerFor]="menu" mat-button>{{selectedMenuItem || 'EN'}}</button>
+        <button class="language-switcher" [matMenuTriggerFor]="menu" mat-button>
+          {{ selectedMenuItem || 'EN' }}
+        </button>
         <mat-menu #menu="matMenu">
           <button mat-menu-item (click)="selectMenuItem('UA')">UA</button>
           <button mat-menu-item (click)="selectMenuItem('EN')">EN</button>

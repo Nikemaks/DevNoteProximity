@@ -1,8 +1,7 @@
-import {ComponentFixture, TestBed} from '@angular/core/testing';
-import {AddUserModalComponent} from "./modal.component";
-import {NoopAnimationsModule} from "@angular/platform-browser/animations";
-import {MatDialogRef} from "@angular/material/dialog";
-
+import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { AddUserModalComponent } from './modal.component';
+import { NoopAnimationsModule } from '@angular/platform-browser/animations';
+import { MatDialogRef } from '@angular/material/dialog';
 
 describe('AddUserModalComponent', () => {
   let component: AddUserModalComponent;
@@ -14,11 +13,10 @@ describe('AddUserModalComponent', () => {
       providers: [
         {
           provide: MatDialogRef,
-          useValue: {}
-        }
-      ]
-    })
-      .compileComponents();
+          useValue: {},
+        },
+      ],
+    }).compileComponents();
 
     fixture = TestBed.createComponent(AddUserModalComponent);
     component = fixture.componentInstance;

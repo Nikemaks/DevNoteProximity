@@ -1,20 +1,31 @@
-import { Component, OnInit } from "@angular/core";
-import {CdkDragDrop, DragDropModule, moveItemInArray} from "@angular/cdk/drag-drop";
-import { Board } from "../board.model";
-import { BoardService } from "../board.service";
-import { MatDialog } from "@angular/material/dialog";
-import { BoardDialogComponent } from "../dialogs/board-dialog.component";
-import {CommonModule} from "@angular/common";
-import {BoardComponent} from "../board/board.component";
-import {MatIconModule} from "@angular/material/icon";
-import {MatButtonModule} from "@angular/material/button";
-import {BoardStoreService} from "../board-store.service";
+import { Component, OnInit, OnDestroy } from '@angular/core';
+import {
+  CdkDragDrop,
+  DragDropModule,
+  moveItemInArray,
+} from '@angular/cdk/drag-drop';
+import { Subscription } from 'rxjs';
+import { Board } from '../board.model';
+import { BoardService } from '../board.service';
+import { MatDialog } from '@angular/material/dialog';
+import { BoardDialogComponent } from '../dialogs/board-dialog.component';
+import { CommonModule } from '@angular/common';
+import { BoardComponent } from '../board/board.component';
+import { MatIconModule } from '@angular/material/icon';
+import { MatButtonModule } from '@angular/material/button';
+import { BoardStoreService } from "../board-store.service";
 
 @Component({
-  selector: "app-board-list",
-  templateUrl: "./board-list.component.html",
-  styleUrls: ["./board-list.component.scss"],
-  imports: [CommonModule, DragDropModule, BoardComponent, MatIconModule, MatButtonModule],
+  selector: 'app-board-list',
+  templateUrl: './board-list.component.html',
+  styleUrls: ['./board-list.component.scss'],
+  imports: [
+    CommonModule,
+    DragDropModule,
+    BoardComponent,
+    MatIconModule,
+    MatButtonModule,
+  ],
   standalone: true,
 })
 export class BoardListComponent implements OnInit {
@@ -37,8 +48,8 @@ export class BoardListComponent implements OnInit {
 
   openBoardDialog(): void {
     const dialogRef = this.dialog.open(BoardDialogComponent, {
-      width: "400px",
-      data: {}
+      width: '400px',
+      data: {},
     });
 
     dialogRef.afterClosed().subscribe(result => {

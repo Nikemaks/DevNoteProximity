@@ -2,7 +2,7 @@ name: Angular GitHub CI/CD
 on:
   push:
     branches:
-      - "**"
+      - '**'
 jobs:
   ci:
     runs-on: ubuntu-latest
@@ -45,3 +45,6 @@ jobs:
       - name: Test
         run: |
           npm run test:prod
+      - name: Prettier check
+        run: |
+          npm run prettier:check

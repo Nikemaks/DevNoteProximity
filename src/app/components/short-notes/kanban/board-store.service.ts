@@ -1,10 +1,10 @@
 import {Injectable} from '@angular/core';
-import {BASE_BOARDS, Board, Task} from "./board.model";
-import {ComponentStore, tapResponse} from "@ngrx/component-store";
-import {Observable} from "rxjs";
-import {BoardService} from "./board.service";
-import {HttpErrorResponse} from "@angular/common/http";
-import {exhaustMap, switchMap} from "rxjs/operators";
+import {BASE_BOARDS, Board, Task} from './board.model';
+import {ComponentStore, tapResponse} from '@ngrx/component-store';
+import {Observable} from 'rxjs';
+import {BoardService} from './board.service';
+import {HttpErrorResponse} from '@angular/common/http';
+import {exhaustMap, switchMap} from 'rxjs/operators';
 
 export interface StoreBoards {
   boards: Board[];
@@ -21,17 +21,18 @@ interface RemoveInterface {
 }
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class BoardStoreService extends ComponentStore<StoreBoards> {
-
   constructor(private boardService: BoardService) {
     super({boards: BASE_BOARDS})
+;
   }
 
   // select
-  readonly selectBoards$: Observable<Board[]> = this.select(state => state.boards);
-
+  readonly selectBoards$: Observable<Board[]> = this.select(
+    state => state.boards
+  );
 
   // updaters
   readonly addBoard = this.updater((state, board: Board) => ({
@@ -43,7 +44,6 @@ export class BoardStoreService extends ComponentStore<StoreBoards> {
     ...state,
     boards: [...state.boards.filter(itm => itm.id !== removeId)],
   }));
-
 
   readonly setBoards = this.updater((state: StoreBoards, boards: Board[]) => ({
     ...state,
@@ -73,8 +73,8 @@ export class BoardStoreService extends ComponentStore<StoreBoards> {
 
 
   // effect
-  readonly getAllBoards$ = this.effect<void>(
-    (trigger$) => trigger$.pipe(
+  readonly getAllBoards$ = this.effect<void>(trigger$ =>
+    trigger$.pipe(
       exhaustMap(() =>
         this.boardService.fetchAllBoards().pipe(
           tapResponse({
@@ -88,12 +88,14 @@ export class BoardStoreService extends ComponentStore<StoreBoards> {
 
   readonly saveBoard$ = this.effect((board$: Observable<Board>) => {
     return board$.pipe(
-      switchMap((board) => this.boardService.saveBoards(board).pipe(
-        tapResponse(
-          (boards$) => this.setBoards(boards$),
-          (error: HttpErrorResponse) => console.log(error),
-        ),
-      )),
+      switchMap((board) =>
+        this.boardService.saveBoards(board).pipe(
+          tapResponse(
+            boards$ => this.setBoards(boards$),
+            (error: HttpErrorResponse) => console.log(error)
+          )
+        )
+      )
     );
   });
 

@@ -1,13 +1,21 @@
-import {Component} from '@angular/core';
+import { Component } from '@angular/core';
 import {
-  MatDialogActions, MatDialogClose, MatDialogContent, MatDialogRef, MatDialogTitle,
+  MatDialogActions,
+  MatDialogClose,
+  MatDialogContent,
+  MatDialogRef,
+  MatDialogTitle,
 } from '@angular/material/dialog';
-import {MatButtonModule} from '@angular/material/button';
-import {FormBuilder, FormsModule, ReactiveFormsModule, Validators} from '@angular/forms';
-import {MatInputModule} from '@angular/material/input';
-import {MatFormFieldModule} from '@angular/material/form-field';
-import {MatIconModule} from "@angular/material/icon";
-
+import { MatButtonModule } from '@angular/material/button';
+import {
+  FormBuilder,
+  FormsModule,
+  ReactiveFormsModule,
+  Validators,
+} from '@angular/forms';
+import { MatInputModule } from '@angular/material/input';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatIconModule } from '@angular/material/icon';
 
 @Component({
   selector: 'add-user-modal',
@@ -25,7 +33,7 @@ import {MatIconModule} from "@angular/material/icon";
     MatIconModule,
   ],
   templateUrl: './modal.component.html',
-  styleUrl: './modal.component.scss'
+  styleUrl: './modal.component.scss',
 })
 export class AddUserModalComponent {
   hide = true;
@@ -33,12 +41,13 @@ export class AddUserModalComponent {
     group: ['', [Validators.required]],
     email: ['', [Validators.required]],
     password: ['', [Validators.required]],
-    addComment: ['']
+    addComment: [''],
   });
 
-  constructor(public dialogRef: MatDialogRef<AddUserModalComponent>,
-              private fb: FormBuilder) {
-  }
+  constructor(
+    public dialogRef: MatDialogRef<AddUserModalComponent>,
+    private fb: FormBuilder
+  ) {}
 
   onNoClick(): void {
     this.dialogRef.close();

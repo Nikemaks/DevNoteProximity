@@ -8,10 +8,9 @@ describe('ShortNotesComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [ShortNotesComponent]
-    })
-    .compileComponents();
-    
+      imports: [ShortNotesComponent],
+    }).compileComponents();
+
     fixture = TestBed.createComponent(ShortNotesComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();

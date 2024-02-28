@@ -1,20 +1,22 @@
-import {Component, Inject} from "@angular/core";
+import { Component, Inject } from '@angular/core';
 import {
   MAT_DIALOG_DATA,
-  MatDialogActions, MatDialogClose,
+  MatDialogActions,
+  MatDialogClose,
   MatDialogContent,
   MatDialogModule,
-  MatDialogRef, MatDialogTitle
-} from "@angular/material/dialog";
-import {CommonModule} from "@angular/common";
-import {MatFormFieldModule} from "@angular/material/form-field";
-import {FormsModule} from "@angular/forms";
-import {MatButtonModule} from "@angular/material/button";
-import {MatInputModule} from "@angular/material/input";
-import {Board} from "../board.model";
+  MatDialogRef,
+  MatDialogTitle,
+} from '@angular/material/dialog';
+import { CommonModule } from '@angular/common';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { FormsModule } from '@angular/forms';
+import { MatButtonModule } from '@angular/material/button';
+import { MatInputModule } from '@angular/material/input';
+import { Board } from '../board.model';
 
 @Component({
-  selector: "app-board-dialog",
+  selector: 'app-board-dialog',
   template: `
     <h1 mat-dialog-title>Board</h1>
     <div matDialogContent>
@@ -41,16 +43,15 @@ import {Board} from "../board.model";
     MatDialogActions,
     MatDialogClose,
     MatButtonModule,
-    MatInputModule
+    MatInputModule,
   ],
-  styles: []
+  styles: [],
 })
 export class BoardDialogComponent {
   constructor(
     public dialogRef: MatDialogRef<BoardDialogComponent>,
     @Inject(MAT_DIALOG_DATA) public data: Board
-  ) {
-  }
+  ) {}
 
   onNoClick() {
     this.dialogRef.close();

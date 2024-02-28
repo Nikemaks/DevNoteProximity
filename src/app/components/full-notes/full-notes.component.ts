@@ -5,8 +5,6 @@ import { Component } from '@angular/core';
   standalone: true,
   imports: [],
   templateUrl: './full-notes.component.html',
-  styleUrl: './full-notes.component.scss'
+  styleUrl: './full-notes.component.scss',
 })
-export class FullNotesComponent {
-
-}
+export class FullNotesComponent {}

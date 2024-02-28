@@ -1,14 +1,12 @@
-import {Inject, Injectable, PLATFORM_ID} from '@angular/core';
-import {Observable, of} from "rxjs";
-import {isPlatformBrowser} from "@angular/common";
+import { Inject, Injectable, PLATFORM_ID } from '@angular/core';
+import { Observable, of } from 'rxjs';
+import { isPlatformBrowser } from '@angular/common';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class StorageService {
-
-  constructor(@Inject(PLATFORM_ID) private platformId: object) {
-  }
+  constructor(@Inject(PLATFORM_ID) private platformId: object) {}
 
   setStorage<T>(key: string, value: T): void {
     if (isPlatformBrowser(this.platformId)) {
