@@ -6,4 +6,6 @@
   <span *ngIf="canDelete">confirm</span>
 </button>
 
-<button *ngIf="canDelete" mat-button (click)="cancel()">Cancel</button>
+@if (canDelete) {
+  <button mat-button (click)="cancel()">Cancel</button>
+}
