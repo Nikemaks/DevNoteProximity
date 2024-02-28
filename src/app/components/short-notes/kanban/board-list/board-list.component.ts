@@ -42,12 +42,12 @@ export class BoardListComponent implements OnInit {
     });
 
     dialogRef.afterClosed().subscribe(result => {
-      if (result) {
-        this.boardStore.saveBoard$({
-          title: result,
-          priority: this.boards.length
-        });
-      }
+      if (!result) return;
+
+      this.boardStore.saveBoard$({
+        title: result,
+        priority: this.boards.length,
+      });
     });
   }
 }
