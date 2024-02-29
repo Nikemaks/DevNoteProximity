@@ -1,1 +1,17 @@
-<p>full-notes works!</p>
+<div class="header">
+  <h1 class="title">Notes</h1>
+  <div class="controls">
+    <button
+      mat-fab
+      color="warn"
+      (click)="goToCreate()"
+      aria-label="Add note button">
+      <mat-icon>add</mat-icon>
+    </button>
+  </div>
+</div>
+<mat-card>
+  <mat-card-content>
+    <router-outlet></router-outlet>
+  </mat-card-content>
+</mat-card>
