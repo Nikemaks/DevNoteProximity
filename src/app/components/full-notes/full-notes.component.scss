@@ -1,0 +1,19 @@
+.header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 20px;
+
+  .controls {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    button {
+      position: fixed;
+      bottom: 50px;
+      right: 50px;
+      z-index: 9999;
+    }
+  }
+}

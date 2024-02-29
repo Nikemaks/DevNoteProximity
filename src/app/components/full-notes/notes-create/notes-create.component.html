@@ -1,0 +1,13 @@
+<form [formGroup]="formGroup">
+  <mat-form-field appearance="outline">
+    <mat-label>Title</mat-label>
+    <input matInput formControlName="title" />
+  </mat-form-field>
+  <angular-editor
+    formControlName="htmlContent"
+    [config]="editorConfig"></angular-editor>
+  <div class="controls">
+    <button mat-raised-button color="primary">Save</button>
+    <button mat-button color="primary">Cancel</button>
+  </div>
+</form>

@@ -6,6 +6,9 @@ import { ShortNotesComponent } from './components/short-notes/short-notes.compon
 import { FullNotesComponent } from './components/full-notes/full-notes.component';
 import { CalendarComponent } from './components/calendar/calendar.component';
 import { SettingsComponent } from './components/settings/settings.component';
+import { NotesCreateComponent } from './components/full-notes/notes-create/notes-create.component';
+import { NotesListComponent } from './components/full-notes/notes-list/notes-list.component';
+import { NotesViewComponent } from './components/full-notes/notes-view/notes-view.component';
 
 export const routes: Routes = [
   {
@@ -16,7 +19,15 @@ export const routes: Routes = [
       { path: 'home', component: HomeComponent },
       { path: 'test-accounts', component: TestUsersComponent },
       { path: 'notes-short', component: ShortNotesComponent },
-      { path: 'notes-full', component: FullNotesComponent },
+      {
+        path: 'notes-full',
+        component: FullNotesComponent,
+        children: [
+          { path: '', component: NotesListComponent },
+          { path: 'create', component: NotesCreateComponent },
+          { path: ':id', component: NotesViewComponent },
+        ],
+      },
       { path: 'calendar', component: CalendarComponent },
       { path: 'settings', component: SettingsComponent },
     ],
