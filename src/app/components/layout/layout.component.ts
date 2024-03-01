@@ -7,7 +7,6 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatSidenavModule } from '@angular/material/sidenav';
 import { MatListModule } from '@angular/material/list';
 import { MatExpansionModule } from '@angular/material/expansion';
-import { StorageService } from '../../services/storage/storage.service';
 import { UserSettingStoreService } from '../../store/user-setting-store/user-setting-store.service';
 import { Theme } from '../../enums/enums';
 import { Observable } from 'rxjs';
