@@ -1,14 +1,16 @@
 <mat-card class="settings__card">
   <section class="settings__section">
     <h1 class="title">Settings</h1>
-    <div class="settings">
+    <form [formGroup]="formGroup" (ngSubmit)="onFormSubmit($event)" class="settings">
       <div class="settings__item">
         <div class="settings__name">
           <mat-icon>brightness_4</mat-icon>
           Dark mode
         </div>
         <div class="settings__props">
-          <mat-slide-toggle></mat-slide-toggle>
+          <mat-slide-toggle
+            formControlName="isCheckedTheme"
+            (change)="darkLightToggle($event)"></mat-slide-toggle>
         </div>
       </div>
       <div class="settings__item">
@@ -21,11 +23,11 @@
             {{ selectedMenuItem || 'EN' }}
           </button>
           <mat-menu #menu="matMenu">
-            <button mat-menu-item (click)="selectMenuItem('UA')">UA</button>
-            <button mat-menu-item (click)="selectMenuItem('EN')">EN</button>
+            <button mat-menu-item (click)="setLocale('UA')">UA</button>
+            <button mat-menu-item (click)="setLocale('EN')">EN</button>
           </mat-menu>
         </div>
       </div>
-    </div>
+    </form>
   </section>
 </mat-card>

@@ -1,9 +1,9 @@
 import { Injectable } from '@angular/core';
-import { TestUserAccount } from '../interfaces/test-user-account';
+import { TestUserAccount } from '../../interfaces/test-user-account';
 import { ComponentStore, tapResponse } from '@ngrx/component-store';
 import { Observable } from 'rxjs';
 import { exhaustMap, switchMap } from 'rxjs/operators';
-import { TestAccountsService } from '../services/test-accounts/test-accounts.service';
+import { TestAccountsService } from '../../services/test-accounts/test-accounts.service';
 import { HttpErrorResponse } from '@angular/common/http';
 
 export interface StoreTestUserAccounts {

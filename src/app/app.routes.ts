@@ -14,7 +14,7 @@ export const routes: Routes = [
     children: [
       { path: '', redirectTo: 'home', pathMatch: 'full' },
       { path: 'home', component: HomeComponent },
-      { path: 'test-accounts', component: TestUsersComponent },
+      { path: 'test-accounts-store', component: TestUsersComponent },
       { path: 'notes-short', component: ShortNotesComponent },
       { path: 'notes-full', component: FullNotesComponent },
       { path: 'calendar', component: CalendarComponent },

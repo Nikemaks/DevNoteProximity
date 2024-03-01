@@ -21,7 +21,7 @@ export class HomeComponent {
                     and password, and you're all set to access our platform's features. Our streamlined process ensures a hassle-free
                     registration experience. Once your account is created, easily copy your generated password and email for
                     convenient access.`,
-      route: 'test-accounts',
+      route: 'test-accounts-store',
     },
     {
       title: 'Short Notes',
