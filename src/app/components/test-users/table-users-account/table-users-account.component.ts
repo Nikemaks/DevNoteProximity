@@ -3,7 +3,7 @@ import { MatPaginator, MatPaginatorModule } from '@angular/material/paginator';
 import { MatTabsModule } from '@angular/material/tabs';
 import { MatTableDataSource, MatTableModule } from '@angular/material/table';
 import { TestUserAccount } from '../../../interfaces/test-user-account';
-import { TestAccountsServiceStore } from '../../../store/test-accounts-store.service';
+import { TestAccountsServiceStore } from '../../../store/test-accounts-store/test-accounts-store.service';
 import { MatIconModule } from '@angular/material/icon';
 import { MatButtonModule } from '@angular/material/button';
 import { MatDialog } from '@angular/material/dialog';

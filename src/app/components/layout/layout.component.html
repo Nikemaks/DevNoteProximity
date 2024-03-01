@@ -20,7 +20,7 @@
     </button>
   </mat-toolbar>
 </header>
-<main>
+<main [className]="theme$ | async">
   <mat-drawer-container class="container">
     <mat-drawer #drawer mode="side" opened>
       <mat-nav-list role="list">
