@@ -9,7 +9,7 @@ import { AddUserModalComponent } from './modal/modal.component';
 import { TestUserAccount } from '../../interfaces/test-user-account';
 import { CommonModule } from '@angular/common';
 import { TableUsersAccountComponent } from './table-users-account/table-users-account.component';
-import { TestAccountsServiceStore } from '../../store/test-accounts-store.service';
+import { TestAccountsServiceStore } from '../../store/test-accounts-store/test-accounts-store.service';
 import { MatCardModule } from '@angular/material/card';
 import { FormControl, ReactiveFormsModule } from '@angular/forms';
 import { debounceTime } from 'rxjs/operators';
@@ -50,12 +50,11 @@ export class TestUsersComponent implements OnInit {
     });
 
     dialogRef.afterClosed().subscribe((account: TestUserAccount) => {
-      if (account) {
-        this.testAccountsServiceStore.saveUserAccount$(account);
-        this._snackBar.open('User added!', 'Close', {
-          duration: 2500,
-        });
-      }
+      if (!account) return;
+      this.testAccountsServiceStore.saveUserAccount$(account);
+      this._snackBar.open('User added!', 'Close', {
+        duration: 2500,
+      });
     });
   }
 
