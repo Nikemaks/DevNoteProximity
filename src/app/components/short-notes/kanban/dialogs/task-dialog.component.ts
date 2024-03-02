@@ -13,7 +13,7 @@ import { MatButtonToggleModule } from '@angular/material/button-toggle';
 import { MatInputModule } from '@angular/material/input';
 import { MatIconModule } from '@angular/material/icon';
 import { Task } from '../board.model';
-import { BoardStoreService } from '../board-store.service';
+import { BoardStoreService } from '../../../../store/board-store/board-store.service';
 
 @Component({
   selector: 'app-task-dialog',

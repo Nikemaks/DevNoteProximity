@@ -1,1 +1,17 @@
-<p>notes-list works!</p>
+@if (notes$ | async; as notes) {
+  <div class="container">
+    @for ((note of notes); track note) {
+      <mat-card class="card">
+        <mat-card-header>
+          <mat-card-title>{{ note.title }}</mat-card-title>
+        </mat-card-header>
+        <mat-card-content>
+          <p class="item__text">{{ note.htmlContent }}</p>
+        </mat-card-content>
+        <mat-card-actions class="item__btn">
+          <button mat-button>VIEW</button>
+        </mat-card-actions>
+      </mat-card>
+    }
+  </div>
+}
