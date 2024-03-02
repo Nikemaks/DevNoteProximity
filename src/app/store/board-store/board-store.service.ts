@@ -1,24 +1,18 @@
 import { Injectable } from '@angular/core';
-import { BASE_BOARDS, Board, Task } from './board.model';
+import {
+  BASE_BOARDS,
+  Board,
+} from '../../components/short-notes/kanban/board.model';
 import { ComponentStore, tapResponse } from '@ngrx/component-store';
 import { Observable } from 'rxjs';
-import { BoardService } from './board.service';
+import { BoardService } from '../../components/short-notes/kanban/board.service';
 import { HttpErrorResponse } from '@angular/common/http';
 import { exhaustMap, switchMap } from 'rxjs/operators';
-
-export interface StoreBoards {
-  boards: Board[];
-}
-
-interface UpdateInterface {
-  boardId: string;
-  tasks: Task[];
-}
-
-interface RemoveInterface {
-  boardId: string;
-  task: Task;
-}
+import {
+  RemoveInterface,
+  StoreBoards,
+  UpdateInterface,
+} from '../../interfaces/borad';
 
 @Injectable({
   providedIn: 'root',

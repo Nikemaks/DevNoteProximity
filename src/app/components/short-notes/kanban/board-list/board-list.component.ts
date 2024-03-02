@@ -12,7 +12,7 @@ import { CommonModule } from '@angular/common';
 import { BoardComponent } from '../board/board.component';
 import { MatIconModule } from '@angular/material/icon';
 import { MatButtonModule } from '@angular/material/button';
-import { BoardStoreService } from '../board-store.service';
+import { BoardStoreService } from '../../../../store/board-store/board-store.service';
 
 @Component({
   selector: 'app-board-list',
