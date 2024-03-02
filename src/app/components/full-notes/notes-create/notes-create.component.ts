@@ -1,6 +1,11 @@
 import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { ReactiveFormsModule, FormBuilder } from '@angular/forms';
+import {
+  ReactiveFormsModule,
+  FormBuilder,
+  Validators,
+  FormsModule,
+} from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 import { AngularEditorModule } from '@kolkov/angular-editor';
 import { EDITOR_CONFIG } from './config';
@@ -8,6 +13,10 @@ import { MatInputModule } from '@angular/material/input';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
+import { Router } from '@angular/router';
+import { FullNotesStoreService } from '../../../store/full-notes-store/full-notes-store.service';
+import { FullNoteItem } from '../../../interfaces/full-notes';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 @Component({
   selector: 'app-notes-create',
@@ -21,6 +30,7 @@ import { MatIconModule } from '@angular/material/icon';
     MatInputModule,
     MatButtonModule,
     MatIconModule,
+    FormsModule,
   ],
   templateUrl: './notes-create.component.html',
   styleUrl: './notes-create.component.scss',
@@ -28,9 +38,31 @@ import { MatIconModule } from '@angular/material/icon';
 export class NotesCreateComponent {
   editorConfig = EDITOR_CONFIG;
   formGroup = this._fb.group({
-    htmlContent: [''],
-    title: [''],
+    htmlContent: ['', Validators.required],
+    title: ['', Validators.required],
   });
 
-  constructor(private _fb: FormBuilder) {}
+  constructor(
+    private _fb: FormBuilder,
+    private router: Router,
+    private store: FullNotesStoreService,
+    private _snackBar: MatSnackBar
+  ) {}
+
+  saveNotes() {
+    if (this.formGroup.invalid) return;
+    const note = Object.assign({}, this.formGroup.value, {
+      id: '',
+    }) as FullNoteItem;
+    this.store.saveNote$(note);
+    this._snackBar.open('Note added!', 'Close', {
+      duration: 2500,
+    });
+    this.router.navigate(['notes-full']);
+  }
+
+  cancel() {
+    this.formGroup.reset();
+    this.router.navigate(['notes-full']);
+  }
 }
