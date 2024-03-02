@@ -1,1 +1,3 @@
-<p>notes-view works!</p>
+@if (note$ | async; as note) {
+  {{ note | json }}
+}
