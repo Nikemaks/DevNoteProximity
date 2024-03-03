@@ -8,6 +8,7 @@ import { FullNotesService } from '../../services/full-notes/full-notes.service';
 
 export interface FullNotesStore {
   notes: FullNoteItem[];
+  viewNoteId: string;
 }
 
 @Injectable({
@@ -15,12 +16,22 @@ export interface FullNotesStore {
 })
 export class FullNotesStoreService extends ComponentStore<FullNotesStore> {
   constructor(private fullNotesService: FullNotesService) {
-    super({ notes: [] });
+    super({ notes: [], viewNoteId: '' });
   }
 
   // select
   readonly selectAllNotes$: Observable<FullNoteItem[]> = this.select(
     state => state.notes
+  );
+
+  readonly selectViewNoteId$: Observable<string> = this.select(
+    state => state.viewNoteId
+  );
+
+  readonly selectModelForView$: Observable<FullNoteItem> = this.select(
+    this.selectAllNotes$,
+    this.selectViewNoteId$,
+    (notes, id) => notes.find(el => el.id === id) || ({} as FullNoteItem)
   );
 
   // updaters
@@ -32,6 +43,11 @@ export class FullNotesStoreService extends ComponentStore<FullNotesStore> {
   readonly setNotes = this.updater((state, notes: FullNoteItem[]) => ({
     ...state,
     notes,
+  }));
+
+  readonly setViewIdNotes = this.updater((state, viewNoteId: string) => ({
+    ...state,
+    viewNoteId,
   }));
 
   readonly removeNote = this.updater((state, removeId: string) => ({
