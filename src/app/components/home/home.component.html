@@ -13,7 +13,9 @@
         <p class="item__text">{{ item.description | translate }}</p>
       </mat-card-content>
       <mat-card-actions class="item__btn">
-        <button mat-button (click)="goToItems(item.route)">{{ 'home.test_accounts.button' | translate }}</button>
+        <button mat-button (click)="goToItems(item.route)">
+          {{ 'home.test_accounts.button' | translate }}
+        </button>
       </mat-card-actions>
     </mat-card>
   }

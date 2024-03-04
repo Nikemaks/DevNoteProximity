@@ -34,9 +34,7 @@ export class LayoutComponent implements OnInit {
   panelOpenState = false;
   theme$: Observable<Theme> = this.userSettingsStoreService.selectTheme$;
 
-  constructor(
-    private userSettingsStoreService: UserSettingStoreService
-  ) {}
+  constructor(private userSettingsStoreService: UserSettingStoreService) {}
 
   ngOnInit() {
     this.userSettingsStoreService.getTheme$();

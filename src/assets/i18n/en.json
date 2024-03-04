@@ -14,14 +14,14 @@
   },
   "home": {
     "test_accounts": {
-        "title": "Test Accounts",
-        "description": "This page allows users to swiftly create new accounts with ease. Simply fill in the required fields such as email and password, and you're all set to access our platform's features. Our streamlined process ensures a hassle-free registration experience. Once your account is created, easily copy your generated password and email for convenient access.",
-        "button": "View"
+      "title": "Test Accounts",
+      "description": "This page allows users to swiftly create new accounts with ease. Simply fill in the required fields such as email and password, and you're all set to access our platform's features. Our streamlined process ensures a hassle-free registration experience. Once your account is created, easily copy your generated password and email for convenient access.",
+      "button": "View"
     },
     "short_notes": {
-        "title": "Short Notes",
-        "description": "Here, you'll find a user-friendly interface with customizable boards where you can effortlessly add new notes or simply drag and drop existing ones. Stay organized and inspired with our intuitive platform.",
-        "button": "View"
+      "title": "Short Notes",
+      "description": "Here, you'll find a user-friendly interface with customizable boards where you can effortlessly add new notes or simply drag and drop existing ones. Stay organized and inspired with our intuitive platform.",
+      "button": "View"
     }
   }
 }
