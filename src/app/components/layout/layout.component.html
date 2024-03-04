@@ -29,14 +29,14 @@
           [routerLink]="['/home']"
           routerLinkActive="active"
           ariaCurrentWhenActive="page"
-          >Home</a
+          >{{ 'layout.home' | translate }}</a
         >
         <a
           [routerLink]="['/test-accounts']"
           ariaCurrentWhenActive="page"
           mat-list-item
           routerLinkActive="active">
-          Test Accounts</a
+          {{ 'layout.test_accounts' | translate }}</a
         >
 
         <mat-expansion-panel
@@ -46,7 +46,7 @@
           dense>
           <mat-expansion-panel-header class="notes-menu">
             <mat-panel-title>
-              <a mat-list-item>Notes</a>
+              <a mat-list-item>{{ 'layout.notes' | translate }}</a>
             </mat-panel-title>
           </mat-expansion-panel-header>
           <a
@@ -54,14 +54,14 @@
             ariaCurrentWhenActive="page"
             mat-list-item
             routerLinkActive="active">
-            Short notes</a
+            {{ 'layout.short_notes' | translate }}</a
           >
           <a
             [routerLink]="['/notes-full']"
             ariaCurrentWhenActive="page"
             mat-list-item
             routerLinkActive="active">
-            Full notes</a
+            {{ 'layout.full_notes' | translate }}</a
           >
         </mat-expansion-panel>
         <a
@@ -69,7 +69,7 @@
           ariaCurrentWhenActive="page"
           mat-list-item
           routerLinkActive="active">
-          Calendar</a
+          {{ 'layout.calendar' | translate }}</a
         >
       </mat-nav-list>
     </mat-drawer>

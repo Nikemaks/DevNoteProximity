@@ -1,7 +1,15 @@
 {
-  "settings_page": {
+  "settings": {
     "settings": "Settings",
     "dark_mode": "Dark mode",
     "language": "Language"
+  },
+  "layout": {
+    "home": "Home",
+    "test_accounts": "Test Accounts",
+    "notes": "Notes",
+    "short_notes": "Short notes",
+    "full_notes": "Full notes",
+    "calendar": "Calendar"
   }
 }

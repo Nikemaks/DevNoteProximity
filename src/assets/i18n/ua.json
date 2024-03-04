@@ -1,7 +1,15 @@
 {
-  "settings_page": {
+  "settings": {
     "settings": "Налаштування",
     "dark_mode": "Темний режим",
     "language": "Мова"
+  },
+  "layout": {
+    "home": "Головна",
+    "test_accounts": "Тестові акаунти",
+    "notes": "Нотатки",
+    "short_notes": "Короткі нотатки",
+    "full_notes": "Повні нотатки",
+    "calendar": "Календар"
   }
 }
