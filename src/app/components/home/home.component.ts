@@ -4,30 +4,27 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatCardModule } from '@angular/material/card';
 import { Router } from '@angular/router';
 import { Items } from '../../interfaces/item';
+import { TranslateModule } from '@ngx-translate/core';
 
 @Component({
   selector: 'app-home',
   standalone: true,
-  imports: [CommonModule, MatCardModule, MatButtonModule],
+  imports: [CommonModule, MatCardModule, MatButtonModule, TranslateModule],
   templateUrl: './home.component.html',
   styleUrl: './home.component.scss',
 })
 export class HomeComponent {
   items: Items[] = [
     {
-      title: 'Test Accounts',
+      title: 'home.test_accounts.title',
       img: '../../../assets/preview/test_accounts.png',
-      description: `This page allows users to swiftly create new accounts with ease. Simply fill in the required fields such as email
-                    and password, and you're all set to access our platform's features. Our streamlined process ensures a hassle-free
-                    registration experience. Once your account is created, easily copy your generated password and email for
-                    convenient access.`,
+      description: 'home.test_accounts.description',
       route: 'test-accounts',
     },
     {
-      title: 'Short Notes',
+      title: 'home.short_notes.title',
       img: '../../../assets/preview/short_notes.png',
-      description: `Here, you'll find a user-friendly interface with customizable boards where you can effortlessly add new notes
-                    or simply drag and drop existing ones. Stay organized and inspired with our intuitive platform`,
+      description: 'home.short_notes.description',
       route: 'notes-short',
     },
   ];

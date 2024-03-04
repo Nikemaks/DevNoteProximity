@@ -2,7 +2,7 @@
   @for (item of items; track item) {
     <mat-card class="card">
       <mat-card-header>
-        <mat-card-title>{{ item.title }}</mat-card-title>
+        <mat-card-title>{{ item.title | translate }}</mat-card-title>
       </mat-card-header>
       <img
         class="item__img"
@@ -10,10 +10,10 @@
         [src]="item.img"
         alt="Test accounts preview" />
       <mat-card-content>
-        <p class="item__text">{{ item.description }}</p>
+        <p class="item__text">{{ item.description | translate }}</p>
       </mat-card-content>
       <mat-card-actions class="item__btn">
-        <button mat-button (click)="goToItems(item.route)">LIKE</button>
+        <button mat-button (click)="goToItems(item.route)">{{ 'home.test_accounts.button' | translate }}</button>
       </mat-card-actions>
     </mat-card>
   }

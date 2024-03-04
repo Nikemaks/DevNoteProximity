@@ -11,7 +11,6 @@ import { UserSettingStoreService } from '../../store/user-setting-store/user-set
 import { Theme } from '../../enums/enums';
 import { Observable } from 'rxjs';
 import { TranslateModule } from '@ngx-translate/core';
-import { TranslateService } from '@ngx-translate/core';
 
 @Component({
   selector: 'app-layout',
@@ -36,8 +35,7 @@ export class LayoutComponent implements OnInit {
   theme$: Observable<Theme> = this.userSettingsStoreService.selectTheme$;
 
   constructor(
-    private userSettingsStoreService: UserSettingStoreService,
-    private translate: TranslateService
+    private userSettingsStoreService: UserSettingStoreService
   ) {}
 
   ngOnInit() {

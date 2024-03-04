@@ -50,7 +50,7 @@ export class SettingsComponent implements OnInit {
   }
 
   setLocale(item: string) {
-    this.selectedMenuItem = item;
+    this.selectedMenuItem = item.toUpperCase();
     this.translate.use(item);
   }
 
