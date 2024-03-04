@@ -10,6 +10,8 @@ import { MatCardModule } from '@angular/material/card';
 import { Theme } from '../../enums/enums';
 import { UserSettingStoreService } from '../../store/user-setting-store/user-setting-store.service';
 import { FormBuilder, ReactiveFormsModule } from '@angular/forms';
+import { TranslateService } from '@ngx-translate/core';
+import { TranslateModule } from '@ngx-translate/core';
 
 @Component({
   selector: 'app-settings',
@@ -21,6 +23,7 @@ import { FormBuilder, ReactiveFormsModule } from '@angular/forms';
     MatMenuModule,
     MatCardModule,
     ReactiveFormsModule,
+    TranslateModule,
   ],
   templateUrl: './settings.component.html',
   styleUrl: './settings.component.scss',
@@ -33,8 +36,11 @@ export class SettingsComponent implements OnInit {
 
   constructor(
     private userSettingsStoreService: UserSettingStoreService,
-    private _fb: FormBuilder
-  ) {}
+    private _fb: FormBuilder,
+    private translate: TranslateService
+  ) {
+    this.translate.setDefaultLang('en');
+  }
 
   ngOnInit() {
     this.userSettingsStoreService.selectTheme$.subscribe((theme: Theme) => {
@@ -45,6 +51,7 @@ export class SettingsComponent implements OnInit {
 
   setLocale(item: string) {
     this.selectedMenuItem = item;
+    this.translate.use(item);
   }
 
   darkLightToggle(event: MatSlideToggleChange) {

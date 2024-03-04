@@ -1,6 +1,6 @@
 <mat-card class="settings__card">
   <section class="settings__section">
-    <h1 class="title">Settings</h1>
+    <h1 class="title">{{ 'settings_page.settings' | translate }}</h1>
     <form
       [formGroup]="formGroup"
       (ngSubmit)="onFormSubmit($event)"
@@ -8,7 +8,7 @@
       <div class="settings__item">
         <div class="settings__name">
           <mat-icon>brightness_4</mat-icon>
-          Dark mode
+          {{ 'settings_page.dark_mode' | translate }}
         </div>
         <div class="settings__props">
           <mat-slide-toggle
@@ -17,7 +17,9 @@
         </div>
       </div>
       <div class="settings__item">
-        <div class="settings__name">Language</div>
+        <div class="settings__name">
+          {{ 'settings_page.language' | translate }}
+        </div>
         <div class="settings__props">
           <button
             class="language-switcher"
@@ -26,8 +28,8 @@
             {{ selectedMenuItem || 'EN' }}
           </button>
           <mat-menu #menu="matMenu">
-            <button mat-menu-item (click)="setLocale('UA')">UA</button>
-            <button mat-menu-item (click)="setLocale('EN')">EN</button>
+            <button mat-menu-item (click)="setLocale('ua')">UA</button>
+            <button mat-menu-item (click)="setLocale('en')">EN</button>
           </mat-menu>
         </div>
       </div>
