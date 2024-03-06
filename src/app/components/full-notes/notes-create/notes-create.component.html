@@ -3,7 +3,7 @@
     <mat-label>{{ 'notes.full_notes.placeholder' | translate }}</mat-label>
     <input matInput formControlName="title" />
     @if (formGroup.get('title')?.hasError('required')) {
-      <mat-error>Field is required</mat-error>
+      <mat-error>{{ 'notes.full_notes.warning' | translate }}</mat-error>
     }
   </mat-form-field>
   <angular-editor
