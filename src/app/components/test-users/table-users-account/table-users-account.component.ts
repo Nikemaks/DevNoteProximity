@@ -12,6 +12,7 @@ import { ClipboardModule } from '@angular/cdk/clipboard';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { CommonModule } from '@angular/common';
 import { MatCardModule } from '@angular/material/card';
+import { TranslateModule } from '@ngx-translate/core';
 
 @Component({
   selector: 'table-users-account',
@@ -25,6 +26,7 @@ import { MatCardModule } from '@angular/material/card';
     MatButtonModule,
     ClipboardModule,
     MatCardModule,
+    TranslateModule,
   ],
   templateUrl: './table-users-account.component.html',
   styleUrl: './table-users-account.component.scss',

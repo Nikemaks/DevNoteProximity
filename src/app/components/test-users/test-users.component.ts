@@ -14,6 +14,7 @@ import { MatCardModule } from '@angular/material/card';
 import { FormControl, ReactiveFormsModule } from '@angular/forms';
 import { debounceTime } from 'rxjs/operators';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import { TranslateModule } from '@ngx-translate/core';
 
 @Component({
   selector: 'test-users',
@@ -28,6 +29,7 @@ import { MatSnackBar } from '@angular/material/snack-bar';
     TableUsersAccountComponent,
     MatCardModule,
     ReactiveFormsModule,
+    TranslateModule,
   ],
   templateUrl: './test-users.component.html',
   styleUrl: './test-users.component.scss',

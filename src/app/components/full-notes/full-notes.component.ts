@@ -7,6 +7,7 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatButtonModule } from '@angular/material/button';
 import { MatInputModule } from '@angular/material/input';
 import { Router, RouterOutlet } from '@angular/router';
+import { TranslateModule } from '@ngx-translate/core';
 
 @Component({
   selector: 'app-full-notes',
@@ -21,6 +22,7 @@ import { Router, RouterOutlet } from '@angular/router';
     MatCardModule,
     ReactiveFormsModule,
     RouterOutlet,
+    TranslateModule,
   ],
   templateUrl: './full-notes.component.html',
   styleUrl: './full-notes.component.scss',

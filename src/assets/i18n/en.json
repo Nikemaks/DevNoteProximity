@@ -23,5 +23,40 @@
       "description": "Here, you'll find a user-friendly interface with customizable boards where you can effortlessly add new notes or simply drag and drop existing ones. Stay organized and inspired with our intuitive platform.",
       "button": "View"
     }
+  },
+  "test_accounts": {
+    "title": "Test Accounts",
+    "placeholder": "Filtering",
+    "group": "Group",
+    "email": "Email",
+    "password": "Password",
+    "comment": "Comment",
+    "action": "Action",
+    "not_user": "Not users yet.",
+    "modal_title": "Add new test account",
+    "enter_password": "Enter password",
+    "cancel": "Cancel",
+    "save": "Save"
+  },
+  "notes": {
+    "short_notes": {
+      "board_title": "Board",
+      "board_question": "What shall we call this board?",
+      "board_placeholder": "title",
+      "create_btn": "Create",
+      "confirm_btn": "confirm",
+      "cancel_btn": "Cancel",
+      "task_title": "Task",
+      "task_description": "Task description",
+      "task_btn": "Add Task"
+    },
+    "full_notes": {
+      "title": "Notes",
+      "placeholder": "Title",
+      "save": "Save",
+      "cancel": "Cancel",
+      "warning": "Field is required",
+      "view": "VIEW"
+    }
   }
 }

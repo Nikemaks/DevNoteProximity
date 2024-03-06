@@ -9,7 +9,9 @@
           <p class="item__text">{{ note.htmlContent }}</p>
         </mat-card-content>
         <mat-card-actions class="item__btn">
-          <button mat-button (click)="viewItem(note.id)">VIEW</button>
+          <button mat-button (click)="viewItem(note.id)">
+            {{ 'notes.full_notes.view' | translate }}
+          </button>
         </mat-card-actions>
       </mat-card>
     }
