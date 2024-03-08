@@ -18,10 +18,18 @@ export class UserSettingStoreService extends ComponentStore<StoreSettings> {
   }
 
   readonly selectTheme$: Observable<Theme> = this.select(state => state.theme);
+  readonly selectLanguage$: Observable<Language> = this.select(
+    state => state.language
+  );
 
   readonly setTheme = this.updater((state, theme: Theme) => ({
     ...state,
     theme,
+  }));
+
+  readonly setLanguage = this.updater((state, language: Language) => ({
+    ...state,
+    language,
   }));
 
   readonly getTheme$ = this.effect(trigger$ =>
@@ -37,6 +45,19 @@ export class UserSettingStoreService extends ComponentStore<StoreSettings> {
     )
   );
 
+  readonly getLanguage$ = this.effect(trigger$ =>
+    trigger$.pipe(
+      exhaustMap(() =>
+        this.userSettingsService.fetchAllSettings().pipe(
+          tapResponse({
+            next: ({ language }) => this.setLanguage(language),
+            error: (error: HttpErrorResponse) => console.error(error),
+          })
+        )
+      )
+    )
+  );
+
   readonly saveTheme$ = this.effect((theme$: Observable<Theme>) => {
     return theme$.pipe(
       switchMap(theme =>
@@ -44,6 +65,19 @@ export class UserSettingStoreService extends ComponentStore<StoreSettings> {
           switchMap((settings: StoreSettings) => {
             this.setTheme(settings.theme);
             return of(settings.theme);
+          })
+        )
+      )
+    );
+  });
+
+  readonly saveLanguage$ = this.effect((language$: Observable<Language>) => {
+    return language$.pipe(
+      switchMap(language =>
+        this.userSettingsService.saveLanguage(language).pipe(
+          switchMap((settings: StoreSettings) => {
+            this.setLanguage(settings.language);
+            return of(settings.language);
           })
         )
       )

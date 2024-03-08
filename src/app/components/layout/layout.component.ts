@@ -8,9 +8,10 @@ import { MatSidenavModule } from '@angular/material/sidenav';
 import { MatListModule } from '@angular/material/list';
 import { MatExpansionModule } from '@angular/material/expansion';
 import { UserSettingStoreService } from '../../store/user-setting-store/user-setting-store.service';
-import { Theme } from '../../enums/enums';
+import { Theme, Language } from '../../enums/enums';
 import { Observable } from 'rxjs';
 import { TranslateModule } from '@ngx-translate/core';
+import { TranslateService } from '@ngx-translate/core';
 
 @Component({
   selector: 'app-layout',
@@ -34,9 +35,19 @@ export class LayoutComponent implements OnInit {
   panelOpenState = false;
   theme$: Observable<Theme> = this.userSettingsStoreService.selectTheme$;
 
-  constructor(private userSettingsStoreService: UserSettingStoreService) {}
+  constructor(
+    private userSettingsStoreService: UserSettingStoreService,
+    private translate: TranslateService
+  ) {}
 
   ngOnInit() {
     this.userSettingsStoreService.getTheme$();
+    this.userSettingsStoreService.getLanguage$();
+
+    this.userSettingsStoreService.selectLanguage$.subscribe(
+      (language: Language) => {
+        this.translate.use(language);
+      }
+    );
   }
 }

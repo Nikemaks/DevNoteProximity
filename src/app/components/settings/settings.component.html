@@ -28,8 +28,8 @@
             {{ selectedMenuItem || 'EN' }}
           </button>
           <mat-menu #menu="matMenu">
-            <button mat-menu-item (click)="setLocale('ua')">UA</button>
-            <button mat-menu-item (click)="setLocale('en')">EN</button>
+            <button mat-menu-item (click)="setLocale(LocaleEnum.UA)">UA</button>
+            <button mat-menu-item (click)="setLocale(LocaleEnum.EN)">EN</button>
           </mat-menu>
         </div>
       </div>
