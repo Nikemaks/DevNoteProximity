@@ -1,16 +1,16 @@
-<h2 mat-dialog-title>Add new test account</h2>
+<h2 mat-dialog-title>{{ 'test_accounts.modal_title' | translate }}</h2>
 <mat-dialog-content class="content">
   <form class="container" [formGroup]="formGroup">
     <mat-form-field appearance="outline">
-      <mat-label>Group</mat-label>
+      <mat-label>{{ 'test_accounts.group' | translate }}</mat-label>
       <input matInput formControlName="group" />
     </mat-form-field>
     <mat-form-field appearance="outline">
-      <mat-label>Email</mat-label>
+      <mat-label>{{ 'test_accounts.email' | translate }}</mat-label>
       <input matInput formControlName="email" />
     </mat-form-field>
     <mat-form-field appearance="outline">
-      <mat-label>Enter password</mat-label>
+      <mat-label>{{ 'test_accounts.enter_password' | translate }}</mat-label>
       <input
         matInput
         formControlName="password"
@@ -25,18 +25,20 @@
       </button>
     </mat-form-field>
     <mat-form-field appearance="outline">
-      <mat-label>Comment</mat-label>
+      <mat-label>{{ 'test_accounts.comment' | translate }}</mat-label>
       <textarea matInput formControlName="addComment"></textarea>
     </mat-form-field>
   </form>
 </mat-dialog-content>
 <mat-dialog-actions>
-  <button mat-button (click)="onNoClick()">Cancel</button>
+  <button mat-button (click)="onNoClick()">
+    {{ 'test_accounts.cancel' | translate }}
+  </button>
   <button
     mat-button
     [mat-dialog-close]="formGroup.value"
     [disabled]="formGroup.invalid"
     cdkFocusInitial>
-    Save
+    {{ 'test_accounts.save' | translate }}
   </button>
 </mat-dialog-actions>
