@@ -22,6 +22,11 @@
       "title": "Short Notes",
       "description": "Here, you'll find a user-friendly interface with customizable boards where you can effortlessly add new notes or simply drag and drop existing ones. Stay organized and inspired with our intuitive platform.",
       "button": "View"
+    },
+    "full_notes": {
+      "title": "Full Notes",
+      "description": "Welcome to our note board where you can easily organize your thoughts, ideas, tasks, and anything else that is important to you. Our note board offers a simple and intuitive interface so you can concentrate on what's important. You are free to express your thoughts, make plans and keep track of your projects in one place.",
+      "button": "View"
     }
   },
   "test_accounts": {
