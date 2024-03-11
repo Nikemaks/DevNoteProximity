@@ -27,6 +27,12 @@ export class HomeComponent {
       description: 'home.short_notes.description',
       route: 'notes-short',
     },
+    {
+      title: 'home.full_notes.title',
+      img: '../../../assets/preview/full_notes.png',
+      description: 'home.full_notes.description',
+      route: 'notes-full',
+    },
   ];
 
   constructor(private router: Router) {}
