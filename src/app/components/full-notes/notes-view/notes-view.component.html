@@ -1,3 +1,12 @@
 @if (note$ | async; as note) {
-  {{ note | json }}
+  <div class="notes">
+    <div class="header">
+      <div class="title">{{ note.title }}</div>
+      <div class="buttons">
+        <button mat-raised-button color="primary">Edit</button>
+        <button mat-raised-button color="warn">Remove</button>
+      </div>
+    </div>
+    <div class="content">{{ note.htmlContent }}</div>
+  </div>
 }

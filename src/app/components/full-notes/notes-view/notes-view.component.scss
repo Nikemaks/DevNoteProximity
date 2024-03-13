@@ -1,0 +1,23 @@
+.notes {
+  padding: 20px 50px;
+}
+
+.header {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 100px;
+}
+
+.title {
+  font-size: 30px;
+  font-weight: bold;
+}
+
+.content {
+  width: 70%;
+  text-align: justify;
+}
+
+.buttons button {
+  margin-right: 10px;
+}
