@@ -63,5 +63,8 @@
       "warning": "Field is required",
       "view": "VIEW"
     }
+  },
+  "login": {
+    "sign_in": "Sign in"
   }
 }

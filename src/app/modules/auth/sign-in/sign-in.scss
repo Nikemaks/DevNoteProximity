@@ -1,0 +1,80 @@
+.block {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  height: 80vh;
+  font-family: sans-serif;
+
+  .form {
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    border-radius: 5px;
+    padding: 15px 20px 40px 20px;
+
+    display: flex;
+    flex-direction: column;
+  }
+
+  .title {
+    font-size: 18px;
+    font-weight: bold;
+    font-family: sans-serif;
+  }
+
+  button {
+    margin-top: 20px;
+    padding: 10px 0;
+    width: 320px;
+    cursor: pointer;
+
+    color: white;
+    border: none;
+    border-radius: 5px;
+  }
+
+  .singIn {
+    background-color: #ff7575;
+
+    &:hover {
+      background-color: #da6565;
+    }
+  }
+
+  .login {
+    background-color: #3167eb;
+
+    &:hover {
+      background-color: #2750bb;
+    }
+  }
+
+  input {
+    margin-top: 15px;
+    border: none;
+    padding: 10px;
+    border-radius: 5px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  }
+
+  .group {
+    margin-top: 15px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+
+  .forgot {
+    font-size: 13px;
+    color: blue;
+    font-weight: 400;
+  }
+
+  .signUp {
+    margin-top: 35px;
+    display: flex;
+
+    div {
+      margin-right: 5px;
+    }
+  }
+}

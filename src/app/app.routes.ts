@@ -9,8 +9,19 @@ import { SettingsComponent } from './components/settings/settings.component';
 import { NotesCreateComponent } from './components/full-notes/notes-create/notes-create.component';
 import { NotesListComponent } from './components/full-notes/notes-list/notes-list.component';
 import { NotesViewComponent } from './components/full-notes/notes-view/notes-view.component';
+import { AuthComponent } from './modules/auth/auth.component';
+import { SignInComponent } from './modules/auth/sign-in/sign-in.component';
+import { SignUpComponent } from './modules/auth/sign-up/sign-up.component';
 
 export const routes: Routes = [
+  {
+    path: 'auth',
+    component: AuthComponent,
+    children: [
+      { path: 'sign-in', component: SignInComponent },
+      { path: 'sign-up', component: SignUpComponent },
+    ],
+  },
   {
     path: '',
     component: LayoutComponent,
