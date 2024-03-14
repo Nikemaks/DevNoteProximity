@@ -1,0 +1,108 @@
+<div class="calendar-container" *ngIf="events">
+  <div>
+    <div>
+      <mat-form-field>
+        <mat-label>Period</mat-label>
+        <select
+          matNativeControl
+          #viewDayOptionSelect1
+          class="form-select d-none d-md-block d-xl-none"
+          [ngModel]="viewDays"
+          (change)="viewDaysOptionChanged(viewDayOptionSelect1.value)">
+          <option [value]="1">One day</option>
+          <option [value]="3">Three days</option>
+          <option [value]="7">A week</option>
+        </select>
+      </mat-form-field>
+    </div>
+    <div class="col-6 col-md-12 col-xl-6">
+      <div class="btn-group" role="group">
+        <button
+          type="button"
+          mat-flat-button
+          color="primary"
+          mwlCalendarPreviousView
+          [view]="view"
+          [(viewDate)]="viewDate"
+          [daysInWeek]="viewDays"
+          [excludeDays]="excludeDays"
+          [disabled]="prevBtnDisabled"
+          (viewDateChange)="dateOrViewChanged()">
+          <span class="valign-center">
+            <i title="Precedente" class="material-icons md-18"
+              >keyboard_arrow_left</i
+            >
+          </span>
+        </button>
+        <button
+          type="button"
+          class="btn btn-light"
+          mat-button
+          mwlCalendarToday
+          [(viewDate)]="viewDate"
+          (viewDateChange)="dateOrViewChanged()">
+          <span class="valign-center">
+            {{
+              viewDate
+                | calendarSchedulerDate
+                  : view + 'ViewTitle'
+                  : locale
+                  : weekStartsOn
+                  : excludeDays
+                  : viewDays
+                  : startsWithToday
+            }}
+          </span>
+        </button>
+        <button
+          type="button"
+          color="primary"
+          mat-flat-button
+          mwlCalendarNextView
+          [view]="view"
+          [(viewDate)]="viewDate"
+          [daysInWeek]="viewDays"
+          [excludeDays]="excludeDays"
+          [disabled]="nextBtnDisabled"
+          (viewDateChange)="dateOrViewChanged()">
+          <span class="valign-center">
+            <i title="Successivo" class="material-icons md-18"
+              >keyboard_arrow_right</i
+            >
+          </span>
+        </button>
+      </div>
+    </div>
+  </div>
+  <br />
+  <div [ngSwitch]="view">
+    <calendar-scheduler-view
+      *ngSwitchCase="CalendarView.Week"
+      [viewDays]="viewDays"
+      [viewDate]="viewDate"
+      [events]="events"
+      [locale]="locale"
+      [responsive]="false"
+      [weekStartsOn]="weekStartsOn"
+      [excludeDays]="excludeDays"
+      [startsWithToday]="startsWithToday"
+      [hourSegments]="hourSegments"
+      [dayStartHour]="dayStartHour"
+      [dayEndHour]="dayEndHour"
+      [dayModifier]="dayModifier"
+      [hourModifier]="hourModifier"
+      [segmentModifier]="segmentModifier"
+      [eventModifier]="eventModifier"
+      [showEventActions]="true"
+      [showSegmentHour]="true"
+      [zoomEventOnHover]="true"
+      (viewDaysChanged)="viewDaysChanged($event)"
+      (dayHeaderClicked)="dayHeaderClicked($event.day)"
+      (hourClicked)="hourClicked($event.hour)"
+      (segmentClicked)="segmentClicked('Clicked', $event.segment)"
+      (eventClicked)="eventClicked('Clicked', $event.event)"
+      (eventTimesChanged)="eventTimesChanged($event)"
+      [refresh]="refresh">
+    </calendar-scheduler-view>
+  </div>
+</div>
