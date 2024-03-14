@@ -1,9 +1,9 @@
 <form [formGroup]="formGroup">
   <mat-form-field appearance="outline">
-    <mat-label>Title</mat-label>
+    <mat-label>{{ 'notes.full_notes.placeholder' | translate }}</mat-label>
     <input matInput formControlName="title" />
     @if (formGroup.get('title')?.hasError('required')) {
-      <mat-error>Field is required</mat-error>
+      <mat-error>{{ 'notes.full_notes.warning' | translate }}</mat-error>
     }
   </mat-form-field>
   <angular-editor
@@ -13,7 +13,7 @@
     formGroup.get('htmlContent')?.hasError('required') &&
     formGroup.get('htmlContent')?.touched
   ) {
-    <mat-error>Field is required</mat-error>
+    <mat-error>{{ 'notes.full_notes.warning' | translate }}</mat-error>
   }
   <div class="controls">
     <button
@@ -21,8 +21,10 @@
       color="primary"
       (click)="saveNotes()"
       [disabled]="formGroup.invalid">
-      Save
+      {{ 'notes.full_notes.save' | translate }}
     </button>
-    <button mat-button color="primary" (click)="cancel()">Cancel</button>
+    <button mat-button color="primary" (click)="cancel()">
+      {{ 'notes.full_notes.cancel' | translate }}
+    </button>
   </div>
 </form>

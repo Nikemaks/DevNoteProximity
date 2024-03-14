@@ -14,15 +14,16 @@ import { MatInputModule } from '@angular/material/input';
 import { MatIconModule } from '@angular/material/icon';
 import { Task } from '../board.model';
 import { BoardStoreService } from '../../../../store/board-store/board-store.service';
+import { TranslateModule } from '@ngx-translate/core';
 
 @Component({
   selector: 'app-task-dialog',
   template: `
-    <h1 mat-dialog-title>Task</h1>
+    <h1 mat-dialog-title>{{ 'notes.short_notes.task_title' | translate }}</h1>
     <div mat-dialog-content class="content">
       <mat-form-field>
         <textarea
-          placeholder="Task description"
+          placeholder="{{ 'notes.short_notes.task_description' | translate }}"
           matInput
           [(ngModel)]="data.task.description"></textarea>
       </mat-form-field>
@@ -39,7 +40,8 @@ import { BoardStoreService } from '../../../../store/board-store/board-store.ser
     </div>
     <div mat-dialog-actions>
       <button mat-button [matDialogClose]="data" cdkFocusInitial>
-        {{ data.isNew ? 'Add Task' : 'Update Task' }}
+        {{ data.isNew ? '' : 'Update Task' }}
+        {{ 'notes.short_notes.task_btn' | translate }}
       </button>
       <app-delete-button
         (delete)="handleDelete()"
@@ -57,6 +59,7 @@ import { BoardStoreService } from '../../../../store/board-store/board-store.ser
     MatFormFieldModule,
     MatInputModule,
     MatIconModule,
+    TranslateModule,
   ],
   styleUrls: ['./task-dialog.component.scss'],
 })

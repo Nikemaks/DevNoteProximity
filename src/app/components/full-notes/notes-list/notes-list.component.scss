@@ -3,11 +3,26 @@
 }
 
 .card {
+  padding: 15px 15px;
   max-width: 400px;
   min-width: 250px;
   margin-left: 50px;
+  box-shadow: 0 0 18px rgba(0, 0, 0, 0.1);
+  border-radius: 15px;
+}
+
+.card__title {
+  font-size: 30px;
+  font-weight: bold;
+  margin-bottom: 20px;
 }
 
 .item__text {
-  height: 130px;
+  height: 136px;
+  text-align: justify;
+  overflow: hidden;
+}
+
+.card__btn {
+  margin-top: 20px;
 }

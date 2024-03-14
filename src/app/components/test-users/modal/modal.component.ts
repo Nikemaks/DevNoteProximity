@@ -16,6 +16,7 @@ import {
 import { MatInputModule } from '@angular/material/input';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatIconModule } from '@angular/material/icon';
+import { TranslateModule } from '@ngx-translate/core';
 
 @Component({
   selector: 'add-user-modal',
@@ -31,6 +32,7 @@ import { MatIconModule } from '@angular/material/icon';
     MatDialogActions,
     MatDialogClose,
     MatIconModule,
+    TranslateModule,
   ],
   templateUrl: './modal.component.html',
   styleUrl: './modal.component.scss',

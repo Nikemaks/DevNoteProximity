@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { StorageService } from '../storage/storage.service';
 import { Observable, of, switchMap } from 'rxjs';
 import { StoreSettings } from '../../store/user-setting-store/user-setting-store.service';
-import { Theme } from '../../enums/enums';
+import { Language, Theme } from '../../enums/enums';
 
 @Injectable({
   providedIn: 'root',
@@ -21,6 +21,19 @@ export class UserSettingsService {
     return this.fetchAllSettings().pipe(
       switchMap((settings: StoreSettings) => {
         const newSettings: StoreSettings = { ...settings, theme };
+        this.localStorage.setStorage<StoreSettings>(
+          this.storageKeyForSettings,
+          newSettings
+        );
+        return of(newSettings);
+      })
+    );
+  }
+
+  saveLanguage(language: Language): Observable<StoreSettings> {
+    return this.fetchAllSettings().pipe(
+      switchMap((settings: StoreSettings) => {
+        const newSettings: StoreSettings = { ...settings, language };
         this.localStorage.setStorage<StoreSettings>(
           this.storageKeyForSettings,
           newSettings

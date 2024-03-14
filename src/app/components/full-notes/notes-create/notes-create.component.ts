@@ -17,6 +17,7 @@ import { Router } from '@angular/router';
 import { FullNotesStoreService } from '../../../store/full-notes-store/full-notes-store.service';
 import { FullNoteItem } from '../../../interfaces/full-notes';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import { TranslateModule } from '@ngx-translate/core';
 
 @Component({
   selector: 'app-notes-create',
@@ -31,6 +32,7 @@ import { MatSnackBar } from '@angular/material/snack-bar';
     MatButtonModule,
     MatIconModule,
     FormsModule,
+    TranslateModule,
   ],
   templateUrl: './notes-create.component.html',
   styleUrl: './notes-create.component.scss',
