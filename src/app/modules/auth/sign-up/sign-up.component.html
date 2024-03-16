@@ -1,21 +1,17 @@
 <section class="block">
   <form class="form">
-    <div class="title">{{ 'login.sign_in' | translate }}</div>
+    <div class="title">{{ 'login.sign_up' | translate }}</div>
     <button class="singIn">Sign in with Google</button>
     <input placeholder="Username" type="text" />
     <input placeholder="Password" type="password" />
     <div class="group">
       <div class="remember">
         <mat-checkbox checked class="checkbox" color="primary"
-        >Remember</mat-checkbox
+          >Remember</mat-checkbox
         >
       </div>
       <div class="forgot">Forgot password?</div>
     </div>
     <button class="login">Login</button>
   </form>
-  <div class="signUp">
-    <div>Don't have account?</div>
-    <a [routerLink]="['/auth/sign-up']">Sign up</a>
-  </div>
 </section>
