@@ -12,6 +12,10 @@ import { NotesViewComponent } from './components/full-notes/notes-view/notes-vie
 
 export const routes: Routes = [
   {
+    path: 'auth',
+    loadChildren: () => import('./auth.module').then(m => m.AuthModule),
+  },
+  {
     path: '',
     component: LayoutComponent,
     children: [
