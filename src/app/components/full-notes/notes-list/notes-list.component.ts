@@ -5,15 +5,23 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatCardModule } from '@angular/material/card';
 import { Router } from '@angular/router';
 import { TranslateModule } from '@ngx-translate/core';
+import { MatIconModule } from '@angular/material/icon';
 
 @Component({
   selector: 'notes-list',
   standalone: true,
-  imports: [CommonModule, MatCardModule, MatButtonModule, TranslateModule],
+  imports: [
+    CommonModule,
+    MatCardModule,
+    MatButtonModule,
+    TranslateModule,
+    MatIconModule,
+  ],
   templateUrl: './notes-list.component.html',
   styleUrl: './notes-list.component.scss',
 })
 export class NotesListComponent {
+  isSwitcherDisplayType: boolean = true;
   notes$ = this.store.selectAllNotes$;
 
   constructor(
@@ -21,6 +29,10 @@ export class NotesListComponent {
     private router: Router
   ) {
     this.store.getAllNotes$();
+  }
+
+  switcherDisplayType() {
+    this.isSwitcherDisplayType = !this.isSwitcherDisplayType;
   }
 
   viewItem(id: string) {
