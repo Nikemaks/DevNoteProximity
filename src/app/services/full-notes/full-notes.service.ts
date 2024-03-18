@@ -17,7 +17,7 @@ export class FullNotesService {
     return this.localStorage.getStorageItem<FullNoteItem[]>(this.storageKey);
   }
 
-  fetchFullNotesSwitchType() {
+  fetchFullNotesDisplayType() {
     return this.localStorage.getStorageItem<FullNotesSettings>(
       this.storageKeySettings
     );
@@ -44,12 +44,12 @@ export class FullNotesService {
     );
   }
 
-  saveSwitchType(switcherDisplayType: boolean): Observable<FullNotesSettings> {
-    return this.fetchFullNotesSwitchType().pipe(
+  saveDisplayType(isDisplayType: boolean): Observable<FullNotesSettings> {
+    return this.fetchFullNotesDisplayType().pipe(
       switchMap((fullNotesSettings: FullNotesSettings) => {
         const newSettings: FullNotesSettings = {
           ...fullNotesSettings,
-          switcherDisplayType,
+          isDisplayType,
         };
         this.localStorage.setStorage<FullNotesSettings>(
           this.storageKeySettings,

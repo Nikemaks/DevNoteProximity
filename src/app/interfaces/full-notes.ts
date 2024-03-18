@@ -5,5 +5,5 @@ export interface FullNoteItem {
 }
 
 export interface FullNotesSettings {
-  switcherDisplayType: boolean;
+  isDisplayType: boolean;
 }

@@ -9,7 +9,7 @@ import { FullNotesService } from '../../services/full-notes/full-notes.service';
 export interface FullNotesStore {
   notes: FullNoteItem[];
   viewNoteId: string;
-  switcherDisplayType: boolean;
+  isDisplayType: boolean;
 }
 
 @Injectable({
@@ -17,7 +17,7 @@ export interface FullNotesStore {
 })
 export class FullNotesStoreService extends ComponentStore<FullNotesStore> {
   constructor(private fullNotesService: FullNotesService) {
-    super({ notes: [], viewNoteId: '', switcherDisplayType: true });
+    super({ notes: [], viewNoteId: '', isDisplayType: true });
   }
 
   // select
@@ -29,8 +29,8 @@ export class FullNotesStoreService extends ComponentStore<FullNotesStore> {
     state => state.viewNoteId
   );
 
-  readonly selectSwitchType$: Observable<boolean> = this.select(
-    state => state.switcherDisplayType
+  readonly selectDisplayType$: Observable<boolean> = this.select(
+    state => state.isDisplayType
   );
 
   readonly selectModelForView$: Observable<FullNoteItem> = this.select(
@@ -60,10 +60,10 @@ export class FullNotesStoreService extends ComponentStore<FullNotesStore> {
     notes: [...state.notes.filter(itm => itm.id !== removeId)],
   }));
 
-  readonly setSwitcherDisplayType = this.updater(
-    (state, { switcherDisplayType }: FullNotesSettings) => ({
+  readonly updateDisplayType = this.updater(
+    (state, { isDisplayType }: FullNotesSettings) => ({
       ...state,
-      switcherDisplayType,
+      isDisplayType,
     })
   );
 
@@ -94,13 +94,13 @@ export class FullNotesStoreService extends ComponentStore<FullNotesStore> {
     );
   });
 
-  readonly saveSwitchType$ = this.effect(
-    (switcherType$: Observable<boolean>) => {
-      return switcherType$.pipe(
-        switchMap((switcherType: boolean) =>
-          this.fullNotesService.saveSwitchType(switcherType).pipe(
+  readonly saveDisplayType$ = this.effect(
+    (displayType$: Observable<boolean>) => {
+      return displayType$.pipe(
+        switchMap((displayType: boolean) =>
+          this.fullNotesService.saveDisplayType(displayType).pipe(
             switchMap((fullNotesSettings: FullNotesSettings) => {
-              this.setSwitcherDisplayType(fullNotesSettings);
+              this.updateDisplayType(fullNotesSettings);
               return of(fullNotesSettings);
             })
           )
@@ -122,12 +122,12 @@ export class FullNotesStoreService extends ComponentStore<FullNotesStore> {
     );
   });
 
-  readonly getSwitcherDisplayType$ = this.effect(trigger$ =>
+  readonly getDisplayType$ = this.effect(trigger$ =>
     trigger$.pipe(
       exhaustMap(() =>
-        this.fullNotesService.fetchFullNotesSwitchType().pipe(
+        this.fullNotesService.fetchFullNotesDisplayType().pipe(
           tapResponse({
-            next: switchType => this.setSwitcherDisplayType(switchType),
+            next: displayType => this.updateDisplayType(displayType),
             error: (error: HttpErrorResponse) => console.error(error),
           })
         )
