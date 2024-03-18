@@ -97,8 +97,8 @@ export class FullNotesStoreService extends ComponentStore<FullNotesStore> {
   readonly saveDisplayType$ = this.effect(
     (displayType$: Observable<boolean>) => {
       return displayType$.pipe(
-        switchMap((displayType: boolean) =>
-          this.fullNotesService.saveDisplayType(displayType).pipe(
+        switchMap(() =>
+          this.fullNotesService.SaveToggleDisplayType().pipe(
             switchMap((fullNotesSettings: FullNotesSettings) => {
               this.updateDisplayType(fullNotesSettings);
               return of(fullNotesSettings);

@@ -44,19 +44,21 @@ export class FullNotesService {
     );
   }
 
-  saveDisplayType(isDisplayType: boolean): Observable<FullNotesSettings> {
+  SaveToggleDisplayType(): Observable<FullNotesSettings> {
     return this.fetchFullNotesDisplayType().pipe(
-      switchMap((fullNotesSettings: FullNotesSettings) => {
-        const newSettings: FullNotesSettings = {
-          ...fullNotesSettings,
-          isDisplayType,
-        };
-        this.localStorage.setStorage<FullNotesSettings>(
-          this.storageKeySettings,
-          newSettings
-        );
-        return of(newSettings);
-      })
+      switchMap(
+        ({ isDisplayType, ...fullNotesSettings }: FullNotesSettings) => {
+          const newSettings: FullNotesSettings = {
+            ...fullNotesSettings,
+            isDisplayType: !isDisplayType,
+          };
+          this.localStorage.setStorage<FullNotesSettings>(
+            this.storageKeySettings,
+            newSettings
+          );
+          return of(newSettings);
+        }
+      )
     );
   }
 

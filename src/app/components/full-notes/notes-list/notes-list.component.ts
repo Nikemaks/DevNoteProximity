@@ -41,7 +41,6 @@ export class NotesListComponent implements OnInit {
   }
 
   switcherDisplayType() {
-    this.isDisplayType = !this.isDisplayType;
     this.store.saveDisplayType$(this.isDisplayType);
   }
 
