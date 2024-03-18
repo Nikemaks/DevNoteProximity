@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FullNotesStoreService } from '../../../store/full-notes-store/full-notes-store.service';
 import { MatButtonModule } from '@angular/material/button';
@@ -20,7 +20,7 @@ import { MatIconModule } from '@angular/material/icon';
   templateUrl: './notes-list.component.html',
   styleUrl: './notes-list.component.scss',
 })
-export class NotesListComponent {
+export class NotesListComponent implements OnInit {
   isSwitcherDisplayType: boolean = true;
   notes$ = this.store.selectAllNotes$;
 
@@ -31,8 +31,17 @@ export class NotesListComponent {
     this.store.getAllNotes$();
   }
 
+  ngOnInit() {
+    this.store.getSwitcherDisplayType$();
+
+    this.store.selectSwitchType$.subscribe((switchType: boolean) => {
+      this.isSwitcherDisplayType = switchType;
+    });
+  }
+
   switcherDisplayType() {
     this.isSwitcherDisplayType = !this.isSwitcherDisplayType;
+    this.store.saveSwitchType$(this.isSwitcherDisplayType);
   }
 
   viewItem(id: string) {
