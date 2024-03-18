@@ -1,12 +1,12 @@
 <div class="buttons">
   <button mat-icon-button (click)="switcherDisplayType()">
     <mat-icon>{{
-      isDisplayType ? 'view_module' : 'format_list_bulleted'
+      (isDisplayType$ | async) ? 'view_module' : 'format_list_bulleted'
     }}</mat-icon>
   </button>
 </div>
 
-@if (isDisplayType) {
+@if (isDisplayType$ | async) {
   <div class="list-container">
     @for (note of notes$ | async; track note) {
       <mat-card class="list-card">

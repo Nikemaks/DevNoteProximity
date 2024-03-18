@@ -22,6 +22,7 @@ import { MatIconModule } from '@angular/material/icon';
 })
 export class NotesListComponent implements OnInit {
   isDisplayType: boolean = true;
+  isDisplayType$ = this.store.selectDisplayType$;
   notes$ = this.store.selectAllNotes$;
 
   constructor(
