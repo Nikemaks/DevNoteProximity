@@ -44,7 +44,7 @@ export class FullNotesService {
     );
   }
 
-  SaveToggleDisplayType(): Observable<FullNotesSettings> {
+  saveToggleDisplayType(): Observable<FullNotesSettings> {
     return this.fetchFullNotesDisplayType().pipe(
       switchMap(
         ({ isDisplayType, ...fullNotesSettings }: FullNotesSettings) => {

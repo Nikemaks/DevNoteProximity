@@ -94,10 +94,10 @@ export class FullNotesStoreService extends ComponentStore<FullNotesStore> {
     );
   });
 
-  readonly saveDisplayType$ = this.effect(trigger$ => {
+  readonly saveToggle$ = this.effect(trigger$ => {
     return trigger$.pipe(
       switchMap(() =>
-        this.fullNotesService.SaveToggleDisplayType().pipe(
+        this.fullNotesService.saveToggleDisplayType().pipe(
           switchMap((fullNotesSettings: FullNotesSettings) => {
             this.updateDisplayType(fullNotesSettings);
             return of(fullNotesSettings);

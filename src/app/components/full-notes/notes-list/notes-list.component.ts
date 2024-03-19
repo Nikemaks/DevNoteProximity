@@ -36,7 +36,7 @@ export class NotesListComponent implements OnInit {
   }
 
   switcherDisplayType() {
-    this.store.saveDisplayType$();
+    this.store.saveToggle$();
   }
 
   viewItem(id: string) {
