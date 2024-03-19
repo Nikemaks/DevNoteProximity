@@ -83,8 +83,8 @@ export class FullNotesStoreService extends ComponentStore<FullNotesStore> {
 
   readonly saveNote$ = this.effect((note$: Observable<FullNoteItem>) => {
     return note$.pipe(
-      switchMap(switchType =>
-        this.fullNotesService.saveNote(switchType).pipe(
+      switchMap(note =>
+        this.fullNotesService.saveNote(note).pipe(
           tapResponse(
             notes => this.addNotes(notes),
             (error: HttpErrorResponse) => console.log(error)
@@ -94,20 +94,18 @@ export class FullNotesStoreService extends ComponentStore<FullNotesStore> {
     );
   });
 
-  readonly saveDisplayType$ = this.effect(
-    (displayType$: Observable<boolean>) => {
-      return displayType$.pipe(
-        switchMap(() =>
-          this.fullNotesService.SaveToggleDisplayType().pipe(
-            switchMap((fullNotesSettings: FullNotesSettings) => {
-              this.updateDisplayType(fullNotesSettings);
-              return of(fullNotesSettings);
-            })
-          )
+  readonly saveDisplayType$ = this.effect(trigger$ => {
+    return trigger$.pipe(
+      switchMap(() =>
+        this.fullNotesService.SaveToggleDisplayType().pipe(
+          switchMap((fullNotesSettings: FullNotesSettings) => {
+            this.updateDisplayType(fullNotesSettings);
+            return of(fullNotesSettings);
+          })
         )
-      );
-    }
-  );
+      )
+    );
+  });
 
   readonly removeNote$ = this.effect((id$: Observable<string>) => {
     return id$.pipe(

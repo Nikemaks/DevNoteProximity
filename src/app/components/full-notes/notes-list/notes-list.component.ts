@@ -21,7 +21,6 @@ import { MatIconModule } from '@angular/material/icon';
   styleUrl: './notes-list.component.scss',
 })
 export class NotesListComponent implements OnInit {
-  isDisplayType: boolean = true;
   isDisplayType$ = this.store.selectDisplayType$;
   notes$ = this.store.selectAllNotes$;
 
@@ -34,14 +33,11 @@ export class NotesListComponent implements OnInit {
 
   ngOnInit() {
     this.store.getDisplayType$();
-
-    this.store.selectDisplayType$.subscribe((displayType: boolean) => {
-      this.isDisplayType = displayType;
-    });
   }
 
   switcherDisplayType() {
-    this.store.saveDisplayType$(this.isDisplayType);
+    console.log(this.isDisplayType$);
+    this.store.saveDisplayType$();
   }
 
   viewItem(id: string) {
