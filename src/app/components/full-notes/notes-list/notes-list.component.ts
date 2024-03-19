@@ -36,7 +36,6 @@ export class NotesListComponent implements OnInit {
   }
 
   switcherDisplayType() {
-    console.log(this.isDisplayType$);
     this.store.saveDisplayType$();
   }
 
