@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { StorageService } from '../storage/storage.service';
-import { FullNoteItem } from '../../interfaces/full-notes';
+import { FullNoteItem, FullNotesSettings } from '../../interfaces/full-notes';
 import { switchMap } from 'rxjs/operators';
 import { Observable, of } from 'rxjs';
 
@@ -9,11 +9,18 @@ import { Observable, of } from 'rxjs';
 })
 export class FullNotesService {
   storageKey = 'FULL_NOTES';
+  storageKeySettings = 'FULL_NOTES_SWITCH_TYPE';
 
   constructor(private localStorage: StorageService) {}
 
   fetchAllTestAccounts() {
     return this.localStorage.getStorageItem<FullNoteItem[]>(this.storageKey);
+  }
+
+  fetchFullNotesDisplayType() {
+    return this.localStorage.getStorageItem<FullNotesSettings>(
+      this.storageKeySettings
+    );
   }
 
   saveNote(note: FullNoteItem): Observable<FullNoteItem[]> {
@@ -34,6 +41,24 @@ export class FullNotesService {
         this.localStorage.setStorage<FullNoteItem[]>(this.storageKey, newArray);
         return of(id);
       })
+    );
+  }
+
+  saveToggleDisplayType(): Observable<FullNotesSettings> {
+    return this.fetchFullNotesDisplayType().pipe(
+      switchMap(
+        ({ isDisplayType, ...fullNotesSettings }: FullNotesSettings) => {
+          const newSettings: FullNotesSettings = {
+            ...fullNotesSettings,
+            isDisplayType: !isDisplayType,
+          };
+          this.localStorage.setStorage<FullNotesSettings>(
+            this.storageKeySettings,
+            newSettings
+          );
+          return of(newSettings);
+        }
+      )
     );
   }
 

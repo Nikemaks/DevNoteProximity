@@ -3,3 +3,7 @@ export interface FullNoteItem {
   title: string;
   htmlContent: string;
 }
+
+export interface FullNotesSettings {
+  isDisplayType: boolean;
+}

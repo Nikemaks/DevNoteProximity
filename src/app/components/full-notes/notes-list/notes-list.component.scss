@@ -26,3 +26,38 @@
 .card__btn {
   margin-top: 20px;
 }
+
+.grid-container {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 30px;
+}
+
+.grid-item {
+  width: calc(33.333% - 10px);
+  border: 1px solid #ccc;
+  padding: 10px;
+}
+
+.list-container {
+  display: flex;
+  flex-direction: column;
+}
+
+.list-card {
+  width: 100%;
+  margin-bottom: 30px;
+  border: 1px solid #ccc;
+}
+
+.list__text {
+  height: 60px;
+  text-align: justify;
+  overflow: hidden;
+}
+
+.buttons {
+  display: flex;
+  justify-content: end;
+  margin-bottom: 50px;
+}

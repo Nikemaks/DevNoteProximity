@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { ComponentStore, tapResponse } from '@ngrx/component-store';
-import { FullNoteItem } from '../../interfaces/full-notes';
-import { Observable } from 'rxjs';
+import { FullNoteItem, FullNotesSettings } from '../../interfaces/full-notes';
+import { Observable, of } from 'rxjs';
 import { exhaustMap, switchMap } from 'rxjs/operators';
 import { HttpErrorResponse } from '@angular/common/http';
 import { FullNotesService } from '../../services/full-notes/full-notes.service';
@@ -9,6 +9,7 @@ import { FullNotesService } from '../../services/full-notes/full-notes.service';
 export interface FullNotesStore {
   notes: FullNoteItem[];
   viewNoteId: string;
+  isDisplayType: boolean;
 }
 
 @Injectable({
@@ -16,7 +17,7 @@ export interface FullNotesStore {
 })
 export class FullNotesStoreService extends ComponentStore<FullNotesStore> {
   constructor(private fullNotesService: FullNotesService) {
-    super({ notes: [], viewNoteId: '' });
+    super({ notes: [], viewNoteId: '', isDisplayType: true });
   }
 
   // select
@@ -26,6 +27,10 @@ export class FullNotesStoreService extends ComponentStore<FullNotesStore> {
 
   readonly selectViewNoteId$: Observable<string> = this.select(
     state => state.viewNoteId
+  );
+
+  readonly selectDisplayType$: Observable<boolean> = this.select(
+    state => state.isDisplayType
   );
 
   readonly selectModelForView$: Observable<FullNoteItem> = this.select(
@@ -55,6 +60,13 @@ export class FullNotesStoreService extends ComponentStore<FullNotesStore> {
     notes: [...state.notes.filter(itm => itm.id !== removeId)],
   }));
 
+  readonly updateDisplayType = this.updater(
+    (state, { isDisplayType }: FullNotesSettings) => ({
+      ...state,
+      isDisplayType,
+    })
+  );
+
   // effects
   readonly getAllNotes$ = this.effect<void>(trigger$ =>
     trigger$.pipe(
@@ -82,6 +94,19 @@ export class FullNotesStoreService extends ComponentStore<FullNotesStore> {
     );
   });
 
+  readonly saveToggle$ = this.effect(trigger$ => {
+    return trigger$.pipe(
+      switchMap(() =>
+        this.fullNotesService.saveToggleDisplayType().pipe(
+          switchMap((fullNotesSettings: FullNotesSettings) => {
+            this.updateDisplayType(fullNotesSettings);
+            return of(fullNotesSettings);
+          })
+        )
+      )
+    );
+  });
+
   readonly removeNote$ = this.effect((id$: Observable<string>) => {
     return id$.pipe(
       switchMap(id =>
@@ -94,4 +119,17 @@ export class FullNotesStoreService extends ComponentStore<FullNotesStore> {
       )
     );
   });
+
+  readonly getDisplayType$ = this.effect(trigger$ =>
+    trigger$.pipe(
+      exhaustMap(() =>
+        this.fullNotesService.fetchFullNotesDisplayType().pipe(
+          tapResponse({
+            next: displayType => this.updateDisplayType(displayType),
+            error: (error: HttpErrorResponse) => console.error(error),
+          })
+        )
+      )
+    )
+  );
 }
