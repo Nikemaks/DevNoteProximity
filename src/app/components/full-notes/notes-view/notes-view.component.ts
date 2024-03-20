@@ -11,7 +11,25 @@ import { MatIconModule } from '@angular/material/icon';
   styleUrl: './notes-view.component.scss',
 })
 export class NotesViewComponent {
+  isContentEditable: boolean = false;
+  isEditMode: boolean = false;
+
   constructor(private store: FullNotesStoreService) {}
 
   note$ = this.store.selectModelForView$;
+
+  toggleContentEditable() {
+    this.isContentEditable = !this.isContentEditable;
+    this.isEditMode = !this.isEditMode;
+  }
+
+  saveChanges() {
+    this.isContentEditable = false;
+    this.isEditMode = false;
+  }
+
+  cancelChanges() {
+    this.isContentEditable = false;
+    this.isEditMode = false;
+  }
 }
