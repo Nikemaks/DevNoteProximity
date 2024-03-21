@@ -19,7 +19,7 @@
             (click)="toggleContentEditable()">
             <mat-icon>create</mat-icon>
           </button>
-          <button mat-raised-button color="warn">
+          <button mat-raised-button color="warn" (click)="deleteNote(note.id)">
             <mat-icon>delete</mat-icon>
           </button>
         }
