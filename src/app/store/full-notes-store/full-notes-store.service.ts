@@ -67,6 +67,24 @@ export class FullNotesStoreService extends ComponentStore<FullNotesStore> {
     })
   );
 
+  readonly updateNotes = this.updater(
+    (state: FullNotesStore, { id, title, htmlContent }: FullNoteItem) => ({
+      ...state,
+      notes: [
+        ...state.notes.map((note: FullNoteItem) => {
+          if (note.id === id) {
+            return {
+              ...note,
+              title,
+              htmlContent,
+            };
+          }
+          return note;
+        }),
+      ],
+    })
+  );
+
   // effects
   readonly getAllNotes$ = this.effect<void>(trigger$ =>
     trigger$.pipe(
