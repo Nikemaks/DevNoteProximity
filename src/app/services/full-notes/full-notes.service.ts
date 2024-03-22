@@ -44,6 +44,19 @@ export class FullNotesService {
     );
   }
 
+  updateNotes(noteId: string, updatedNote: FullNoteItem) {
+    return this.fetchAllTestAccounts().pipe(
+      switchMap((notes: FullNoteItem[]) => {
+        const index = notes.findIndex(note => note.id === noteId);
+        if (index !== -1) {
+          notes[index] = updatedNote;
+          this.localStorage.setStorage<FullNoteItem[]>(this.storageKey, notes);
+        }
+        return of({ noteId, updatedNote });
+      })
+    );
+  }
+
   saveToggleDisplayType(): Observable<FullNotesSettings> {
     return this.fetchFullNotesDisplayType().pipe(
       switchMap(
