@@ -44,7 +44,10 @@ export class FullNotesService {
     );
   }
 
-  updateNotes(noteId: string, updatedNote: FullNoteItem) {
+  updateNotes(
+    noteId: string,
+    updatedNote: FullNoteItem
+  ): Observable<FullNoteItem[]> {
     return this.fetchAllTestAccounts().pipe(
       switchMap((notes: FullNoteItem[]) => {
         const index = notes.findIndex(note => note.id === noteId);
@@ -52,7 +55,7 @@ export class FullNotesService {
           notes[index] = updatedNote;
           this.localStorage.setStorage<FullNoteItem[]>(this.storageKey, notes);
         }
-        return of({ noteId, updatedNote });
+        return of(notes);
       })
     );
   }
