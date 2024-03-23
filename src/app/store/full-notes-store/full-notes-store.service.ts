@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { ComponentStore, tapResponse } from '@ngrx/component-store';
 import { FullNoteItem, FullNotesSettings } from '../../interfaces/full-notes';
-import { Observable, of } from 'rxjs';
+import { map, Observable, of } from 'rxjs';
 import { exhaustMap, switchMap } from 'rxjs/operators';
 import { HttpErrorResponse } from '@angular/common/http';
 import { FullNotesService } from '../../services/full-notes/full-notes.service';
@@ -137,6 +137,24 @@ export class FullNotesStoreService extends ComponentStore<FullNotesStore> {
       )
     );
   });
+
+  readonly updateAndSaveNotes$ = this.effect(
+    (
+      updateData$: Observable<{ noteId: string; updatedNote: FullNoteItem }>
+    ) => {
+      return updateData$.pipe(
+        switchMap(({ noteId, updatedNote }) =>
+          this.fullNotesService.updateNotes(noteId, updatedNote).pipe(
+            map(() => ({ noteId, ...updatedNote })),
+            tapResponse(
+              updateData => this.updateNotes(updateData),
+              (error: HttpErrorResponse) => console.log(error)
+            )
+          )
+        )
+      );
+    }
+  );
 
   readonly getDisplayType$ = this.effect(trigger$ =>
     trigger$.pipe(
