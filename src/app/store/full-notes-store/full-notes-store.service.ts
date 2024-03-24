@@ -1,7 +1,12 @@
 import { Injectable } from '@angular/core';
 import { ComponentStore, tapResponse } from '@ngrx/component-store';
-import { FullNoteItem, FullNotesSettings } from '../../interfaces/full-notes';
-import { map, Observable, of } from 'rxjs';
+import {
+  FullNoteItem,
+  FullNotesSettings,
+  Notes,
+  UpdateInterface,
+} from '../../interfaces/full-notes';
+import { Observable, of } from 'rxjs';
 import { exhaustMap, switchMap } from 'rxjs/operators';
 import { HttpErrorResponse } from '@angular/common/http';
 import { FullNotesService } from '../../services/full-notes/full-notes.service';
@@ -68,20 +73,17 @@ export class FullNotesStoreService extends ComponentStore<FullNotesStore> {
   );
 
   readonly updateNotes = this.updater(
-    (state: FullNotesStore, { id, title, htmlContent }: FullNoteItem) => ({
+    (state: FullNotesStore, { notesId, notes }: UpdateInterface) => ({
       ...state,
-      notes: [
-        ...state.notes.map((note: FullNoteItem) => {
-          if (note.id === id) {
-            return {
-              ...note,
-              title,
-              htmlContent,
-            };
-          }
-          return note;
-        }),
-      ],
+      boards: state.notes.map((board: Notes) => {
+        if (notesId === board.id) {
+          return {
+            ...board,
+            notes: [...notes],
+          };
+        }
+        return board;
+      }),
     })
   );
 
@@ -139,19 +141,16 @@ export class FullNotesStoreService extends ComponentStore<FullNotesStore> {
   });
 
   readonly updateAndSaveNotes$ = this.effect(
-    (
-      updateData$: Observable<{ noteId: string; updatedNote: FullNoteItem }>
-    ) => {
+    (updateData$: Observable<UpdateInterface>) => {
       return updateData$.pipe(
-        switchMap(({ noteId, updatedNote }) =>
-          this.fullNotesService.updateNotes(noteId, updatedNote).pipe(
-            map(() => ({ noteId, ...updatedNote })),
+        switchMap(({ notesId, notes }) => {
+          return this.fullNotesService.updateNotes(notesId, notes).pipe(
             tapResponse(
               updateData => this.updateNotes(updateData),
               (error: HttpErrorResponse) => console.log(error)
             )
-          )
-        )
+          );
+        })
       );
     }
   );
