@@ -3,7 +3,6 @@ import { ComponentStore, tapResponse } from '@ngrx/component-store';
 import {
   FullNoteItem,
   FullNotesSettings,
-  Notes,
   UpdateInterface,
 } from '../../interfaces/full-notes';
 import { Observable, of } from 'rxjs';
@@ -73,10 +72,10 @@ export class FullNotesStoreService extends ComponentStore<FullNotesStore> {
   );
 
   readonly updateNotes = this.updater(
-    (state: FullNotesStore, { notesId, notes }: UpdateInterface) => ({
+    (state: FullNotesStore, { viewNoteId, notes }: UpdateInterface) => ({
       ...state,
-      boards: state.notes.map((note: Notes) => {
-        if (notesId === note.id) {
+      boards: state.notes.map((note: FullNoteItem) => {
+        if (viewNoteId === note.id) {
           return {
             ...note,
             notes: [...notes],
@@ -143,8 +142,8 @@ export class FullNotesStoreService extends ComponentStore<FullNotesStore> {
   readonly updateAndSaveNotes$ = this.effect(
     (updateData$: Observable<UpdateInterface>) => {
       return updateData$.pipe(
-        switchMap(({ notesId, notes }) => {
-          return this.fullNotesService.updateNotes(notesId, notes).pipe(
+        switchMap(({ viewNoteId, notes }) => {
+          return this.fullNotesService.updateNotes(viewNoteId, notes).pipe(
             tapResponse(
               updateData => this.updateNotes(updateData),
               (error: HttpErrorResponse) => console.log(error)
