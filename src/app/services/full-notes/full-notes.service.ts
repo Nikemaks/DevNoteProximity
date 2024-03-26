@@ -1,11 +1,6 @@
 import { Injectable } from '@angular/core';
 import { StorageService } from '../storage/storage.service';
-import {
-  FullNoteItem,
-  FullNotesSettings,
-  Note,
-  Notes,
-} from '../../interfaces/full-notes';
+import { FullNoteItem, FullNotesSettings } from '../../interfaces/full-notes';
 import { switchMap } from 'rxjs/operators';
 import { Observable, of } from 'rxjs';
 
@@ -49,18 +44,18 @@ export class FullNotesService {
     );
   }
 
-  updateNotes(notesId: string, notes: Note[]) {
+  updateNotes(viewNoteId: string, notes: FullNoteItem[]) {
     return this.fetchAllTestAccounts().pipe(
-      switchMap((note: Notes[]) => {
-        const currentNote = note.find(itm => itm.id === notesId);
+      switchMap((note: FullNoteItem[]) => {
+        const currentNote = note.find(itm => itm.id === viewNoteId);
         const updateNote = Object.assign({}, currentNote, { notes });
         const newArr = [updateNote, ...note];
 
-        this.localStorage.setStorage<Notes[]>(
+        this.localStorage.setStorage<FullNoteItem[]>(
           this.storageKey,
           this.filterUniqueById(newArr)
         );
-        return of({ notesId, notes });
+        return of({ viewNoteId, notes });
       })
     );
   }
@@ -83,9 +78,9 @@ export class FullNotesService {
     );
   }
 
-  filterUniqueById(arr: Notes[]) {
+  filterUniqueById(arr: FullNoteItem[]) {
     const seenIds = new Set();
-    return arr.filter((obj: Notes) => {
+    return arr.filter((obj: FullNoteItem) => {
       if (!seenIds.has(obj.id)) {
         seenIds.add(obj.id);
         return true;
