@@ -5,8 +5,8 @@ export interface FullNoteItem {
 }
 
 export interface UpdateInterface {
+  id: string;
   notes: FullNoteItem[];
-  viewNoteId: string;
 }
 
 export interface FullNotesSettings {

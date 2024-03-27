@@ -44,10 +44,10 @@ export class FullNotesService {
     );
   }
 
-  updateNotes(viewNoteId: string, notes: FullNoteItem[]) {
+  updateNotes(id: string, notes: FullNoteItem[]) {
     return this.fetchAllTestAccounts().pipe(
       switchMap((note: FullNoteItem[]) => {
-        const currentNote = note.find(itm => itm.id === viewNoteId);
+        const currentNote = note.find(itm => itm.id === id);
         const updateNote = Object.assign({}, currentNote, { notes });
         const newArr = [updateNote, ...note];
 
@@ -55,7 +55,7 @@ export class FullNotesService {
           this.storageKey,
           this.filterUniqueById(newArr)
         );
-        return of({ viewNoteId, notes });
+        return of({ id, notes });
       })
     );
   }
