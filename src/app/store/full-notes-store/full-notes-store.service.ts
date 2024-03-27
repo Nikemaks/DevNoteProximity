@@ -72,10 +72,10 @@ export class FullNotesStoreService extends ComponentStore<FullNotesStore> {
   );
 
   readonly updateNotes = this.updater(
-    (state: FullNotesStore, { viewNoteId, notes }: UpdateInterface) => ({
+    (state: FullNotesStore, { id, notes }: UpdateInterface) => ({
       ...state,
-      boards: state.notes.map((note: FullNoteItem) => {
-        if (viewNoteId === note.id) {
+      notes: state.notes.map((note: FullNoteItem) => {
+        if (id === note.id) {
           return {
             ...note,
             notes: [...notes],
@@ -142,8 +142,8 @@ export class FullNotesStoreService extends ComponentStore<FullNotesStore> {
   readonly updateAndSaveNotes$ = this.effect(
     (updateData$: Observable<UpdateInterface>) => {
       return updateData$.pipe(
-        switchMap(({ viewNoteId, notes }) => {
-          return this.fullNotesService.updateNotes(viewNoteId, notes).pipe(
+        switchMap(({ id, notes }) => {
+          return this.fullNotesService.updateNotes(id, notes).pipe(
             tapResponse(
               updateData => this.updateNotes(updateData),
               (error: HttpErrorResponse) => console.log(error)
