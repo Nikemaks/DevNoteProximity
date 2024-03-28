@@ -7,7 +7,7 @@ import { FullNotesService } from '../../../services/full-notes/full-notes.servic
 import { MatDialog } from '@angular/material/dialog';
 import { ConfirmActionComponent } from '../../modals/confirm-action/confirm-action.component';
 import { Router } from '@angular/router';
-import { FullNoteItem } from '../../../interfaces/full-notes';
+import { UpdateInterface } from '../../../interfaces/full-notes';
 
 @Component({
   selector: 'app-notes-view',
@@ -17,7 +17,7 @@ import { FullNoteItem } from '../../../interfaces/full-notes';
   styleUrl: './notes-view.component.scss',
 })
 export class NotesViewComponent {
-  @Input() note!: FullNoteItem;
+  @Input() note!: UpdateInterface;
   isContentEditable: boolean = false;
   isEditMode: boolean = false;
 
@@ -40,14 +40,8 @@ export class NotesViewComponent {
     this.isEditMode = false;
 
     this.store.updateAndSaveNotes$({
-      id: this.note.id,
-      notes: [
-        {
-          id: this.note.id,
-          title: this.note.title,
-          htmlContent: this.note.htmlContent,
-        },
-      ],
+      id: this.note.id || '',
+      notes: this.note.notes || [],
     });
   }
 

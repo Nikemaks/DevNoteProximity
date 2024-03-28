@@ -72,17 +72,19 @@ export class FullNotesStoreService extends ComponentStore<FullNotesStore> {
   );
 
   readonly updateNotes = this.updater(
-    (state: FullNotesStore, { id, notes }: UpdateInterface) => ({
+    (state, { id, notes }: UpdateInterface) => ({
       ...state,
-      notes: state.notes.map((note: FullNoteItem) => {
-        if (id === note.id) {
-          return {
-            ...note,
-            notes: [...notes],
-          };
-        }
-        return note;
-      }),
+      notes: [
+        ...state.notes.map((note: FullNoteItem) => {
+          if (id === note.id) {
+            return {
+              ...note,
+              notes: [...notes],
+            };
+          }
+          return note;
+        }),
+      ],
     })
   );
 
