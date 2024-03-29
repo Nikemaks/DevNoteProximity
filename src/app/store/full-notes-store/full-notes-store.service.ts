@@ -74,17 +74,15 @@ export class FullNotesStoreService extends ComponentStore<FullNotesStore> {
   readonly updateNotes = this.updater(
     (state, { id, notes }: UpdateInterface) => ({
       ...state,
-      notes: [
-        ...state.notes.map((note: FullNoteItem) => {
-          if (id === note.id) {
-            return {
-              ...note,
-              notes: [...notes],
-            };
-          }
-          return note;
-        }),
-      ],
+      notes: state.notes.map((note: FullNoteItem) => {
+        if (id === note.id) {
+          return {
+            ...note,
+            notes: [...notes],
+          };
+        }
+        return note;
+      }),
     })
   );
 
@@ -115,6 +113,26 @@ export class FullNotesStoreService extends ComponentStore<FullNotesStore> {
     );
   });
 
+  /*editNote$ = this.effect((note$: Observable<any>) => {
+    return note$.pipe(
+      switchMap(note =>
+        this.fullNotesService.updateNotes(note.id, note).pipe(
+          switchMap(updatedNotes => {
+            const updateInterface: UpdateInterface = {
+              id: note.id,
+              notes: updatedNotes,
+            };
+            return of(updateInterface);
+          }),
+          tapResponse(
+            updateInterface => this.updateNotes(updateInterface),
+            (error: HttpErrorResponse) => console.log(error)
+          )
+        )
+      )
+    );
+  });*/
+
   readonly saveToggle$ = this.effect(trigger$ => {
     return trigger$.pipe(
       switchMap(() =>
@@ -141,8 +159,8 @@ export class FullNotesStoreService extends ComponentStore<FullNotesStore> {
     );
   });
 
-  readonly updateAndSaveNotes$ = this.effect(
-    (updateData$: Observable<UpdateInterface>) => {
+  /*readonly updateAndSaveNotes$ = this.effect(
+    (updateData$: Observable<FullNoteItem>) => {
       return updateData$.pipe(
         switchMap(({ id, notes }) => {
           return this.fullNotesService.updateNotes(id, notes).pipe(
@@ -154,7 +172,7 @@ export class FullNotesStoreService extends ComponentStore<FullNotesStore> {
         })
       );
     }
-  );
+  );*/
 
   readonly getDisplayType$ = this.effect(trigger$ =>
     trigger$.pipe(
