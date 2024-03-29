@@ -34,6 +34,19 @@ export class FullNotesService {
     );
   }
 
+  updateNotes(id: string, note: FullNoteItem): Observable<FullNoteItem[]> {
+    return this.fetchAllTestAccounts().pipe(
+      switchMap((notes: FullNoteItem[]) => {
+        const index = notes.findIndex(itm => itm.id === id);
+        if (index !== -1) {
+          notes[index] = note;
+          this.localStorage.setStorage<FullNoteItem[]>(this.storageKey, notes);
+        }
+        return of(notes);
+      })
+    );
+  }
+
   removeNote(id: string): Observable<string> {
     return this.fetchAllTestAccounts().pipe(
       switchMap((notes: FullNoteItem[]) => {
@@ -44,7 +57,7 @@ export class FullNotesService {
     );
   }
 
-  updateNotes(id: string, notes: FullNoteItem[]) {
+  /*updateNotes(id: string, notes: FullNoteItem[]) {
     return this.fetchAllTestAccounts().pipe(
       switchMap((note: FullNoteItem[]) => {
         const currentNote = note.find(itm => itm.id === id);
@@ -58,7 +71,7 @@ export class FullNotesService {
         return of({ id, notes });
       })
     );
-  }
+  }*/
 
   saveToggleDisplayType(): Observable<FullNotesSettings> {
     return this.fetchFullNotesDisplayType().pipe(
