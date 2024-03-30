@@ -6,7 +6,8 @@ export interface FullNoteItem {
 
 export interface UpdateInterface {
   id: string;
-  notes: FullNoteItem[];
+  title: string;
+  htmlContent: string;
 }
 
 export interface FullNotesSettings {
