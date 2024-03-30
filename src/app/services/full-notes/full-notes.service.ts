@@ -34,19 +34,6 @@ export class FullNotesService {
     );
   }
 
-  updateNotes(id: string, note: FullNoteItem): Observable<FullNoteItem[]> {
-    return this.fetchAllTestAccounts().pipe(
-      switchMap((notes: FullNoteItem[]) => {
-        const index = notes.findIndex(itm => itm.id === id);
-        if (index !== -1) {
-          notes[index] = note;
-          this.localStorage.setStorage<FullNoteItem[]>(this.storageKey, notes);
-        }
-        return of(notes);
-      })
-    );
-  }
-
   removeNote(id: string): Observable<string> {
     return this.fetchAllTestAccounts().pipe(
       switchMap((notes: FullNoteItem[]) => {
@@ -56,22 +43,6 @@ export class FullNotesService {
       })
     );
   }
-
-  /*updateNotes(id: string, notes: FullNoteItem[]) {
-    return this.fetchAllTestAccounts().pipe(
-      switchMap((note: FullNoteItem[]) => {
-        const currentNote = note.find(itm => itm.id === id);
-        const updateNote = Object.assign({}, currentNote, { notes });
-        const newArr = [updateNote, ...note];
-
-        this.localStorage.setStorage<FullNoteItem[]>(
-          this.storageKey,
-          this.filterUniqueById(newArr)
-        );
-        return of({ id, notes });
-      })
-    );
-  }*/
 
   saveToggleDisplayType(): Observable<FullNotesSettings> {
     return this.fetchFullNotesDisplayType().pipe(
@@ -88,6 +59,22 @@ export class FullNotesService {
           return of(newSettings);
         }
       )
+    );
+  }
+
+  updateNotes(id: string, title: string, htmlContent: string) {
+    return this.fetchAllTestAccounts().pipe(
+      switchMap((notes: FullNoteItem[]) => {
+        const currentNote = notes.find(itm => itm.id === id);
+        const updateNote = Object.assign({}, currentNote, { notes });
+        const newArray = [updateNote, ...notes];
+
+        this.localStorage.setStorage<FullNoteItem[]>(
+          this.storageKey,
+          this.filterUniqueById(newArray)
+        );
+        return of({ id, title, htmlContent });
+      })
     );
   }
 

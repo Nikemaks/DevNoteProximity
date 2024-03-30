@@ -17,7 +17,7 @@ import { FullNoteItem } from '../../../interfaces/full-notes';
   styleUrl: './notes-view.component.scss',
 })
 export class NotesViewComponent {
-  @Input() note!: FullNoteItem[];
+  @Input() note!: FullNoteItem;
   isContentEditable: boolean = false;
   isEditMode: boolean = false;
 
@@ -39,10 +39,11 @@ export class NotesViewComponent {
     this.isContentEditable = false;
     this.isEditMode = false;
 
-    /*this.store.editNote$({
-      id: id || '',
-      notes: notes || [],
-    });*/
+    this.store.updateAndSaveNotes$({
+      id: this.note.id || '',
+      title: this.note.title || '',
+      htmlContent: this.note.htmlContent || '',
+    });
   }
 
   cancelChanges() {
