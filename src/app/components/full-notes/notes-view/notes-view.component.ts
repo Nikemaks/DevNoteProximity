@@ -1,5 +1,8 @@
 import { Component, Input } from '@angular/core';
-import { FullNotesStoreService } from '../../../store/full-notes-store/full-notes-store.service';
+import {
+  FullNotesStore,
+  FullNotesStoreService,
+} from '../../../store/full-notes-store/full-notes-store.service';
 import { CommonModule } from '@angular/common';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
@@ -8,6 +11,7 @@ import { MatDialog } from '@angular/material/dialog';
 import { ConfirmActionComponent } from '../../modals/confirm-action/confirm-action.component';
 import { Router } from '@angular/router';
 import { FullNoteItem } from '../../../interfaces/full-notes';
+import { NotesCreateComponent } from '../notes-create/notes-create.component';
 
 @Component({
   selector: 'app-notes-view',
@@ -17,7 +21,7 @@ import { FullNoteItem } from '../../../interfaces/full-notes';
   styleUrl: './notes-view.component.scss',
 })
 export class NotesViewComponent {
-  @Input() note!: FullNoteItem;
+  @Input() note!: FullNotesStore;
   isContentEditable: boolean = false;
   isEditMode: boolean = false;
 
@@ -35,14 +39,18 @@ export class NotesViewComponent {
     this.isEditMode = !this.isEditMode;
   }
 
-  saveChanges() {
-    this.isContentEditable = false;
+  saveChanges(note?: FullNoteItem) {
+    /*this.isContentEditable = false;
     this.isEditMode = false;
 
     this.store.updateAndSaveNotes$({
       id: this.note.id || '',
       title: this.note.title || '',
       htmlContent: this.note.htmlContent || '',
+    });*/
+    const newNote: FullNoteItem = { id: '', title: '', htmlContent: '' };
+    const dialogRef = this.dialog.open(NotesCreateComponent, {
+      data: note ? { note: { ...note } } : { note: newNote },
     });
   }
 
