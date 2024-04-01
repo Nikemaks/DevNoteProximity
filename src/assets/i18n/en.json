@@ -67,5 +67,11 @@
   "login": {
     "sign_in": "Sign in",
     "sign_up": "Sign up"
+  },
+  "calendar": {
+    "create_modal": {
+      "modal_title": "Add new Event",
+      "title_label": "Event title"
+    }
   }
 }
