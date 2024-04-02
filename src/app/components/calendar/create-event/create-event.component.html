@@ -1,0 +1,62 @@
+<h2 mat-dialog-title>{{ 'calendar.create_modal.modal_title' | translate }}</h2>
+<mat-dialog-content class="content">
+  <form class="container" [formGroup]="formGroup">
+    <mat-form-field>
+      <mat-label>{{
+        'calendar.create_modal.title_label' | translate
+      }}</mat-label>
+      <input matInput formControlName="title" />
+    </mat-form-field>
+    <mat-form-field>
+      <mat-label>EventStatus</mat-label>
+      <mat-select matNativeControl formControlName="status">
+        @for (item of eventStatusItems; track item) {
+          <mat-option [value]="item.value">{{ item.viewValue }}</mat-option>
+        }
+      </mat-select>
+    </mat-form-field>
+    <div>
+      <mat-form-field>
+        <mat-label>Choose a date</mat-label>
+        <input matInput [matDatepicker]="picker" formControlName="day" />
+        <mat-datepicker-toggle
+          matIconSuffix
+          [for]="picker"></mat-datepicker-toggle>
+        <mat-datepicker #picker></mat-datepicker>
+      </mat-form-field>
+      <mat-form-field>
+        <mat-label>Start</mat-label>
+        <input matInput [ngxTimepicker]="start" formControlName="start" />
+        <ngx-material-timepicker
+          [minutesGap]="15"
+          #start></ngx-material-timepicker>
+      </mat-form-field>
+      <mat-form-field>
+        <mat-label>End</mat-label>
+        <input matInput [ngxTimepicker]="end" formControlName="end" />
+        <ngx-material-timepicker
+          [minutesGap]="15"
+          #end></ngx-material-timepicker>
+      </mat-form-field>
+    </div>
+    <mat-form-field class="example-full-width">
+      <mat-label>Leave a comment</mat-label>
+      <textarea
+        matInput
+        formControlName="content"
+        placeholder="Leave a comment"></textarea>
+    </mat-form-field>
+  </form>
+</mat-dialog-content>
+<mat-dialog-actions>
+  <button mat-button (click)="onNoClick()">
+    {{ 'test_accounts.cancel' | translate }}
+  </button>
+  <button
+    mat-button
+    [mat-dialog-close]="formGroup.value"
+    [disabled]="formGroup.invalid"
+    cdkFocusInitial>
+    {{ 'test_accounts.save' | translate }}
+  </button>
+</mat-dialog-actions>

@@ -1,4 +1,4 @@
-import { Component, OnInit, Inject, LOCALE_ID, ViewChild } from '@angular/core';
+import { Component, Inject, LOCALE_ID, ViewChild, Input } from '@angular/core';
 import { Subject } from 'rxjs';
 
 import { endOfDay, addMonths } from 'date-fns';
@@ -37,7 +37,7 @@ export type hourSegmentsType = 1 | 2 | 4 | 6;
     },
   ],
 })
-export class SchedulerComponent implements OnInit {
+export class SchedulerComponent {
   CalendarView = CalendarView;
 
   view: CalendarView = CalendarView.Week;
@@ -85,6 +85,10 @@ export class SchedulerComponent implements OnInit {
 
   events!: CalendarSchedulerEvent[];
 
+  @Input() set calendarEvents(events: CalendarSchedulerEvent[]) {
+    this.events = events;
+  }
+
   @ViewChild(CalendarSchedulerViewComponent)
   calendarScheduler!: CalendarSchedulerViewComponent;
 
@@ -95,14 +99,6 @@ export class SchedulerComponent implements OnInit {
   ) {
     this.locale = locale;
 
-    // this.dayModifier = ((day: SchedulerViewDay): void => {
-    //     day.cssClass = this.isDateValid(day.date) ? '' : 'cal-disabled';
-    // }).bind(this);
-
-    // this.hourModifier = ((hour: SchedulerViewHour): void => {
-    //     hour.cssClass = this.isDateValid(hour.date) ? '' : 'cal-disabled';
-    // }).bind(this);
-
     this.segmentModifier = ((segment: SchedulerViewHourSegment): void => {
       segment.isDisabled = !this.isDateValid(segment.date);
     }).bind(this);
@@ -112,12 +108,6 @@ export class SchedulerComponent implements OnInit {
     }).bind(this);
 
     this.dateOrViewChanged();
-  }
-
-  ngOnInit(): void {
-    this.appService
-      .getEvents(this.actions)
-      .then((events: CalendarSchedulerEvent[]) => (this.events = events));
   }
 
   viewDaysOptionChanged(viewDays: string | number): void {
@@ -138,49 +128,30 @@ export class SchedulerComponent implements OnInit {
   }
 
   dateOrViewChanged(): void {
-    if (this.startsWithToday) {
-      this.prevBtnDisabled = !this.isDateValid(
-        subPeriod(
-          this.dateAdapter,
-          CalendarView.Day /*this.view*/,
-          this.viewDate,
-          1
-        )
-      );
-      this.nextBtnDisabled = !this.isDateValid(
-        addPeriod(
-          this.dateAdapter,
-          CalendarView.Day /*this.view*/,
-          this.viewDate,
-          1
-        )
-      );
-    } else {
-      this.prevBtnDisabled = !this.isDateValid(
-        endOfPeriod(
-          this.dateAdapter,
-          CalendarView.Day /*this.view*/,
-          subPeriod(
-            this.dateAdapter,
-            CalendarView.Day /*this.view*/,
-            this.viewDate,
-            1
-          )
-        )
-      );
-      this.nextBtnDisabled = !this.isDateValid(
-        startOfPeriod(
-          this.dateAdapter,
-          CalendarView.Day /*this.view*/,
-          addPeriod(
-            this.dateAdapter,
-            CalendarView.Day /*this.view*/,
-            this.viewDate,
-            1
-          )
-        )
-      );
-    }
+    const dayOffset = this.startsWithToday ? 1 : -1;
+    const prevDate = subPeriod(
+      this.dateAdapter,
+      CalendarView.Day,
+      this.viewDate,
+      dayOffset
+    );
+    const nextDate = addPeriod(
+      this.dateAdapter,
+      CalendarView.Day,
+      this.viewDate,
+      dayOffset
+    );
+
+    this.prevBtnDisabled = !this.isDateValid(
+      this.startsWithToday
+        ? prevDate
+        : endOfPeriod(this.dateAdapter, CalendarView.Day, prevDate)
+    );
+    this.nextBtnDisabled = !this.isDateValid(
+      this.startsWithToday
+        ? nextDate
+        : startOfPeriod(this.dateAdapter, CalendarView.Day, nextDate)
+    );
 
     if (this.viewDate < this.minDate) {
       this.changeDate(this.minDate);
@@ -190,7 +161,7 @@ export class SchedulerComponent implements OnInit {
   }
 
   private isDateValid(date: Date): boolean {
-    return /*isToday(date) ||*/ date >= this.minDate && date <= this.maxDate;
+    return date >= this.minDate && date <= this.maxDate;
   }
 
   viewDaysChanged(viewDays: number): void {
