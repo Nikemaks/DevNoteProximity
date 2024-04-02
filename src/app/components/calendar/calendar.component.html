@@ -1,5 +1,7 @@
-<button mat-mini-fab color="accent" aria-label="Add item" (click)="addEvent()">
-  <mat-icon>plus_one</mat-icon>
-</button>
+<div class="container">
+  <button mat-mini-fab color="warn" aria-label="Add item" (click)="addEvent()">
+    <mat-icon>add</mat-icon>
+  </button>
+</div>
 
 <app-scheduler [calendarEvents]="calendarEvents"></app-scheduler>
