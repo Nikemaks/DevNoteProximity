@@ -13,3 +13,8 @@ export interface EventResiable {
   beforeStart?: boolean;
   afterEnd?: boolean;
 }
+
+export interface EventStatusItem {
+  value: CalendarSchedulerEventStatus;
+  viewValue: string;
+}

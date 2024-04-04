@@ -1,4 +1,12 @@
-import { Component, Inject, LOCALE_ID, ViewChild, Input } from '@angular/core';
+import {
+  Component,
+  Inject,
+  LOCALE_ID,
+  ViewChild,
+  Input,
+  Output,
+  EventEmitter,
+} from '@angular/core';
 import { Subject } from 'rxjs';
 
 import { endOfDay, addMonths } from 'date-fns';
@@ -23,6 +31,7 @@ import {
 } from 'angular-calendar';
 
 import { CalendarService } from '../../services/calendar.service';
+import { SegmentActionEvent } from '../../interfaces';
 
 export type hourSegmentsType = 1 | 2 | 4 | 6;
 
@@ -88,6 +97,8 @@ export class SchedulerComponent {
   @Input() set calendarEvents(events: CalendarSchedulerEvent[]) {
     this.events = events;
   }
+
+  @Output() segmentClickedEmit = new EventEmitter<SegmentActionEvent>();
 
   @ViewChild(CalendarSchedulerViewComponent)
   calendarScheduler!: CalendarSchedulerViewComponent;
@@ -178,8 +189,10 @@ export class SchedulerComponent {
   }
 
   segmentClicked(action: string, segment: SchedulerViewHourSegment): void {
-    console.log('segmentClicked Action', action);
-    console.log('segmentClicked Segment', segment);
+    this.segmentClickedEmit.emit({
+      action,
+      segment,
+    });
   }
 
   eventClicked(action: string, event: CalendarSchedulerEvent): void {

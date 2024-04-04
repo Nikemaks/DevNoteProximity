@@ -4,4 +4,6 @@
   </button>
 </div>
 
-<app-scheduler [calendarEvents]="calendarEvents"></app-scheduler>
+<app-scheduler
+  [calendarEvents]="calendarEvents"
+  (segmentClickedEmit)="onSegmentClicked($event)"></app-scheduler>

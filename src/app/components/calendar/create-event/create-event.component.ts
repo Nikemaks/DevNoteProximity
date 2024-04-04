@@ -1,5 +1,6 @@
-import { Component } from '@angular/core';
+import { Component, Inject } from '@angular/core';
 import {
+  MAT_DIALOG_DATA,
   MatDialogActions,
   MatDialogClose,
   MatDialogContent,
@@ -23,12 +24,9 @@ import { NgxMaterialTimepickerModule } from 'ngx-material-timepicker';
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import { provideNativeDateAdapter } from '@angular/material/core';
 import { MatSelectModule } from '@angular/material/select';
-import { CalendarSchedulerEventStatus } from 'angular-calendar-scheduler/modules/scheduler/models/calendar-scheduler-event.model';
-
-interface EventStatusItem {
-  value: CalendarSchedulerEventStatus;
-  viewValue: string;
-}
+import { format } from 'date-fns';
+import { EventStatusItem } from '../../../interfaces/event-model';
+import { FORMAT_TIME_STR } from '../../../constants/calendar-events';
 
 @Component({
   selector: 'app-create-event',
@@ -72,8 +70,11 @@ export class CreateEventComponent {
   ];
   formGroup = this.fb.group({
     title: ['', [Validators.required]],
-    day: ['', [Validators.required]],
-    start: ['', [Validators.required]],
+    day: [this.data?.date || '', [Validators.required]],
+    start: [
+      this.data ? format(this.data?.date, FORMAT_TIME_STR) : '',
+      [Validators.required],
+    ],
     end: ['', [Validators.required]],
     content: ['', [Validators.required]],
     status: ['', [Validators.required]],
@@ -81,7 +82,8 @@ export class CreateEventComponent {
 
   constructor(
     public dialogRef: MatDialogRef<CreateEventComponent>,
-    private fb: FormBuilder
+    private fb: FormBuilder,
+    @Inject(MAT_DIALOG_DATA) public data: { date: Date }
   ) {}
 
   onNoClick(): void {
