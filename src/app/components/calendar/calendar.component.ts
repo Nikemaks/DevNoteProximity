@@ -55,4 +55,8 @@ export class CalendarComponent {
       this.store.saveEvent$(new EventModel(value));
     });
   }
+
+  onUpdateEvents(events: CalendarSchedulerEvent[]) {
+    this.store.updateAllEvents$(events as EventModel[]);
+  }
 }
