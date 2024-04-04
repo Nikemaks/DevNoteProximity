@@ -84,6 +84,33 @@ export class FullNotesService {
     );
   }
 
+  updateNotes(id: string, title: string, htmlContent: string) {
+    return this.fetchAllTestAccounts().pipe(
+      switchMap((notes: FullNoteItem[]) => {
+        const currentNote = notes.find(itm => itm.id === id);
+        const updateNote = Object.assign({}, currentNote, { notes });
+        const newArray = [updateNote, ...notes];
+
+        this.localStorage.setStorage<FullNoteItem[]>(
+          this.storageKey,
+          this.filterUniqueById(newArray)
+        );
+        return of({ id, title, htmlContent });
+      })
+    );
+  }
+
+  filterUniqueById(arr: FullNoteItem[]) {
+    const seenIds = new Set();
+    return arr.filter((obj: FullNoteItem) => {
+      if (!seenIds.has(obj.id)) {
+        seenIds.add(obj.id);
+        return true;
+      }
+      return false;
+    });
+  }
+
   generateId(): string {
     return Math.random().toString(36).substring(2, 8);
   }

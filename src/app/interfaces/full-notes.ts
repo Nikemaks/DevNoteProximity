@@ -5,6 +5,12 @@ export interface FullNoteItem {
   updatedAt?: string;
 }
 
+export interface UpdateInterface {
+  id: string;
+  title: string;
+  htmlContent: string;
+}
+
 export interface FullNotesSettings {
   isDisplayType: boolean;
 }
