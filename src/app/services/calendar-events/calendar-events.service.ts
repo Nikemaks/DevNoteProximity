@@ -25,4 +25,9 @@ export class CalendarEventsService {
       })
     );
   }
+
+  updateCalendarEvents(events: EventModel[]): Observable<EventModel[]> {
+    this.localStorage.setStorage<EventModel[]>(this.storageKey, events);
+    return of(events);
+  }
 }

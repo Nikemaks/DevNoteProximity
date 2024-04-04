@@ -6,4 +6,5 @@
 
 <app-scheduler
   [calendarEvents]="calendarEvents"
-  (segmentClickedEmit)="onSegmentClicked($event)"></app-scheduler>
+  (segmentClickedEmit)="onSegmentClicked($event)"
+  (updateEvents)="onUpdateEvents($event)"></app-scheduler>

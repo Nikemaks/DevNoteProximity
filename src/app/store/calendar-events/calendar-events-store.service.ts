@@ -31,6 +31,13 @@ export class CalendarEventsStore extends ComponentStore<CalendarEventsStoreInter
     })
   );
 
+  readonly updateEvents = this.updater(
+    (state: CalendarEventsStoreInterface, calendarEvents: EventModel[]) => ({
+      ...state,
+      calendarEvents,
+    })
+  );
+
   readonly setEvents = this.updater(
     (state: CalendarEventsStoreInterface, calendarEvents: EventModel[]) => ({
       ...state,
@@ -69,4 +76,19 @@ export class CalendarEventsStore extends ComponentStore<CalendarEventsStoreInter
       )
     );
   });
+
+  readonly updateAllEvents$ = this.effect(
+    (events$: Observable<EventModel[]>) => {
+      return events$.pipe(
+        switchMap(events =>
+          this.calendarEventsService.updateCalendarEvents(events).pipe(
+            tapResponse(
+              event => this.updateEvents(event),
+              (error: HttpErrorResponse) => console.log(error)
+            )
+          )
+        )
+      );
+    }
+  );
 }

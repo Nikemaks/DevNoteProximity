@@ -99,6 +99,7 @@ export class SchedulerComponent {
   }
 
   @Output() segmentClickedEmit = new EventEmitter<SegmentActionEvent>();
+  @Output() updateEvents = new EventEmitter<CalendarSchedulerEvent[]>();
 
   @ViewChild(CalendarSchedulerViewComponent)
   calendarScheduler!: CalendarSchedulerViewComponent;
@@ -204,16 +205,13 @@ export class SchedulerComponent {
     event,
     newStart,
     newEnd,
-    type,
   }: SchedulerEventTimesChangedEvent): void {
-    console.log('eventTimesChanged Type', type);
-    console.log('eventTimesChanged Event', event);
-    console.log('eventTimesChanged New Times', newStart, newEnd);
     const ev: CalendarSchedulerEvent =
       this.events.find(e => e.id === event.id) ||
       ({} as CalendarSchedulerEvent);
     ev.start = newStart;
     ev.end = newEnd;
     this.refresh.next('');
+    this.updateEvents.emit(this.events);
   }
 }
