@@ -9,6 +9,7 @@ import { EventModel } from '../../models/EventModel';
 import { CalendarEventsStore } from '../../store/calendar-events/calendar-events-store.service';
 import { CalendarSchedulerEvent } from 'angular-calendar-scheduler';
 import { FormValue } from '../../interfaces/event-model';
+import { SegmentActionEvent } from '../../modules/scheduler/interfaces';
 
 @Component({
   selector: 'app-calendar',
@@ -36,11 +37,21 @@ export class CalendarComponent {
   }
 
   addEvent() {
+    this.openCreateEventDialog();
+  }
+
+  onSegmentClicked({ segment }: SegmentActionEvent) {
+    this.openCreateEventDialog({ date: segment.date });
+  }
+
+  openCreateEventDialog(data?: { date: Date }) {
     const dialogRef = this.dialog.open(CreateEventComponent, {
       height: '500px',
       width: '720px',
+      data,
     });
     dialogRef.afterClosed().subscribe((value: FormValue) => {
+      if (!value) return;
       this.store.saveEvent$(new EventModel(value));
     });
   }
