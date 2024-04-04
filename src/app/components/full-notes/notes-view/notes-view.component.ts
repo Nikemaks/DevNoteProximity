@@ -11,7 +11,6 @@ import { MatDialog } from '@angular/material/dialog';
 import { ConfirmActionComponent } from '../../modals/confirm-action/confirm-action.component';
 import { Router } from '@angular/router';
 import { FullNoteItem } from '../../../interfaces/full-notes';
-import { NotesCreateComponent } from '../notes-create/notes-create.component';
 
 @Component({
   selector: 'app-notes-view',
@@ -39,19 +38,11 @@ export class NotesViewComponent {
     this.isEditMode = !this.isEditMode;
   }
 
-  saveChanges(note?: FullNoteItem) {
-    /*this.isContentEditable = false;
+  saveChanges(note: FullNoteItem) {
+    this.isContentEditable = false;
     this.isEditMode = false;
 
-    this.store.updateAndSaveNotes$({
-      id: this.note.id || '',
-      title: this.note.title || '',
-      htmlContent: this.note.htmlContent || '',
-    });*/
-    const newNote: FullNoteItem = { id: '', title: '', htmlContent: '' };
-    const dialogRef = this.dialog.open(NotesCreateComponent, {
-      data: note ? { note: { ...note } } : { note: newNote },
-    });
+    this.store.updateAndSaveNote$(note);
   }
 
   cancelChanges() {

@@ -1,10 +1,6 @@
 import { Injectable } from '@angular/core';
 import { ComponentStore, tapResponse } from '@ngrx/component-store';
-import {
-  FullNoteItem,
-  FullNotesSettings,
-  UpdateInterface,
-} from '../../interfaces/full-notes';
+import { FullNoteItem, FullNotesSettings } from '../../interfaces/full-notes';
 import { Observable, of } from 'rxjs';
 import { exhaustMap, switchMap } from 'rxjs/operators';
 import { HttpErrorResponse } from '@angular/common/http';
@@ -71,16 +67,14 @@ export class FullNotesStoreService extends ComponentStore<FullNotesStore> {
     })
   );
 
-  readonly updateNotes = this.updater(
-    (state: FullNotesStore, { id, title, htmlContent }: UpdateInterface) => ({
+  readonly updateNote = this.updater(
+    (state: FullNotesStore, updatedNote: Partial<FullNoteItem>) => ({
       ...state,
-      notes: state.notes.map((note: FullNoteItem) => {
-        if (id === note.id) {
+      notes: state.notes.map(note => {
+        if (note.id === updatedNote.id) {
           return {
             ...note,
-            title: title !== undefined ? title : note.title,
-            htmlContent:
-              htmlContent !== undefined ? htmlContent : note.htmlContent,
+            ...updatedNote,
           };
         }
         return note;
@@ -115,17 +109,17 @@ export class FullNotesStoreService extends ComponentStore<FullNotesStore> {
     );
   });
 
-  readonly updateAndSaveNotes$ = this.effect(
+  readonly updateAndSaveNote$ = this.effect(
     (note$: Observable<FullNoteItem>) => {
       return note$.pipe(
-        switchMap(({ id, title, htmlContent }) =>
-          this.fullNotesService.updateNotes(id, title, htmlContent).pipe(
+        switchMap((updatedNote: FullNoteItem) => {
+          return this.fullNotesService.updateNote(updatedNote).pipe(
             tapResponse(
-              notes => this.updateNotes(notes),
+              () => this.updateNote(updatedNote),
               (error: HttpErrorResponse) => console.log(error)
             )
-          )
-        )
+          );
+        })
       );
     }
   );

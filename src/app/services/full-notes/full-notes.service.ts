@@ -10,6 +10,7 @@ import { Observable, of } from 'rxjs';
 export class FullNotesService {
   storageKey = 'FULL_NOTES';
   storageKeySettings = 'FULL_NOTES_SWITCH_TYPE';
+  storageKeyEditNote = 'EDIT_NOTE';
 
   constructor(private localStorage: StorageService) {}
 
@@ -23,6 +24,12 @@ export class FullNotesService {
     );
   }
 
+  fetchEditNote() {
+    return this.localStorage.getStorageItem<FullNoteItem[]>(
+      this.storageKeyEditNote
+    );
+  }
+
   saveNote(note: FullNoteItem): Observable<FullNoteItem[]> {
     return this.fetchAllTestAccounts().pipe(
       switchMap((notes: FullNoteItem[]) => {
@@ -30,6 +37,21 @@ export class FullNotesService {
         const newArray = [note, ...notes];
         this.localStorage.setStorage<FullNoteItem[]>(this.storageKey, newArray);
         return of([note]);
+      })
+    );
+  }
+
+  updateNote(updateNote: FullNoteItem): Observable<FullNoteItem[]> {
+    return this.fetchAllTestAccounts().pipe(
+      switchMap((notes: FullNoteItem[]) => {
+        const index = notes.findIndex(note => note.id === updateNote.id);
+        if (index !== -1) {
+          notes[index] = updateNote;
+          this.localStorage.setStorage<FullNoteItem[]>(this.storageKey, notes);
+          return of(notes);
+        } else {
+          return of([]);
+        }
       })
     );
   }
@@ -60,33 +82,6 @@ export class FullNotesService {
         }
       )
     );
-  }
-
-  updateNotes(id: string, title: string, htmlContent: string) {
-    return this.fetchAllTestAccounts().pipe(
-      switchMap((notes: FullNoteItem[]) => {
-        const currentNote = notes.find(itm => itm.id === id);
-        const updateNote = Object.assign({}, currentNote, { notes });
-        const newArray = [updateNote, ...notes];
-
-        this.localStorage.setStorage<FullNoteItem[]>(
-          this.storageKey,
-          this.filterUniqueById(newArray)
-        );
-        return of({ id, title, htmlContent });
-      })
-    );
-  }
-
-  filterUniqueById(arr: FullNoteItem[]) {
-    const seenIds = new Set();
-    return arr.filter((obj: FullNoteItem) => {
-      if (!seenIds.has(obj.id)) {
-        seenIds.add(obj.id);
-        return true;
-      }
-      return false;
-    });
   }
 
   generateId(): string {
