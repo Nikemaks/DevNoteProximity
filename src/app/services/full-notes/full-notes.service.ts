@@ -44,14 +44,18 @@ export class FullNotesService {
   updateNote(updateNote: FullNoteItem): Observable<FullNoteItem[]> {
     return this.fetchAllTestAccounts().pipe(
       switchMap((notes: FullNoteItem[]) => {
-        const index = notes.findIndex(note => note.id === updateNote.id);
-        if (index !== -1) {
-          notes[index] = updateNote;
-          this.localStorage.setStorage<FullNoteItem[]>(this.storageKey, notes);
-          return of(notes);
-        } else {
-          return of([]);
-        }
+        const updatedNotes = notes.map(note => {
+          if (note.id === updateNote.id) {
+            return updateNote;
+          }
+          return note;
+        });
+        this.localStorage.setStorage<FullNoteItem[]>(
+          this.storageKey,
+          updatedNotes
+        );
+        console.log(updatedNotes);
+        return of(updatedNotes);
       })
     );
   }

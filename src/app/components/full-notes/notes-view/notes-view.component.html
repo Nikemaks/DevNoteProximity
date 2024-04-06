@@ -1,32 +1,35 @@
 @if (note$ | async; as note) {
-  <div class="notes">
-    <div class="header">
-      <blockquote [attr.contenteditable]="isContentEditable ? 'true' : 'false'">
-        <div class="title">{{ note.title }}</div>
-      </blockquote>
-      <div class="buttons">
-        @if (isEditMode) {
-          <button mat-raised-button color="primary" (click)="saveChanges(note)">
-            <mat-icon>save</mat-icon>
-          </button>
-          <button mat-raised-button color="warn" (click)="cancelChanges()">
-            <mat-icon>cancel</mat-icon>
-          </button>
-        } @else {
-          <button
-            mat-raised-button
-            color="primary"
-            (click)="toggleContentEditable()">
-            <mat-icon>create</mat-icon>
-          </button>
-          <button mat-raised-button color="warn" (click)="deleteNote(note.id)">
-            <mat-icon>delete</mat-icon>
-          </button>
-        }
+  <form [formGroup]="formGroup">
+    <div class="notes">
+      <div class="header">
+        <input matInput formControlName="title" />
+        <div class="buttons">
+          @if (isEditMode) {
+            <button mat-raised-button color="primary" (click)="saveChanges()">
+              <mat-icon>save</mat-icon>
+            </button>
+            <button mat-raised-button color="warn" (click)="cancelChanges()">
+              <mat-icon>cancel</mat-icon>
+            </button>
+          } @else {
+            <button
+              mat-raised-button
+              color="primary"
+              (click)="toggleContentEditable()">
+              <mat-icon>create</mat-icon>
+            </button>
+            <button
+              mat-raised-button
+              color="warn"
+              (click)="deleteNote(note.id)">
+              <mat-icon>delete</mat-icon>
+            </button>
+          }
+        </div>
       </div>
+      <angular-editor
+        formControlName="htmlContent"
+        [config]="editorConfig"></angular-editor>
     </div>
-    <blockquote [attr.contenteditable]="isContentEditable ? 'true' : 'false'">
-      <div class="content">{{ note.htmlContent }}</div>
-    </blockquote>
-  </div>
+  </form>
 }

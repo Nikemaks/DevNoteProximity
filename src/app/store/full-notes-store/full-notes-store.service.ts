@@ -67,20 +67,10 @@ export class FullNotesStoreService extends ComponentStore<FullNotesStore> {
     })
   );
 
-  readonly updateNote = this.updater(
-    (state: FullNotesStore, updatedNote: Partial<FullNoteItem>) => ({
-      ...state,
-      notes: state.notes.map(note => {
-        if (note.id === updatedNote.id) {
-          return {
-            ...note,
-            ...updatedNote,
-          };
-        }
-        return note;
-      }),
-    })
-  );
+  readonly updateNote = this.updater((state, notes: FullNoteItem[]) => ({
+    ...state,
+    notes: [...notes],
+  }));
 
   // effects
   readonly getAllNotes$ = this.effect<void>(trigger$ =>
@@ -109,20 +99,18 @@ export class FullNotesStoreService extends ComponentStore<FullNotesStore> {
     );
   });
 
-  readonly updateAndSaveNote$ = this.effect(
-    (note$: Observable<FullNoteItem>) => {
-      return note$.pipe(
-        switchMap((updatedNote: FullNoteItem) => {
-          return this.fullNotesService.updateNote(updatedNote).pipe(
-            tapResponse(
-              () => this.updateNote(updatedNote),
-              (error: HttpErrorResponse) => console.log(error)
-            )
-          );
-        })
-      );
-    }
-  );
+  readonly updateNote$ = this.effect((note$: Observable<FullNoteItem>) => {
+    return note$.pipe(
+      switchMap(note =>
+        this.fullNotesService.updateNote(note).pipe(
+          tapResponse(
+            notes => this.updateNote(notes),
+            (error: HttpErrorResponse) => console.log(error)
+          )
+        )
+      )
+    );
+  });
 
   readonly saveToggle$ = this.effect(trigger$ => {
     return trigger$.pipe(
