@@ -1,8 +1,5 @@
-import { Component, Input, OnInit } from '@angular/core';
-import {
-  FullNotesStore,
-  FullNotesStoreService,
-} from '../../../store/full-notes-store/full-notes-store.service';
+import { Component, OnInit } from '@angular/core';
+import { FullNotesStoreService } from '../../../store/full-notes-store/full-notes-store.service';
 import { CommonModule } from '@angular/common';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
@@ -31,7 +28,6 @@ import { AngularEditorModule } from '@kolkov/angular-editor';
   styleUrl: './notes-view.component.scss',
 })
 export class NotesViewComponent implements OnInit {
-  @Input() note!: FullNotesStore;
   isContentEditable: boolean = false;
   isEditMode: boolean = false;
 
@@ -55,7 +51,7 @@ export class NotesViewComponent implements OnInit {
   ngOnInit() {
     this.store.selectModelForView$.subscribe(noteViewItem => {
       const { title, htmlContent } = noteViewItem;
-      this.formGroup.disable();
+      // this.formGroup.disable();
       this.formGroup.patchValue({ title, htmlContent });
       this.noteViewItem = noteViewItem;
     });
@@ -64,7 +60,7 @@ export class NotesViewComponent implements OnInit {
   toggleContentEditable() {
     this.isContentEditable = !this.isContentEditable;
     this.isEditMode = !this.isEditMode;
-    this.formGroup.enable();
+    // this.formGroup.enable();
   }
 
   saveChanges() {
@@ -83,7 +79,7 @@ export class NotesViewComponent implements OnInit {
   cancelChanges() {
     this.isContentEditable = false;
     this.isEditMode = false;
-    this.formGroup.disable();
+    // this.formGroup.disable();
   }
 
   deleteNote(removeId: string | null) {

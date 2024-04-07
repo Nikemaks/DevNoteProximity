@@ -2,7 +2,11 @@
   <form [formGroup]="formGroup">
     <div class="notes">
       <div class="header">
-        <input matInput formControlName="title" />
+        @if (isEditMode) {
+          <input class="title" matInput formControlName="title" />
+        } @else {
+          <div class="title">{{ note.title }}</div>
+        }
         <div class="buttons">
           @if (isEditMode) {
             <button mat-raised-button color="primary" (click)="saveChanges()">
@@ -27,9 +31,13 @@
           }
         </div>
       </div>
-      <angular-editor
-        formControlName="htmlContent"
-        [config]="editorConfig"></angular-editor>
+      @if (isEditMode) {
+        <angular-editor
+          formControlName="htmlContent"
+          [config]="editorConfig"></angular-editor>
+      } @else {
+        <div class="content">{{ note.htmlContent }}</div>
+      }
     </div>
   </form>
 }
