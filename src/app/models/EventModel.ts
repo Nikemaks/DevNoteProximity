@@ -8,12 +8,11 @@ import { FormValue } from '../interfaces/event-model';
 import {
   DEFAULT_COLORS,
   DEFAULT_RESIABLE,
-  DEFAULT_ACTION,
   FORMAT_TIME_STR,
 } from '../constants/calendar-events';
 
 export class EventModel {
-  actions: CalendarSchedulerEventAction[];
+  actions?: CalendarSchedulerEventAction[];
   color: EventColor;
   content: string;
   draggable: boolean;
@@ -42,7 +41,6 @@ export class EventModel {
     this.isClickable = true;
     this.isCancelled = false;
     this.draggable = true;
-    this.actions = DEFAULT_ACTION;
   }
 
   addTimeToDate(timeString: string, date: Date) {

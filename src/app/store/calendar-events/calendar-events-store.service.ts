@@ -5,6 +5,7 @@ import { exhaustMap, Observable } from 'rxjs';
 import { CalendarEventsService } from '../../services/calendar-events/calendar-events.service';
 import { HttpErrorResponse } from '@angular/common/http';
 import { switchMap } from 'rxjs/operators';
+import { createDefaultAction } from '../../constants/calendar-events';
 
 export interface CalendarEventsStoreInterface {
   calendarEvents: EventModel[];
@@ -24,13 +25,6 @@ export class CalendarEventsStore extends ComponentStore<CalendarEventsStoreInter
   );
 
   // updaters
-  readonly addEvent = this.updater(
-    (state: CalendarEventsStoreInterface, events: EventModel[]) => ({
-      ...state,
-      calendarEvents: [...state.calendarEvents, ...events],
-    })
-  );
-
   readonly updateEvents = this.updater(
     (state: CalendarEventsStoreInterface, calendarEvents: EventModel[]) => ({
       ...state,
@@ -38,13 +32,19 @@ export class CalendarEventsStore extends ComponentStore<CalendarEventsStoreInter
     })
   );
 
-  readonly setEvents = this.updater(
+  readonly setEvents: (
+    calendarEvents: EventModel[]
+  ) => CalendarEventsStoreInterface = this.updater(
     (state: CalendarEventsStoreInterface, calendarEvents: EventModel[]) => ({
       ...state,
-      calendarEvents: calendarEvents.map(event => {
+      calendarEvents: calendarEvents.map((event: EventModel) => {
         return Object.assign({}, event, {
           start: new Date(event.start),
           end: new Date(event.end),
+          actions: createDefaultAction(
+            () => this.deleteCalendarEvent$(event.id || ''),
+            () => this.toggleCancelCalendarEvent$(event.id || '')
+          ),
         });
       }),
     })
@@ -64,12 +64,38 @@ export class CalendarEventsStore extends ComponentStore<CalendarEventsStoreInter
     )
   );
 
+  readonly deleteCalendarEvent$ = this.effect<string>(removeId$ =>
+    removeId$.pipe(
+      exhaustMap((removeId: string) =>
+        this.calendarEventsService.removeEvent(removeId).pipe(
+          tapResponse({
+            next: (events: EventModel[]) => this.setEvents(events),
+            error: (error: HttpErrorResponse) => console.error(error),
+          })
+        )
+      )
+    )
+  );
+
+  readonly toggleCancelCalendarEvent$ = this.effect<string>(cancelId$ =>
+    cancelId$.pipe(
+      exhaustMap((cancelId: string) =>
+        this.calendarEventsService.toggleCancelEvent(cancelId).pipe(
+          tapResponse({
+            next: (events: EventModel[]) => this.setEvents(events),
+            error: (error: HttpErrorResponse) => console.error(error),
+          })
+        )
+      )
+    )
+  );
+
   readonly saveEvent$ = this.effect((event$: Observable<EventModel>) => {
     return event$.pipe(
       switchMap(event =>
         this.calendarEventsService.saveCalendarEvent(event).pipe(
           tapResponse(
-            event => this.addEvent(event),
+            events => this.setEvents(events),
             (error: HttpErrorResponse) => console.log(error)
           )
         )
