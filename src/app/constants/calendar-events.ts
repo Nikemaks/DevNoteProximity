@@ -4,6 +4,7 @@ import {
 } from 'angular-calendar-scheduler/modules/scheduler/models/calendar-scheduler-event.model';
 import { EventColor } from 'calendar-utils';
 import { EventResiable } from '../interfaces/event-model';
+import { Subscription } from 'rxjs';
 
 export const DEFAULT_COLORS: EventColor = {
   primary: '#E0E0E0',
@@ -15,25 +16,38 @@ export const DEFAULT_RESIABLE: EventResiable = {
   afterEnd: true,
 };
 
-export const DEFAULT_ACTION: CalendarSchedulerEventAction[] = [
-  {
-    when: 'enabled',
-    label:
-      '<span class="valign-center"><i class="material-icons md-18 md-red-500">cancel</i></span>',
-    title: 'Delete',
-    onClick: (event: CalendarSchedulerEvent): void => {
-      console.log("Pressed action 'Delete' on event " + event.id);
+export const createDefaultAction = (
+  deleteCallback: (event: CalendarSchedulerEvent) => Subscription,
+  toggleCancelCallback: (event: CalendarSchedulerEvent) => Subscription
+): CalendarSchedulerEventAction[] => {
+  return [
+    {
+      label:
+        '<span class="valign-center"><i class="material-icons md-18 md-red-500">delete</i></span>',
+      title: 'Delete',
+      onClick: (event: CalendarSchedulerEvent): void => {
+        deleteCallback(event);
+      },
     },
-  },
-  {
-    when: 'cancelled',
-    label:
-      '<span class="valign-center"><i class="material-icons md-18 md-red-500">autorenew</i></span>',
-    title: 'Restore',
-    onClick: (event: CalendarSchedulerEvent): void => {
-      console.log("Pressed action 'Restore' on event " + event.id);
+    {
+      when: 'enabled',
+      label:
+        '<span class="valign-center"><i class="material-icons md-18 md-red-500">cancel</i></span>',
+      title: 'Cancel',
+      onClick: (event: CalendarSchedulerEvent): void => {
+        toggleCancelCallback(event);
+      },
     },
-  },
-];
+    {
+      when: 'cancelled',
+      label:
+        '<span class="valign-center"><i class="material-icons md-18 md-red-500">autorenew</i></span>',
+      title: 'Restore',
+      onClick: (event: CalendarSchedulerEvent): void => {
+        toggleCancelCallback(event);
+      },
+    },
+  ];
+};
 
 export const FORMAT_TIME_STR = 'h:mm aa';
