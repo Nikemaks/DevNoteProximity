@@ -27,6 +27,7 @@ import { MatSelectModule } from '@angular/material/select';
 import { format } from 'date-fns';
 import { EventStatusItem } from '../../../interfaces/event-model';
 import { FORMAT_TIME_STR } from '../../../constants/calendar-events';
+import { startEndValidator } from '../../../validators/startEndValidator';
 
 @Component({
   selector: 'app-create-event',
@@ -68,17 +69,20 @@ export class CreateEventComponent {
       viewValue: 'High important',
     },
   ];
-  formGroup = this.fb.group({
-    title: ['', [Validators.required]],
-    day: [this.data?.date || '', [Validators.required]],
-    start: [
-      this.data ? format(this.data?.date, FORMAT_TIME_STR) : '',
-      [Validators.required],
-    ],
-    end: ['', [Validators.required]],
-    content: ['', [Validators.required]],
-    status: ['', [Validators.required]],
-  });
+  formGroup = this.fb.group(
+    {
+      title: ['', [Validators.required]],
+      day: [this.data?.date || '', [Validators.required]],
+      start: [
+        this.data ? format(this.data?.date, FORMAT_TIME_STR) : '',
+        [Validators.required],
+      ],
+      end: ['', [Validators.required]],
+      content: ['', [Validators.required]],
+      status: ['', [Validators.required]],
+    },
+    { validators: startEndValidator }
+  );
 
   constructor(
     public dialogRef: MatDialogRef<CreateEventComponent>,
