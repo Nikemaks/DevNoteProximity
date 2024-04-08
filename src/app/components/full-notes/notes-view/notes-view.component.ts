@@ -9,7 +9,7 @@ import { ConfirmActionComponent } from '../../modals/confirm-action/confirm-acti
 import { Router } from '@angular/router';
 import { FullNoteItem } from '../../../interfaces/full-notes';
 import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
-import { MatInput } from '@angular/material/input';
+import { MatFormField, MatInput } from '@angular/material/input';
 import { EDITOR_CONFIG } from '../notes-create/config';
 import { AngularEditorModule } from '@kolkov/angular-editor';
 
@@ -23,6 +23,7 @@ import { AngularEditorModule } from '@kolkov/angular-editor';
     ReactiveFormsModule,
     MatInput,
     AngularEditorModule,
+    MatFormField,
   ],
   templateUrl: './notes-view.component.html',
   styleUrl: './notes-view.component.scss',
