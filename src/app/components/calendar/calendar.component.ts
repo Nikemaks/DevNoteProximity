@@ -46,7 +46,7 @@ export class CalendarComponent {
 
   openCreateEventDialog(data?: { date: Date }) {
     const dialogRef = this.dialog.open(CreateEventComponent, {
-      height: '500px',
+      height: '550px',
       width: '720px',
       data,
     });

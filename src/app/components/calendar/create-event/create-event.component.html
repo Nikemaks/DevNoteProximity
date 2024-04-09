@@ -1,10 +1,18 @@
 <h2 mat-dialog-title>{{ 'calendar.create_modal.modal_title' | translate }}</h2>
 <mat-dialog-content class="content">
   <form class="container" [formGroup]="formGroup">
+    @if (
+      formGroup.errors?.['endTimeMoreThanStart'] &&
+      formGroup.get('start')?.touched
+    ) {
+      <mat-error class="cross-validation-error-message alert alert-danger">
+        The event should start before it finishes.
+      </mat-error>
+    }
     <mat-form-field>
-      <mat-label>{{
-        'calendar.create_modal.title_label' | translate
-      }}</mat-label>
+      <mat-label
+        >{{ 'calendar.create_modal.title_label' | translate }}
+      </mat-label>
       <input matInput formControlName="title" />
     </mat-form-field>
     <mat-form-field>
