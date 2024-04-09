@@ -12,6 +12,7 @@ import { Theme, Language } from '../../enums/enums';
 import { Observable } from 'rxjs';
 import { TranslateModule } from '@ngx-translate/core';
 import { TranslateService } from '@ngx-translate/core';
+import { AuthService } from '../../services/auth/auth.service';
 
 @Component({
   selector: 'app-layout',
@@ -37,7 +38,8 @@ export class LayoutComponent implements OnInit {
 
   constructor(
     private userSettingsStoreService: UserSettingStoreService,
-    private translate: TranslateService
+    private translate: TranslateService,
+    private authService: AuthService
   ) {}
 
   ngOnInit() {
@@ -49,5 +51,9 @@ export class LayoutComponent implements OnInit {
         this.translate.use(language);
       }
     );
+  }
+
+  logout() {
+    this.authService.logout();
   }
 }

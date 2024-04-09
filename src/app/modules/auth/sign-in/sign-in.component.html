@@ -1,8 +1,10 @@
 <section class="block">
-  <form [formGroup]="loginForm" (ngSubmit)="onSubmit($event)" class="form">
+  <form [formGroup]="formGroup" (ngSubmit)="onSubmit($event)" class="form">
     <div class="title">{{ 'login.sign_in' | translate }}</div>
-    <button class="singIn">Sign in with Google</button>
-    <input formControlName="username" placeholder="Username" type="text" />
+    <button (click)="googleLogIn($event)" class="singIn">
+      Sign in with Google
+    </button>
+    <input formControlName="email" placeholder="Email" type="text" />
     <input formControlName="password" placeholder="Password" type="password" />
     <div class="group">
       <div class="remember">
@@ -12,7 +14,7 @@
       </div>
       <div class="forgot">Forgot password?</div>
     </div>
-    <button [disabled]="!loginForm.valid" class="login">Login</button>
+    <button class="login" type="submit">Login</button>
   </form>
   <div class="signUp">
     <div>Don't have account?</div>
