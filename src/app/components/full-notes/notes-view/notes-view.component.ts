@@ -5,13 +5,13 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
 import { FullNotesService } from '../../../services/full-notes/full-notes.service';
 import { MatDialog } from '@angular/material/dialog';
-import { ConfirmActionComponent } from '../../modals/confirm-action/confirm-action.component';
 import { Router } from '@angular/router';
 import { FullNoteItem } from '../../../interfaces/full-notes';
 import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
 import { MatFormField, MatInput } from '@angular/material/input';
 import { EDITOR_CONFIG } from '../notes-create/config';
 import { AngularEditorModule } from '@kolkov/angular-editor';
+import { DynamicDialogComponent } from '../../modals/dynamic-dialog/dynamic-dialog.component';
 
 @Component({
   selector: 'app-notes-view',
@@ -84,7 +84,11 @@ export class NotesViewComponent implements OnInit {
   }
 
   deleteNote(removeId: string | null) {
-    const dialogRef = this.dialog.open(ConfirmActionComponent);
+    const dialogRef = this.dialog.open(DynamicDialogComponent, {
+      data: {
+        title: 'Remove Note',
+      },
+    });
     dialogRef.afterClosed().subscribe(result => {
       if (result) {
         this.store.removeNote$(removeId || '');
