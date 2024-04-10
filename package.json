@@ -1,5 +1,5 @@
 {
-  "name": "dev-note-proximity",
+  "name": "devnoteproximity",
   "version": "0.0.1",
   "scripts": {
     "ng": "ng",
@@ -8,7 +8,7 @@
     "watch": "ng build --watch --configuration development",
     "test": "ng test",
     "test:prod": "ng test --no-watch --no-progress --browsers=ChromeHeadless",
-    "serve:ssr:DevNote-Proximity": "node dist/dev-note-proximity/server/server.mjs",
+    "serve:ssr:devnoteproximity": "node dist/dev-note-proximity/server/server.mjs",
     "deploy": "ng deploy --base-href=/angular-ci-cd-with-github-actions/",
     "lint": "ng lint",
     "prettier": "npx prettier --write .",
@@ -22,6 +22,7 @@
     "@angular/common": "^17.0.0",
     "@angular/compiler": "^17.0.0",
     "@angular/core": "^17.0.0",
+    "@angular/fire": "^17.0.1",
     "@angular/forms": "^17.0.0",
     "@angular/material": "^17.1.2",
     "@angular/material-moment-adapter": "^17.3.1",
@@ -39,6 +40,7 @@
     "angular-calendar-scheduler": "^16.0.0",
     "date-fns": "^3.3.1",
     "express": "^4.18.2",
+    "firebase-tools": "^13.7.1",
     "luxon": "^3.4.4",
     "moment": "^2.30.1",
     "ngx-material-timepicker": "^13.1.1",

@@ -9,6 +9,7 @@ import {
   ReactiveFormsModule,
   Validators,
 } from '@angular/forms';
+import { AuthService } from '../../../services/auth/auth.service';
 
 @Component({
   selector: 'app-login',
@@ -24,14 +25,25 @@ import {
   styleUrl: './sign-in.scss',
 })
 export class SignInComponent {
-  loginForm: FormGroup = this.formBuilder.group({
-    username: ['', Validators.required],
+  formGroup: FormGroup = this._fb.group({
+    email: ['', [Validators.required, Validators.email]],
     password: ['', Validators.required],
   });
 
-  constructor(private formBuilder: FormBuilder) {}
+  constructor(
+    private _fb: FormBuilder,
+    private authService: AuthService
+  ) {}
 
   onSubmit(event: Event) {
     event.preventDefault();
+    const { email, password } = this.formGroup.value;
+
+    this.authService.fireBaseSignInWithEmailAndPassword(email, password);
+  }
+
+  googleLogIn(event: Event) {
+    event.preventDefault();
+    this.authService.googleModalLogIn();
   }
 }

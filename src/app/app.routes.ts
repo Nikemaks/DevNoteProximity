@@ -9,6 +9,10 @@ import { SettingsComponent } from './components/settings/settings.component';
 import { NotesCreateComponent } from './components/full-notes/notes-create/notes-create.component';
 import { NotesListComponent } from './components/full-notes/notes-list/notes-list.component';
 import { NotesViewComponent } from './components/full-notes/notes-view/notes-view.component';
+import { AuthGuard, redirectUnauthorizedTo } from '@angular/fire/auth-guard';
+
+const redirectUnauthorizedToLogin = () =>
+  redirectUnauthorizedTo(['auth/sign-in']);
 
 export const routes: Routes = [
   {
@@ -19,6 +23,8 @@ export const routes: Routes = [
   {
     path: '',
     component: LayoutComponent,
+    canActivate: [AuthGuard],
+    data: { authGuardPipe: redirectUnauthorizedToLogin },
     children: [
       { path: '', redirectTo: 'home', pathMatch: 'full' },
       { path: 'home', component: HomeComponent },

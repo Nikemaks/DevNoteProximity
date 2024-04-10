@@ -3,7 +3,7 @@
   "version": 1,
   "newProjectRoot": "projects",
   "projects": {
-    "DevNote-Proximity": {
+    "devnoteproximity": {
       "projectType": "application",
       "schematics": {
         "@schematics/angular:component": {
@@ -68,10 +68,10 @@
           "builder": "@angular-devkit/build-angular:dev-server",
           "configurations": {
             "production": {
-              "buildTarget": "DevNote-Proximity:build:production"
+              "buildTarget": "devnoteproximity:build:production"
             },
             "development": {
-              "buildTarget": "DevNote-Proximity:build:development"
+              "buildTarget": "devnoteproximity:build:development"
             }
           },
           "defaultConfiguration": "development"
@@ -79,7 +79,7 @@
         "extract-i18n": {
           "builder": "@angular-devkit/build-angular:extract-i18n",
           "options": {
-            "buildTarget": "DevNote-Proximity:build"
+            "buildTarget": "devnoteproximity:build"
           }
         },
         "test": {
@@ -115,7 +115,21 @@
           }
         },
         "deploy": {
-          "builder": "angular-cli-ghpages:deploy"
+          "builder": "@angular/fire:deploy",
+          "options": {
+            "version": 2
+          },
+          "configurations": {
+            "production": {
+              "buildTarget": "devnoteproximity:build:production",
+              "serveTarget": "devnoteproximity:serve:production"
+            },
+            "development": {
+              "buildTarget": "devnoteproximity:build:development",
+              "serveTarget": "devnoteproximity:serve:development"
+            }
+          },
+          "defaultConfiguration": "production"
         }
       }
     }
