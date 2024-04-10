@@ -1,20 +1,48 @@
 <section class="block">
   <form [formGroup]="formGroup" (ngSubmit)="onSubmit($event)" class="form">
     <div class="title">{{ 'login.sign_in' | translate }}</div>
-    <button (click)="googleLogIn($event)" class="singIn">
-      Sign in with Google
+    <mat-form-field appearance="outline">
+      <input matInput formControlName="email" placeholder="Email" type="text" />
+      @if (formGroup.get('email')?.hasError('required')) {
+        <mat-error>You must enter a value</mat-error>
+      }
+      @if (formGroup.get('email')?.hasError('email')) {
+        <mat-error>Not a valid email</mat-error>
+      }
+    </mat-form-field>
+    <mat-form-field appearance="outline">
+      <input
+        matInput
+        formControlName="password"
+        placeholder="Password"
+        type="password" />
+      @if (formGroup.get('password')?.hasError('required')) {
+        <mat-error>You must enter a value</mat-error>
+      }
+      @if (formGroup.get('password')?.hasError('minlength')) {
+        <mat-error
+          >You must enter more than
+          {{
+            formGroup.get('password')?.errors?.['minlength']?.['requiredLength']
+          }}
+          symbols. Now
+          {{
+            formGroup.get('password')?.errors?.['minlength']?.['actualLength']
+          }}
+          symbols.
+        </mat-error>
+      }
+    </mat-form-field>
+    <button
+      mat-flat-button
+      color="primary"
+      type="submit"
+      [disabled]="formGroup.invalid">
+      Login
     </button>
-    <input formControlName="email" placeholder="Email" type="text" />
-    <input formControlName="password" placeholder="Password" type="password" />
-    <div class="group">
-      <div class="remember">
-        <mat-checkbox checked class="checkbox" color="primary">
-          Remember
-        </mat-checkbox>
-      </div>
-      <div class="forgot">Forgot password?</div>
-    </div>
-    <button class="login" type="submit">Login</button>
+    <app-google-button
+      [buttonName]="'Sign in with Google'"
+      (clickBtn)="googleLogIn($event)"></app-google-button>
   </form>
   <div class="signUp">
     <div>Don't have account?</div>
