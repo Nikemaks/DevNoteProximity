@@ -24,12 +24,6 @@ export class FullNotesService {
     );
   }
 
-  fetchEditNote() {
-    return this.localStorage.getStorageItem<FullNoteItem[]>(
-      this.storageKeyEditNote
-    );
-  }
-
   saveNote(note: FullNoteItem): Observable<FullNoteItem[]> {
     return this.fetchAllTestAccounts().pipe(
       switchMap((notes: FullNoteItem[]) => {
@@ -54,7 +48,6 @@ export class FullNotesService {
           this.storageKey,
           updatedNotes
         );
-        console.log(updatedNotes);
         return of(updatedNotes);
       })
     );

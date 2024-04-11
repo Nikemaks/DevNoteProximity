@@ -38,7 +38,7 @@
           formControlName="htmlContent"
           [config]="editorConfig"></angular-editor>
       } @else {
-        <div class="content">{{ note.htmlContent }}</div>
+        <div class="content" [innerHTML]="note.htmlContent"></div>
       }
     </div>
   </form>

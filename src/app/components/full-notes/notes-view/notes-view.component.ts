@@ -52,7 +52,6 @@ export class NotesViewComponent implements OnInit {
   ngOnInit() {
     this.store.selectModelForView$.subscribe(noteViewItem => {
       const { title, htmlContent } = noteViewItem;
-      // this.formGroup.disable();
       this.formGroup.patchValue({ title, htmlContent });
       this.noteViewItem = noteViewItem;
     });
@@ -61,39 +60,34 @@ export class NotesViewComponent implements OnInit {
   toggleContentEditable() {
     this.isContentEditable = !this.isContentEditable;
     this.isEditMode = !this.isEditMode;
-    // this.formGroup.enable();
   }
 
   saveChanges() {
     this.isContentEditable = false;
     this.isEditMode = false;
-    console.log(this.noteViewItem);
     const newValueNote = Object.assign(
       {},
       this.noteViewItem,
       this.formGroup.value
     );
-    console.log(newValueNote);
     this.store.updateNote$(newValueNote);
   }
 
   cancelChanges() {
     this.isContentEditable = false;
     this.isEditMode = false;
-    // this.formGroup.disable();
   }
 
   deleteNote(removeId: string | null) {
     const dialogRef = this.dialog.open(DynamicDialogComponent, {
       data: {
-        title: 'Remove Note',
+        title: 'dialog-window.title',
       },
     });
     dialogRef.afterClosed().subscribe(result => {
-      if (result) {
-        this.store.removeNote$(removeId || '');
-        this.router.navigate(['notes-full']);
-      }
+      if (!result) return;
+      this.store.removeNote$(removeId || '');
+      this.router.navigate(['notes-full']);
     });
   }
 }

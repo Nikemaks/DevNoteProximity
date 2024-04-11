@@ -8,6 +8,7 @@ import {
   MatDialogTitle,
 } from '@angular/material/dialog';
 import { DynamicDialog } from '../../../interfaces/dynamic-dialog';
+import { TranslateModule } from '@ngx-translate/core';
 
 @Component({
   selector: 'app-dynamic-dialog',
@@ -18,6 +19,7 @@ import { DynamicDialog } from '../../../interfaces/dynamic-dialog';
     MatDialogClose,
     MatDialogContent,
     MatDialogTitle,
+    TranslateModule,
   ],
   templateUrl: './dynamic-dialog.component.html',
   styleUrl: './dynamic-dialog.component.scss',
