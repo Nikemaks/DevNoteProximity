@@ -46,3 +46,17 @@ body {
 .timepicker-overlay {
   z-index: 1001 !important;
 }
+
+// fix library issue
+
+.cal-scheduler-view
+  .cal-scheduler
+  .cal-scheduler-cols
+  .cal-scheduler-col
+  .cal-scheduler-event-container
+  .cal-scheduler-event
+  .cal-scheduler-event-actions-container {
+  position: absolute !important;
+  bottom: 5px;
+  right: 10px;
+}

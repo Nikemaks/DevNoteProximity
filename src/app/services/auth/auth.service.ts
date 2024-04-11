@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import {
   Auth,
   signInWithEmailAndPassword,
+  createUserWithEmailAndPassword,
   UserCredential,
   User,
   signInWithPopup,
@@ -39,6 +40,22 @@ export class AuthService {
   googleModalLogIn() {
     const provider = new GoogleAuthProvider();
     signInWithPopup(this.auth, provider)
+      .then(async ({ user }: UserCredential) => {
+        this.user = user;
+        this.token = await user.getIdToken();
+
+        this.router.navigate(['home']);
+      })
+      .catch(error => {
+        // todo - add toast about server issues.
+        const errorCode = error.code;
+        const errorMessage = error.message;
+        console.log(errorCode, errorMessage);
+      });
+  }
+
+  signUpWithEmail(email: string, password: string) {
+    createUserWithEmailAndPassword(this.auth, email, password)
       .then(async ({ user }: UserCredential) => {
         this.user = user;
         this.token = await user.getIdToken();

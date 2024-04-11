@@ -1,3 +1,41 @@
 .spacer {
   flex: 1 1 auto;
 }
+
+.block {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  height: 80vh;
+  font-family: sans-serif;
+
+  form {
+    display: flex;
+    flex-direction: column;
+    width: 350px;
+    padding: 15px 20px 40px 20px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    border-radius: 5px;
+  }
+
+  .title {
+    font-size: 18px;
+    font-weight: bold;
+    font-family: sans-serif;
+    margin-bottom: 20px;
+  }
+
+  button {
+    margin-top: 20px;
+  }
+
+  .signUp {
+    margin-top: 35px;
+    display: flex;
+
+    div {
+      margin-right: 5px;
+    }
+  }
+}
