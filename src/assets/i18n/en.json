@@ -73,5 +73,11 @@
       "modal_title": "Add new Event",
       "title_label": "Event title"
     }
+  },
+  "dialog-window": {
+    "title": "Remove Note?",
+    "sub_title": "Are you sure about removing?",
+    "cancel_btn": "Cancel",
+    "remove_btn": "Remove"
   }
 }

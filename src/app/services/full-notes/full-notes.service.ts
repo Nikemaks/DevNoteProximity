@@ -10,6 +10,7 @@ import { Observable, of } from 'rxjs';
 export class FullNotesService {
   storageKey = 'FULL_NOTES';
   storageKeySettings = 'FULL_NOTES_SWITCH_TYPE';
+  storageKeyEditNote = 'EDIT_NOTE';
 
   constructor(private localStorage: StorageService) {}
 
@@ -30,6 +31,24 @@ export class FullNotesService {
         const newArray = [note, ...notes];
         this.localStorage.setStorage<FullNoteItem[]>(this.storageKey, newArray);
         return of([note]);
+      })
+    );
+  }
+
+  updateNote(updateNote: FullNoteItem): Observable<FullNoteItem[]> {
+    return this.fetchAllTestAccounts().pipe(
+      switchMap((notes: FullNoteItem[]) => {
+        const updatedNotes = notes.map(note => {
+          if (note.id === updateNote.id) {
+            return updateNote;
+          }
+          return note;
+        });
+        this.localStorage.setStorage<FullNoteItem[]>(
+          this.storageKey,
+          updatedNotes
+        );
+        return of(updatedNotes);
       })
     );
   }

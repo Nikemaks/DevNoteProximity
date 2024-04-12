@@ -1,17 +1,17 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { NotesViewComponent } from './notes-view.component';
+import { DynamicDialogComponent } from './dynamic-dialog.component';
 
-describe('NotesViewComponent', () => {
-  let component: NotesViewComponent;
-  let fixture: ComponentFixture<NotesViewComponent>;
+describe('DynamicDialogComponent', () => {
+  let component: DynamicDialogComponent;
+  let fixture: ComponentFixture<DynamicDialogComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [NotesViewComponent],
+      imports: [DynamicDialogComponent],
     }).compileComponents();
 
-    fixture = TestBed.createComponent(NotesViewComponent);
+    fixture = TestBed.createComponent(DynamicDialogComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

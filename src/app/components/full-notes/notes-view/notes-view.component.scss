@@ -11,6 +11,8 @@
 .title {
   font-size: 30px;
   font-weight: bold;
+  border: none;
+  background-color: transparent;
 }
 
 .content {
@@ -25,4 +27,8 @@
 
 .buttons button mat-icon {
   margin-left: 8px;
+}
+
+mat-form-field {
+  width: 400px;
 }
