@@ -1,45 +1,57 @@
-<div class="buttons">
-  <button mat-icon-button (click)="switcherDisplayType()">
-    <mat-icon>{{
-      (isDisplayType$ | async) ? 'view_module' : 'format_list_bulleted'
-    }}</mat-icon>
-  </button>
-</div>
+@if (data$ | async; as data) {
+  <div class="buttons">
+    <button mat-icon-button (click)="switcherDisplayType()">
+      <mat-icon>{{
+        data.isDisplayType ? 'view_module' : 'format_list_bulleted'
+      }}</mat-icon>
+    </button>
+  </div>
 
-@if (isDisplayType$ | async) {
-  <div class="list-container">
-    @for (note of notes$ | async; track note) {
-      <mat-card class="list-card">
-        <mat-card-header>
-          <mat-card-title class="card__title">{{ note.title }}</mat-card-title>
-        </mat-card-header>
-        <mat-card-content>
-          <p class="list__text">{{ note.htmlContent }}</p>
-        </mat-card-content>
-        <mat-card-actions class="item__btn">
-          <button mat-button class="card__btn" (click)="viewItem(note.id)">
-            {{ 'notes.full_notes.view' | translate }}
-          </button>
-        </mat-card-actions>
-      </mat-card>
+  @if (data.notes.length) {
+    @if (data.isDisplayType) {
+      <div class="list-container">
+        @for (note of data.notes; track note) {
+          <mat-card class="list-card">
+            <mat-card-header>
+              <mat-card-title class="card__title">{{
+                note.title
+              }}</mat-card-title>
+            </mat-card-header>
+            <mat-card-content>
+              <p class="list__text">{{ note.htmlContent }}</p>
+            </mat-card-content>
+            <mat-card-actions class="item__btn">
+              <button mat-button class="card__btn" (click)="viewItem(note.id)">
+                {{ 'notes.full_notes.view' | translate }}
+              </button>
+            </mat-card-actions>
+          </mat-card>
+        }
+      </div>
+    } @else {
+      <div class="container grid-container">
+        @for (note of data.notes; track note) {
+          <mat-card class="card grid-item">
+            <mat-card-header>
+              <mat-card-title class="card__title">{{
+                note.title
+              }}</mat-card-title>
+            </mat-card-header>
+            <mat-card-content>
+              <p class="item__text">{{ note.htmlContent }}</p>
+            </mat-card-content>
+            <mat-card-actions class="item__btn">
+              <button mat-button class="card__btn" (click)="viewItem(note.id)">
+                {{ 'notes.full_notes.view' | translate }}
+              </button>
+            </mat-card-actions>
+          </mat-card>
+        }
+      </div>
     }
-  </div>
-} @else {
-  <div class="container grid-container">
-    @for (note of notes$ | async; track note) {
-      <mat-card class="card grid-item">
-        <mat-card-header>
-          <mat-card-title class="card__title">{{ note.title }}</mat-card-title>
-        </mat-card-header>
-        <mat-card-content>
-          <p class="item__text">{{ note.htmlContent }}</p>
-        </mat-card-content>
-        <mat-card-actions class="item__btn">
-          <button mat-button class="card__btn" (click)="viewItem(note.id)">
-            {{ 'notes.full_notes.view' | translate }}
-          </button>
-        </mat-card-actions>
-      </mat-card>
-    }
-  </div>
+  } @else {
+    <div class="notes-message">
+      {{ 'notes_message.text' | translate }}
+    </div>
+  }
 }

@@ -6,6 +6,8 @@ import { MatCardModule } from '@angular/material/card';
 import { Router } from '@angular/router';
 import { TranslateModule } from '@ngx-translate/core';
 import { MatIconModule } from '@angular/material/icon';
+import { combineLatest, map, Observable } from 'rxjs';
+import { NotesData } from '../../../interfaces/notes-data';
 
 @Component({
   selector: 'notes-list',
@@ -21,8 +23,7 @@ import { MatIconModule } from '@angular/material/icon';
   styleUrl: './notes-list.component.scss',
 })
 export class NotesListComponent implements OnInit {
-  isDisplayType$ = this.store.selectDisplayType$;
-  notes$ = this.store.selectAllNotes$;
+  data$!: Observable<NotesData>;
 
   constructor(
     private store: FullNotesStoreService,
@@ -32,6 +33,11 @@ export class NotesListComponent implements OnInit {
   }
 
   ngOnInit() {
+    const isDisplayType$ = this.store.selectDisplayType$;
+    const notes$ = this.store.selectAllNotes$;
+    this.data$ = combineLatest([notes$, isDisplayType$]).pipe(
+      map(([notes, isDisplayType]) => ({ notes, isDisplayType }))
+    );
     this.store.getDisplayType$();
   }
 
