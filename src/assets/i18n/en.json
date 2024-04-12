@@ -79,5 +79,8 @@
     "sub_title": "Are you sure about removing?",
     "cancel_btn": "Cancel",
     "remove_btn": "Remove"
+  },
+  "notes_message": {
+    "text": "Add your first notes to start filling this space."
   }
 }
