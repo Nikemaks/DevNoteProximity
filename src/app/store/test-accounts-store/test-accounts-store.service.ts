@@ -92,8 +92,8 @@ export class TestAccountsServiceStore extends ComponentStore<StoreTestUserAccoun
 
   readonly removeUserAccount$ = this.effect((id$: Observable<string>) => {
     return id$.pipe(
-      switchMap(account =>
-        this.testAccountsService.removeTestUser(account).pipe(
+      switchMap(id =>
+        this.testAccountsService.removeTestUser(id).pipe(
           tapResponse(
             id => this.removeUser(id),
             (error: HttpErrorResponse) => console.log(error)
