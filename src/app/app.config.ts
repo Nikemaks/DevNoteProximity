@@ -14,7 +14,7 @@ import { provideHttpClient, withFetch } from '@angular/common/http';
 import { HttpClient, HttpClientModule } from '@angular/common/http';
 import { TranslateHttpLoader } from '@ngx-translate/http-loader';
 import { TranslateModule, TranslateLoader } from '@ngx-translate/core';
-import { initializeApp, provideFirebaseApp } from '@angular/fire/app';
+import { getApp, initializeApp, provideFirebaseApp } from '@angular/fire/app';
 import { getAuth, provideAuth } from '@angular/fire/auth';
 import {
   getAnalytics,
@@ -27,7 +27,12 @@ import {
 //   ReCaptchaEnterpriseProvider,
 //   provideAppCheck,
 // } from '@angular/fire/app-check';
-import { getFirestore, provideFirestore } from '@angular/fire/firestore';
+import {
+  initializeFirestore,
+  persistentLocalCache,
+  persistentMultipleTabManager,
+  provideFirestore,
+} from '@angular/fire/firestore';
 import { getDatabase, provideDatabase } from '@angular/fire/database';
 import { getFunctions, provideFunctions } from '@angular/fire/functions';
 import { getMessaging, provideMessaging } from '@angular/fire/messaging';
@@ -88,7 +93,15 @@ export const appConfig: ApplicationConfig = {
     //     });
     //   })
     // ),
-    importProvidersFrom(provideFirestore(() => getFirestore())),
+    importProvidersFrom(
+      provideFirestore(() =>
+        initializeFirestore(getApp(), {
+          localCache: persistentLocalCache({
+            tabManager: persistentMultipleTabManager(),
+          }),
+        })
+      )
+    ),
     importProvidersFrom(provideDatabase(() => getDatabase())),
     importProvidersFrom(provideFunctions(() => getFunctions())),
     importProvidersFrom(provideMessaging(() => getMessaging())),

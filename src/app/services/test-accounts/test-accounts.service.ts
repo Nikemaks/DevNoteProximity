@@ -1,8 +1,8 @@
 import { Injectable } from '@angular/core';
 import { Observable, of } from 'rxjs';
 import { TestUserAccount } from '../../interfaces/test-user-account';
-import { StorageService } from '../storage/storage.service';
 import { switchMap } from 'rxjs/operators';
+import { FireBaseDbService } from '../firebase/firebase-db.service';
 
 @Injectable({
   providedIn: 'root',
@@ -10,40 +10,26 @@ import { switchMap } from 'rxjs/operators';
 export class TestAccountsService {
   storageKey = 'TEST_ACCOUNTS';
 
-  constructor(private localStorage: StorageService) {}
+  constructor(private _fbDb: FireBaseDbService) {}
 
   fetchAllTestAccounts(): Observable<TestUserAccount[]> {
-    return this.localStorage.getStorageItem<TestUserAccount[]>(this.storageKey);
+    return this._fbDb.getCollection<TestUserAccount>(this.storageKey);
   }
 
   saveTestUser(testAccount: TestUserAccount): Observable<TestUserAccount[]> {
-    return this.fetchAllTestAccounts().pipe(
-      switchMap((accounts: TestUserAccount[]) => {
-        testAccount.id = this.generateId();
-        const newArray = [testAccount, ...accounts];
-        this.localStorage.setStorage<TestUserAccount[]>(
-          this.storageKey,
-          newArray
-        );
+    return this._fbDb.saveCollection(testAccount, this.storageKey).pipe(
+      switchMap(({ id }) => {
+        testAccount.id = id;
         return of([testAccount]);
       })
     );
   }
 
   removeTestUser(id: string): Observable<string> {
-    return this.fetchAllTestAccounts().pipe(
-      switchMap((accounts: TestUserAccount[]) => {
-        const newArray = accounts.filter(itm => itm.id !== id);
-        this.localStorage.setStorage<TestUserAccount[]>(
-          this.storageKey,
-          newArray
-        );
+    return this._fbDb.deleteCollection(id, this.storageKey).pipe(
+      switchMap(() => {
         return of(id);
       })
     );
-  }
-
-  generateId(): string {
-    return Math.random().toString(36).substring(2, 8);
   }
 }
