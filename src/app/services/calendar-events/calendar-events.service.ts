@@ -3,6 +3,7 @@ import { StorageService } from '../storage/storage.service';
 import { EventModel } from '../../models/EventModel';
 import { switchMap, tap } from 'rxjs/operators';
 import { Observable, of } from 'rxjs';
+import { FireBaseDbService } from '../firebase/firebase-db.service';
 
 @Injectable({
   providedIn: 'root',
@@ -10,23 +11,20 @@ import { Observable, of } from 'rxjs';
 export class CalendarEventsService {
   storageKey = 'CALENDAR_EVENTS';
 
-  constructor(private localStorage: StorageService) {}
+  constructor(
+    private localStorage: StorageService,
+    private _fbDb: FireBaseDbService
+  ) {}
 
-  fetchAllEvents() {
-    return this.localStorage.getStorageItem<EventModel[]>(this.storageKey);
+  fetchAllEvents(): Observable<EventModel[]> {
+    return this._fbDb.getCollection<EventModel>(this.storageKey);
   }
 
   saveCalendarEvent(event: EventModel): Observable<EventModel[]> {
-    return this.fetchAllEvents().pipe(
-      switchMap((events: EventModel[]) => {
-        const newArray = [event, ...events];
-        return of(newArray);
-      }),
-      tap(updatedEvents => {
-        this.localStorage.setStorage<EventModel[]>(
-          this.storageKey,
-          updatedEvents
-        );
+    return this._fbDb.saveCollection({ ...event }, this.storageKey).pipe(
+      switchMap(({ id }) => {
+        event.id = id;
+        return of([event]);
       })
     );
   }

@@ -53,10 +53,7 @@ export class NotesCreateComponent {
 
   saveNotes() {
     if (this.formGroup.invalid) return;
-    const note = Object.assign({}, this.formGroup.value, {
-      id: '',
-    }) as FullNoteItem;
-    this.store.saveNote$(note);
+    this.store.saveNote$(this.formGroup.value as FullNoteItem);
     this._snackBar.open('Note added!', 'Close', {
       duration: 2500,
     });

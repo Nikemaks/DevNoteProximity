@@ -33,9 +33,4 @@ export class FullNotesComponent {
   goToCreate() {
     this.router.navigate(['notes-full/create']);
   }
-
-  // @todo remove example for open view item after implementation.
-  // view() {
-  //   this.router.navigate(['notes-full/1']);
-  // }
 }
