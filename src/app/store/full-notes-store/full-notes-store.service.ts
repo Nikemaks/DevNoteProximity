@@ -29,7 +29,7 @@ export class FullNotesStoreService extends ComponentStore<FullNotesStore> {
   readonly selectFilteredNotes$: Observable<FullNoteItem[]> = this.select(
     state =>
       state.notes.filter(item => {
-        return item.title.includes(state.filters);
+        return item.title.toLowerCase().includes(state.filters.toLowerCase());
       })
   );
 
