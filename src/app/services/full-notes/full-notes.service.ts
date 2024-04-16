@@ -3,6 +3,7 @@ import { StorageService } from '../storage/storage.service';
 import { FullNoteItem, FullNotesSettings } from '../../interfaces/full-notes';
 import { switchMap } from 'rxjs/operators';
 import { Observable, of } from 'rxjs';
+import { FireBaseDbService } from '../firebase/firebase-db.service';
 
 @Injectable({
   providedIn: 'root',
@@ -10,12 +11,14 @@ import { Observable, of } from 'rxjs';
 export class FullNotesService {
   storageKey = 'FULL_NOTES';
   storageKeySettings = 'FULL_NOTES_SWITCH_TYPE';
-  storageKeyEditNote = 'EDIT_NOTE';
 
-  constructor(private localStorage: StorageService) {}
+  constructor(
+    private localStorage: StorageService,
+    private _fbDb: FireBaseDbService
+  ) {}
 
-  fetchAllTestAccounts() {
-    return this.localStorage.getStorageItem<FullNoteItem[]>(this.storageKey);
+  fetchAllFullNotes() {
+    return this._fbDb.getCollection<FullNoteItem>(this.storageKey);
   }
 
   fetchFullNotesDisplayType() {
@@ -25,39 +28,25 @@ export class FullNotesService {
   }
 
   saveNote(note: FullNoteItem): Observable<FullNoteItem[]> {
-    return this.fetchAllTestAccounts().pipe(
-      switchMap((notes: FullNoteItem[]) => {
-        note.id = this.generateId();
-        const newArray = [note, ...notes];
-        this.localStorage.setStorage<FullNoteItem[]>(this.storageKey, newArray);
+    return this._fbDb.saveCollection(note, this.storageKey).pipe(
+      switchMap(({ id }) => {
+        note.id = id;
         return of([note]);
       })
     );
   }
 
   updateNote(updateNote: FullNoteItem): Observable<FullNoteItem[]> {
-    return this.fetchAllTestAccounts().pipe(
-      switchMap((notes: FullNoteItem[]) => {
-        const updatedNotes = notes.map(note => {
-          if (note.id === updateNote.id) {
-            return updateNote;
-          }
-          return note;
-        });
-        this.localStorage.setStorage<FullNoteItem[]>(
-          this.storageKey,
-          updatedNotes
-        );
-        return of(updatedNotes);
+    return this._fbDb.updateCollection(updateNote, this.storageKey).pipe(
+      switchMap(() => {
+        return of([updateNote]);
       })
     );
   }
 
   removeNote(id: string): Observable<string> {
-    return this.fetchAllTestAccounts().pipe(
-      switchMap((notes: FullNoteItem[]) => {
-        const newArray = notes.filter(itm => itm.id !== id);
-        this.localStorage.setStorage<FullNoteItem[]>(this.storageKey, newArray);
+    return this._fbDb.deleteCollection(id, this.storageKey).pipe(
+      switchMap(() => {
         return of(id);
       })
     );
@@ -79,9 +68,5 @@ export class FullNotesService {
         }
       )
     );
-  }
-
-  generateId(): string {
-    return Math.random().toString(36).substring(2, 8);
   }
 }

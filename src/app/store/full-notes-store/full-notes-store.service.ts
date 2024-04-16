@@ -76,7 +76,7 @@ export class FullNotesStoreService extends ComponentStore<FullNotesStore> {
   readonly getAllNotes$ = this.effect<void>(trigger$ =>
     trigger$.pipe(
       exhaustMap(() =>
-        this.fullNotesService.fetchAllTestAccounts().pipe(
+        this.fullNotesService.fetchAllFullNotes().pipe(
           tapResponse({
             next: (notes: FullNoteItem[]) => this.setNotes(notes),
             error: (error: HttpErrorResponse) => console.error(error),

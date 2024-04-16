@@ -32,7 +32,6 @@ export class EventModel {
     this.start = this.addTimeToDate(context.start, context.day) ?? new Date();
     this.end = this.addTimeToDate(context.end, context.day) ?? new Date();
     this.content = context.content ?? '';
-    this.id = Math.random().toString(36).substring(2, 8);
 
     // default params for all
     this.color = DEFAULT_COLORS;
