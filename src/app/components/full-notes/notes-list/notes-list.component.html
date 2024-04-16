@@ -1,5 +1,18 @@
 @if (data$ | async; as data) {
   <div class="buttons">
+    <mat-form-field appearance="outline">
+      <mat-label>{{ 'test_accounts.placeholder' | translate }}</mat-label>
+      <input matInput type="text" [formControl]="searchControl" />
+      @if (searchControl.value) {
+        <button
+          matSuffix
+          mat-icon-button
+          aria-label="Clear"
+          (click)="searchControl.reset('')">
+          <mat-icon>close</mat-icon>
+        </button>
+      }
+    </mat-form-field>
     <button mat-icon-button (click)="switcherDisplayType()">
       <mat-icon>{{
         data.isDisplayType ? 'view_module' : 'format_list_bulleted'

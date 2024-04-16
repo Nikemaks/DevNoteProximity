@@ -15,6 +15,8 @@ import { FormControl, ReactiveFormsModule } from '@angular/forms';
 import { debounceTime } from 'rxjs/operators';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { TranslateModule } from '@ngx-translate/core';
+import { DEBOUNCE_TIME_INPUTS } from '../../constants/global-constants';
+import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 
 @Component({
   selector: 'test-users',
@@ -62,8 +64,10 @@ export class TestUsersComponent implements OnInit {
 
   ngOnInit(): void {
     this.testAccountsServiceStore.getAllUserAccounts$();
-    this.searchControl.valueChanges.pipe(debounceTime(600)).subscribe(value => {
-      this.testAccountsServiceStore.changeFilters(value || '');
-    });
+    this.searchControl.valueChanges
+      .pipe(debounceTime(DEBOUNCE_TIME_INPUTS), takeUntilDestroyed())
+      .subscribe(value => {
+        this.testAccountsServiceStore.changeFilters(value || '');
+      });
   }
 }
