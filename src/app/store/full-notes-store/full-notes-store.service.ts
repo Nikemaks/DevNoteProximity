@@ -10,6 +10,7 @@ export interface FullNotesStore {
   notes: FullNoteItem[];
   viewNoteId: string;
   isDisplayType: boolean;
+  filters: string;
 }
 
 @Injectable({
@@ -17,12 +18,19 @@ export interface FullNotesStore {
 })
 export class FullNotesStoreService extends ComponentStore<FullNotesStore> {
   constructor(private fullNotesService: FullNotesService) {
-    super({ notes: [], viewNoteId: '', isDisplayType: true });
+    super({ notes: [], viewNoteId: '', isDisplayType: true, filters: '' });
   }
 
   // select
   readonly selectAllNotes$: Observable<FullNoteItem[]> = this.select(
     state => state.notes
+  );
+
+  readonly selectFilteredNotes$: Observable<FullNoteItem[]> = this.select(
+    state =>
+      state.notes.filter(item => {
+        return item.title.includes(state.filters);
+      })
   );
 
   readonly selectViewNoteId$: Observable<string> = this.select(
@@ -70,6 +78,11 @@ export class FullNotesStoreService extends ComponentStore<FullNotesStore> {
   readonly updateNote = this.updater((state, notes: FullNoteItem[]) => ({
     ...state,
     notes: [...notes],
+  }));
+
+  readonly changeFilters = this.updater((state, filters: string) => ({
+    ...state,
+    filters: filters,
   }));
 
   // effects
