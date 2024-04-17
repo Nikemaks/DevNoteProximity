@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, DestroyRef, inject, OnInit } from '@angular/core';
 import { MatButtonModule } from '@angular/material/button';
 import { MatInputModule } from '@angular/material/input';
 import { MatFormFieldModule } from '@angular/material/form-field';
@@ -38,7 +38,7 @@ import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 })
 export class TestUsersComponent implements OnInit {
   dataSource$ = this.testAccountsServiceStore.selectUserAccounts$;
-
+  private destroyRef = inject(DestroyRef);
   searchControl = new FormControl('');
 
   constructor(
@@ -65,7 +65,10 @@ export class TestUsersComponent implements OnInit {
   ngOnInit(): void {
     this.testAccountsServiceStore.getAllUserAccounts$();
     this.searchControl.valueChanges
-      .pipe(debounceTime(DEBOUNCE_TIME_INPUTS), takeUntilDestroyed())
+      .pipe(
+        debounceTime(DEBOUNCE_TIME_INPUTS),
+        takeUntilDestroyed(this.destroyRef)
+      )
       .subscribe(value => {
         this.testAccountsServiceStore.changeFilters(value || '');
       });
