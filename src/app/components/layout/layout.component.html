@@ -81,3 +81,6 @@
     </mat-drawer-content>
   </mat-drawer-container>
 </main>
+@if (loading$ | async) {
+  <app-spinner></app-spinner>
+}

@@ -8,3 +8,6 @@
   </mat-toolbar>
 </header>
 <router-outlet></router-outlet>
+@if (loading$ | async) {
+  <app-spinner></app-spinner>
+}

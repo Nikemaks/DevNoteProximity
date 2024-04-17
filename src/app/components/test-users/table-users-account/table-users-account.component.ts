@@ -1,4 +1,4 @@
-import { AfterViewInit, Component, OnInit, ViewChild } from '@angular/core';
+import { Component, ViewChild } from '@angular/core';
 import { MatPaginator, MatPaginatorModule } from '@angular/material/paginator';
 import { MatTabsModule } from '@angular/material/tabs';
 import { MatTableDataSource, MatTableModule } from '@angular/material/table';
@@ -13,6 +13,7 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 import { CommonModule } from '@angular/common';
 import { MatCardModule } from '@angular/material/card';
 import { TranslateModule } from '@ngx-translate/core';
+import { map } from 'rxjs/operators';
 
 @Component({
   selector: 'table-users-account',
@@ -31,7 +32,7 @@ import { TranslateModule } from '@ngx-translate/core';
   templateUrl: './table-users-account.component.html',
   styleUrl: './table-users-account.component.scss',
 })
-export class TableUsersAccountComponent implements AfterViewInit, OnInit {
+export class TableUsersAccountComponent {
   @ViewChild(MatPaginator) paginator!: MatPaginator;
 
   displayedColumns: string[] = [
@@ -42,25 +43,20 @@ export class TableUsersAccountComponent implements AfterViewInit, OnInit {
     'addComment',
     'action',
   ];
-  dataSource = new MatTableDataSource<TestUserAccount>();
+
+  dataSource$ = this.testAccountsServiceStore.selectFiltersUserAccounts$.pipe(
+    map((data: TestUserAccount[]) => {
+      const dataSource = new MatTableDataSource<TestUserAccount>(data);
+      dataSource.paginator = this.paginator;
+      return dataSource;
+    })
+  );
 
   constructor(
     private testAccountsServiceStore: TestAccountsServiceStore,
     private _snackBar: MatSnackBar,
     public dialog: MatDialog
   ) {}
-
-  ngOnInit(): void {
-    this.testAccountsServiceStore.selectFiltersUserAccounts$.subscribe(
-      users => {
-        this.dataSource.data = users;
-      }
-    );
-  }
-
-  ngAfterViewInit() {
-    this.dataSource.paginator = this.paginator;
-  }
 
   delete(removeId: string | null) {
     const dialogRef = this.dialog.open(ConfirmActionComponent);
