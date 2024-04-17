@@ -46,7 +46,7 @@ import {
   getRemoteConfig,
   provideRemoteConfig,
 } from '@angular/fire/remote-config';
-import { loadingInterceptor } from './intercepts/loading-interceptor.service';
+import { loadingInterceptor } from './intercepts/loading-interceptor';
 
 export function HttpLoaderFactory(http: HttpClient) {
   return new TranslateHttpLoader(http, './assets/i18n/', '.json');
