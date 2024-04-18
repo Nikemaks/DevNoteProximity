@@ -1,4 +1,4 @@
-<ng-container *ngIf="dataSource$ | async as dataSource">
+@if (dataSource$ | async; as dataSource) {
   <div class="mat-elevation-z8">
     <table mat-table [dataSource]="dataSource">
       <!-- Group Column -->
@@ -93,4 +93,4 @@
       aria-label="Select page of periodic elements">
     </mat-paginator>
   </div>
-</ng-container>
+}
