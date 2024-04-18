@@ -2,6 +2,7 @@ import {
   ApplicationConfig,
   isDevMode,
   importProvidersFrom,
+  ErrorHandler,
 } from '@angular/core';
 import { provideRouter } from '@angular/router';
 
@@ -47,6 +48,7 @@ import {
   provideRemoteConfig,
 } from '@angular/fire/remote-config';
 import { loadingInterceptor } from './intercepts/loading-interceptor';
+import { GlobalErrorHandler } from './services/global-error-handler/global-error-handler.service';
 
 export function HttpLoaderFactory(http: HttpClient) {
   return new TranslateHttpLoader(http, './assets/i18n/', '.json');
@@ -71,6 +73,7 @@ export const appConfig: ApplicationConfig = {
         deps: [HttpClient],
       },
     }).providers!,
+    { provide: ErrorHandler, useClass: GlobalErrorHandler },
     importProvidersFrom(
       provideFirebaseApp(() =>
         initializeApp({
