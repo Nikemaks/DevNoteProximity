@@ -13,6 +13,8 @@ import { Observable } from 'rxjs';
 import { TranslateModule } from '@ngx-translate/core';
 import { TranslateService } from '@ngx-translate/core';
 import { AuthService } from '../../services/auth/auth.service';
+import { LoadingService } from '../../services/loading/loading.service';
+import { SpinnerComponent } from '../spinner/spinner.component';
 
 @Component({
   selector: 'app-layout',
@@ -28,6 +30,7 @@ import { AuthService } from '../../services/auth/auth.service';
     MatListModule,
     MatExpansionModule,
     TranslateModule,
+    SpinnerComponent,
   ],
   templateUrl: './layout.component.html',
   styleUrl: './layout.component.scss',
@@ -35,11 +38,13 @@ import { AuthService } from '../../services/auth/auth.service';
 export class LayoutComponent implements OnInit {
   panelOpenState = false;
   theme$: Observable<Theme> = this.userSettingsStoreService.selectTheme$;
+  loading$ = this.loadingService.loading$;
 
   constructor(
     private userSettingsStoreService: UserSettingStoreService,
     private translate: TranslateService,
-    private authService: AuthService
+    private authService: AuthService,
+    private loadingService: LoadingService
   ) {}
 
   ngOnInit() {
