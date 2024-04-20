@@ -42,10 +42,6 @@ export class BoardService {
     );
   }
 
-  generateId(): string {
-    return Math.random().toString(36).substring(2, 8);
-  }
-
   /**
    * Updates the tasks on board
    */
@@ -71,17 +67,14 @@ export class BoardService {
     return this.fetchAllBoards().pipe(
       switchMap((boards: Board[]) => {
         const currentBoard = boards.find(itm => itm.id === boardId);
-        const updatedBoard = Object.assign({}, currentBoard, {
-          tasks: currentBoard?.tasks?.filter(
-            itm => itm.description !== task.description
-          ),
-        });
-        const newArray = [updatedBoard, ...boards];
-        this.filterUniqueById(newArray);
+        const updatedTasks = currentBoard?.tasks?.filter(
+          itm => itm.description !== task.description
+        );
+        const updatedBoard = { ...currentBoard, tasks: updatedTasks };
 
-        return this._fbDb.deleteCollection(boardId, this.storageKey).pipe(
+        return this._fbDb.updateCollection(updatedBoard, this.storageKey).pipe(
           map(() => {
-            return of({ boardId, task });
+            return { boardId, task };
           })
         );
       })
@@ -94,16 +87,5 @@ export class BoardService {
   sortBoards(boards: Board[]) {
     // @todo(implement)
     console.log(boards);
-  }
-
-  filterUniqueById(arr: Board[]) {
-    const seenIds = new Set();
-    return arr.filter((obj: Board) => {
-      if (!seenIds.has(obj.id)) {
-        seenIds.add(obj.id);
-        return true;
-      }
-      return false;
-    });
   }
 }
