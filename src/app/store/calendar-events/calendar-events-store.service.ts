@@ -6,6 +6,7 @@ import { CalendarEventsService } from '../../services/calendar-events/calendar-e
 import { HttpErrorResponse } from '@angular/common/http';
 import { switchMap } from 'rxjs/operators';
 import { createDefaultAction } from '../../constants/calendar-events';
+import { MatDialog } from '@angular/material/dialog';
 
 export interface CalendarEventsStoreInterface {
   calendarEvents: EventModel[];
@@ -15,7 +16,10 @@ export interface CalendarEventsStoreInterface {
   providedIn: 'root',
 })
 export class CalendarEventsStore extends ComponentStore<CalendarEventsStoreInterface> {
-  constructor(private calendarEventsService: CalendarEventsService) {
+  constructor(
+    private calendarEventsService: CalendarEventsService,
+    private dialog: MatDialog
+  ) {
     super({ calendarEvents: [{} as EventModel] });
   }
 
@@ -43,7 +47,8 @@ export class CalendarEventsStore extends ComponentStore<CalendarEventsStoreInter
           end: new Date(event.end),
           actions: createDefaultAction(
             () => this.deleteCalendarEvent$(event.id || ''),
-            () => this.toggleCancelCalendarEvent$(event.id || '')
+            () => this.toggleCancelCalendarEvent$(event.id || ''),
+            this.dialog
           ),
         });
       }),
