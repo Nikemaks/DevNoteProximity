@@ -5,6 +5,8 @@ import {
 import { EventColor } from 'calendar-utils';
 import { EventResiable } from '../interfaces/event-model';
 import { Subscription } from 'rxjs';
+import { ConfirmActionComponent } from '../components/modals/confirm-action/confirm-action.component';
+import { MatDialog } from '@angular/material/dialog';
 
 export const DEFAULT_COLORS: EventColor = {
   primary: '#E0E0E0',
@@ -18,7 +20,8 @@ export const DEFAULT_RESIABLE: EventResiable = {
 
 export const createDefaultAction = (
   deleteCallback: (event: CalendarSchedulerEvent) => Subscription,
-  toggleCancelCallback: (event: CalendarSchedulerEvent) => Subscription
+  toggleCancelCallback: (event: CalendarSchedulerEvent) => Subscription,
+  dialog: MatDialog
 ): CalendarSchedulerEventAction[] => {
   return [
     {
@@ -26,7 +29,14 @@ export const createDefaultAction = (
         '<span class="valign-center"><i class="material-icons md-18 md-red-500">delete</i></span>',
       title: 'Delete',
       onClick: (event: CalendarSchedulerEvent): void => {
-        deleteCallback(event);
+        dialog
+          .open(ConfirmActionComponent)
+          .afterClosed()
+          .subscribe(result => {
+            if (result) {
+              deleteCallback(event);
+            }
+          });
       },
     },
     {
