@@ -26,7 +26,7 @@ export class BoardService {
     return this._fbDb.saveCollection(newBoards, this.storageKey).pipe(
       switchMap(({ id }) => {
         newBoards.id = id;
-        return of([newBoards]);
+        return of(newBoards);
       })
     );
   }
