@@ -7,7 +7,6 @@ import {
 } from '@angular/fire/auth';
 import { GoogleAuthProvider } from 'firebase/auth';
 import { Router } from '@angular/router';
-import { UserInfo } from '../../interfaces/userInfo';
 
 @Injectable({
   providedIn: 'root',
@@ -62,7 +61,7 @@ export class AuthService {
     this.auth.signOut().then(() => this.router.navigate(['auth/sign-in']));
   }
 
-  get userInfo(): UserInfo | null {
+  get userInfo() {
     const user = this.auth.currentUser;
 
     if (!user) return null;
