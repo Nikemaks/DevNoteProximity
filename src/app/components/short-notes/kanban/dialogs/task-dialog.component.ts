@@ -40,8 +40,11 @@ import { TranslateModule } from '@ngx-translate/core';
     </div>
     <div mat-dialog-actions>
       <button mat-button [matDialogClose]="data" cdkFocusInitial>
-        {{ data.isNew ? '' : 'Update Task' }}
-        {{ 'notes.short_notes.task_btn' | translate }}
+        @if (data.isNew) {
+          {{ 'notes.short_notes.task_btn' | translate }}
+        } @else {
+          {{ 'notes.short_notes.task_update' | translate }}
+        }
       </button>
       <app-delete-button
         (delete)="handleDelete()"

@@ -53,7 +53,8 @@
       "cancel_btn": "Cancel",
       "task_title": "Task",
       "task_description": "Task description",
-      "task_btn": "Add Task"
+      "task_btn": "Add Task",
+      "task_update": "Update Task"
     },
     "full_notes": {
       "title": "Notes",
