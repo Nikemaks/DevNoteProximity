@@ -46,16 +46,10 @@ export class BoardService {
    * Updates the tasks on board
    */
   updateTasks(boardId: string, tasks: Task[]) {
-    return this.fetchAllBoards().pipe(
-      switchMap((boards: Board[]) => {
-        const currentBoard = boards.find(board => board.id === boardId);
-        const updatedBoard = { ...currentBoard, tasks };
-
-        return this._fbDb.updateCollection(updatedBoard, this.storageKey).pipe(
-          map(() => {
-            return of({ boardId, tasks });
-          })
-        );
+    const updatedBoard = { id: boardId, tasks };
+    return this._fbDb.updateCollection(updatedBoard, this.storageKey).pipe(
+      map(() => {
+        return { boardId, tasks };
       })
     );
   }
@@ -64,7 +58,7 @@ export class BoardService {
    * Remove a specifc task from the board
    */
   removeTask(boardId: string, task: Task) {
-    return this.fetchAllBoards().pipe(
+    return this._fbDb.getCollection<Board>(this.storageKey).pipe(
       switchMap((boards: Board[]) => {
         const currentBoard = boards.find(itm => itm.id === boardId);
         const updatedTasks = currentBoard?.tasks?.filter(
