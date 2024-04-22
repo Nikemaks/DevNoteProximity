@@ -5,11 +5,18 @@ import { MatCardModule } from '@angular/material/card';
 import { Router } from '@angular/router';
 import { Items } from '../../interfaces/item';
 import { TranslateModule } from '@ngx-translate/core';
+import { MatTooltipModule } from '@angular/material/tooltip';
 
 @Component({
   selector: 'app-home',
   standalone: true,
-  imports: [CommonModule, MatCardModule, MatButtonModule, TranslateModule],
+  imports: [
+    CommonModule,
+    MatCardModule,
+    MatButtonModule,
+    TranslateModule,
+    MatTooltipModule,
+  ],
   templateUrl: './home.component.html',
   styleUrl: './home.component.scss',
 })
