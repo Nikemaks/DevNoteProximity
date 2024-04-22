@@ -1,8 +1,8 @@
 import { Injectable } from '@angular/core';
 import { Board, Task } from './board.model';
-import { StorageService } from '../../../services/storage/storage.service';
-import { Observable, of } from 'rxjs';
+import { map, Observable, of } from 'rxjs';
 import { switchMap } from 'rxjs/operators';
+import { FireBaseDbService } from '../../../services/firebase/firebase-db.service';
 
 @Injectable({
   providedIn: 'root',
@@ -10,28 +10,23 @@ import { switchMap } from 'rxjs/operators';
 export class BoardService {
   storageKey = 'BOARDS';
 
-  constructor(private localStorage: StorageService) {}
+  constructor(private _fbDb: FireBaseDbService) {}
 
   /**
    * Get all boards owned by current user
    */
   fetchAllBoards(): Observable<Board[]> {
-    return this.localStorage.getStorageItem<Board[]>(this.storageKey);
+    return this._fbDb.getCollection<Board>(this.storageKey);
   }
 
   /**
    * Save board
    */
   saveBoards(newBoards: Board) {
-    return this.fetchAllBoards().pipe(
-      switchMap((boards: Board[]) => {
-        newBoards.id = this.generateId();
-        const newArray = [newBoards, ...boards];
-        this.localStorage.setStorage<Board[]>(
-          this.storageKey,
-          this.filterUniqueById(newArray)
-        );
-        return of(newArray);
+    return this._fbDb.saveCollection(newBoards, this.storageKey).pipe(
+      switchMap(({ id }) => {
+        newBoards.id = id;
+        return of(newBoards);
       })
     );
   }
@@ -40,37 +35,21 @@ export class BoardService {
    * Delete board
    */
   removeBoard(id: string): Observable<string> {
-    return this.fetchAllBoards().pipe(
-      switchMap((boards: Board[]) => {
-        const newArray = boards.filter(itm => itm.id !== id);
-        this.localStorage.setStorage<Board[]>(
-          this.storageKey,
-          this.filterUniqueById(newArray)
-        );
+    return this._fbDb.deleteCollection(id, this.storageKey).pipe(
+      switchMap(() => {
         return of(id);
       })
     );
-  }
-
-  generateId(): string {
-    return Math.random().toString(36).substring(2, 8);
   }
 
   /**
    * Updates the tasks on board
    */
   updateTasks(boardId: string, tasks: Task[]) {
-    return this.fetchAllBoards().pipe(
-      switchMap((boards: Board[]) => {
-        const currentBoard = boards.find(itm => itm.id === boardId);
-        const updatedBoard = Object.assign({}, currentBoard, { tasks });
-        const newArray = [updatedBoard, ...boards];
-
-        this.localStorage.setStorage<Board[]>(
-          this.storageKey,
-          this.filterUniqueById(newArray)
-        );
-        return of({ boardId, tasks });
+    const updatedBoard = { id: boardId, tasks };
+    return this._fbDb.updateCollection(updatedBoard, this.storageKey).pipe(
+      map(() => {
+        return { boardId, tasks };
       })
     );
   }
@@ -79,21 +58,19 @@ export class BoardService {
    * Remove a specifc task from the board
    */
   removeTask(boardId: string, task: Task) {
-    return this.fetchAllBoards().pipe(
+    return this._fbDb.getCollection<Board>(this.storageKey).pipe(
       switchMap((boards: Board[]) => {
         const currentBoard = boards.find(itm => itm.id === boardId);
-        const updatedBoard = Object.assign({}, currentBoard, {
-          tasks: currentBoard?.tasks?.filter(
-            itm => itm.description !== task.description
-          ),
-        });
-        const newArray = [updatedBoard, ...boards];
-
-        this.localStorage.setStorage<Board[]>(
-          this.storageKey,
-          this.filterUniqueById(newArray)
+        const updatedTasks = currentBoard?.tasks?.filter(
+          itm => itm.description !== task.description
         );
-        return of({ boardId, task });
+        const updatedBoard = { ...currentBoard, tasks: updatedTasks };
+
+        return this._fbDb.updateCollection(updatedBoard, this.storageKey).pipe(
+          map(() => {
+            return { boardId, task };
+          })
+        );
       })
     );
   }
@@ -104,16 +81,5 @@ export class BoardService {
   sortBoards(boards: Board[]) {
     // @todo(implement)
     console.log(boards);
-  }
-
-  filterUniqueById(arr: Board[]) {
-    const seenIds = new Set();
-    return arr.filter((obj: Board) => {
-      if (!seenIds.has(obj.id)) {
-        seenIds.add(obj.id);
-        return true;
-      }
-      return false;
-    });
   }
 }
