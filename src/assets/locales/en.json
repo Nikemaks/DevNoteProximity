@@ -5,6 +5,10 @@
     "language": "Language"
   },
   "layout": {
+    "modal": {
+      "hello": "Hello",
+      "logout": "Logout"
+    },
     "home": "Home",
     "test_accounts": "Test Accounts",
     "notes": "Notes",

@@ -1,4 +1,4 @@
-<header>
+<header class="header">
   <mat-toolbar color="primary">
     <button
       (click)="drawer.toggle()"
@@ -15,14 +15,37 @@
       [routerLink]="['/settings']">
       <mat-icon>settings</mat-icon>
     </button>
-    <button aria-label="icon-button" mat-icon-button>
+    <button
+      (click)="toggleModalAboutUser()"
+      aria-label="icon-button"
+      mat-icon-button>
       <mat-icon>account_circle</mat-icon>
-    </button>
-    <button (click)="logout()" aria-label="icon-button" mat-icon-button>
-      <mat-icon>logout</mat-icon>
     </button>
   </mat-toolbar>
 </header>
+@if (isOpenedInformationUser && userInformation) {
+  <div class="modalContainer">
+    <div class="relativeCon">
+      <button
+        class="closeBtn"
+        (click)="toggleModalAboutUser()"
+        aria-label="icon-button"
+        mat-icon-button>
+        <mat-icon>close</mat-icon>
+      </button>
+      <div class="email">{{ userInformation.email }}</div>
+      <img class="userImg" src="{{ userInformation.photoURL }}" alt="" />
+      <div class="helloUser">
+        {{ 'layout.modal.hello' | translate }}, {{ userInformation.name }}
+      </div>
+      <button (click)="logout()" class="logoutBtn">
+        <mat-icon>logout</mat-icon>
+        <span class="logoutText">{{ 'layout.modal.logout' | translate }}</span>
+      </button>
+    </div>
+  </div>
+}
+
 <main [className]="theme$ | async">
   <mat-drawer-container class="container">
     <mat-drawer #drawer mode="side" opened>

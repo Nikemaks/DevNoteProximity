@@ -15,6 +15,7 @@ import { TranslateService } from '@ngx-translate/core';
 import { AuthService } from '../../services/auth/auth.service';
 import { LoadingService } from '../../services/loading/loading.service';
 import { SpinnerComponent } from '../spinner/spinner.component';
+import { UserInfo } from '../../interfaces/userInfo';
 
 @Component({
   selector: 'app-layout',
@@ -39,6 +40,8 @@ export class LayoutComponent implements OnInit {
   panelOpenState = false;
   theme$: Observable<Theme> = this.userSettingsStoreService.selectTheme$;
   loading$ = this.loadingService.loading$;
+  userInformation: UserInfo | null = this.authService.userInfo;
+  isOpenedInformationUser: boolean = false;
 
   constructor(
     private userSettingsStoreService: UserSettingStoreService,
@@ -56,6 +59,10 @@ export class LayoutComponent implements OnInit {
         this.translate.use(language);
       }
     );
+  }
+
+  toggleModalAboutUser() {
+    this.isOpenedInformationUser = !this.isOpenedInformationUser;
   }
 
   logout() {

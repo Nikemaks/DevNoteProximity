@@ -23,3 +23,71 @@ mat-drawer {
 .active {
   background-color: #b4b4b4;
 }
+
+.header {
+  position: relative;
+}
+
+.modalContainer {
+  position: absolute;
+  z-index: 10;
+  top: 12%;
+  right: 2%;
+  width: 400px;
+  height: 350px;
+  border-radius: 20px;
+
+  background-color: #757575;
+  color: white;
+}
+
+.relativeCon {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.closeBtn {
+  position: absolute;
+  top: 5px;
+  right: 5px;
+}
+
+.email {
+  margin-top: 20px;
+  text-align: center;
+  font-weight: 500;
+}
+
+.userImg {
+  margin-top: 30px;
+  width: 80px;
+  height: 80px;
+  border-radius: 100px;
+  text-align: center;
+}
+
+.helloUser {
+  margin-top: 15px;
+  font-size: 20px;
+}
+
+.logoutBtn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-top: 40px;
+  border: none;
+  border-radius: 40px;
+  width: 360px;
+  padding: 15px 0;
+}
+
+.logoutBtn:hover {
+  background-color: #e1e1e1;
+}
+.logoutText {
+  margin-left: 15px;
+  font-weight: 600;
+}

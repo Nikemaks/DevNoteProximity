@@ -51,7 +51,7 @@ import { loadingInterceptor } from './intercepts/loading-interceptor';
 import { GlobalErrorHandler } from './services/global-error-handler/global-error-handler.service';
 
 export function HttpLoaderFactory(http: HttpClient) {
-  return new TranslateHttpLoader(http, './assets/i18n/', '.json');
+  return new TranslateHttpLoader(http, './assets/locales/', '.json');
 }
 
 export const appConfig: ApplicationConfig = {

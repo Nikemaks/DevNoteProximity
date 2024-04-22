@@ -5,6 +5,10 @@
     "language": "Мова"
   },
   "layout": {
+    "modal": {
+      "hello": "Привіт",
+      "logout": "Вийти"
+    },
     "home": "Головна",
     "test_accounts": "Тестові акаунти",
     "notes": "Нотатки",
