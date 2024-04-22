@@ -9,7 +9,7 @@
         mat-card-image
         [src]="item.img"
         alt="Test accounts preview" />
-      <mat-card-content>
+      <mat-card-content matTooltip="{{ item.description | translate }}">
         <p class="item__text">{{ item.description | translate }}</p>
       </mat-card-content>
       <mat-card-actions class="item__btn">
