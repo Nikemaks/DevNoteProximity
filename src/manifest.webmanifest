@@ -1,6 +1,6 @@
 {
-  "name": "DevNote-Proximity",
-  "short_name": "DevNote-Proximity",
+  "name": "DevNoteProximity",
+  "short_name": "DevNoteProximity",
   "theme_color": "#1976d2",
   "background_color": "#fafafa",
   "display": "standalone",
