@@ -34,10 +34,10 @@ mat-drawer {
   top: 12%;
   right: 2%;
   width: 400px;
-  height: 350px;
+  height: 360px;
   border-radius: 20px;
 
-  background-color: #757575;
+  background-color: #292a2c;
   color: white;
 }
 
@@ -73,21 +73,46 @@ mat-drawer {
   font-size: 20px;
 }
 
+.manageBtn {
+  margin-top: 15px;
+  padding: 10px 20px;
+  background-color: transparent;
+  border: 1px solid #8e918f;
+  border-radius: 40px;
+  color: #a8c7fa;
+}
+
 .logoutBtn {
   display: flex;
   align-items: center;
   justify-content: center;
-  margin-top: 40px;
+  margin-top: 15px;
   border: none;
   border-radius: 40px;
-  width: 360px;
+  width: 320px;
   padding: 15px 0;
+  background-color: #1b1b1b;
+  color: white;
 }
 
 .logoutBtn:hover {
-  background-color: #e1e1e1;
+  background-color: #3a3a3a;
 }
 .logoutText {
   margin-left: 15px;
   font-weight: 600;
+}
+
+.links {
+  margin-top: 15px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 15px;
+  font-size: 12px;
+}
+
+.links__item {
+  text-underline: none;
+  color: white;
 }

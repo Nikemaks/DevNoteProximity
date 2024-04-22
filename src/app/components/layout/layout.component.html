@@ -38,10 +38,29 @@
       <div class="helloUser">
         {{ 'layout.modal.hello' | translate }}, {{ userInformation.name }}
       </div>
+      <button class="manageBtn">{{ 'layout.modal.manage' | translate }}</button>
       <button (click)="logout()" class="logoutBtn">
         <mat-icon>logout</mat-icon>
         <span class="logoutText">{{ 'layout.modal.logout' | translate }}</span>
       </button>
+      <div class="links">
+        <div>
+          <a
+            class="links__item"
+            href="https://policies.google.com/terms?hl"
+            target="_blank"
+            >{{ 'layout.modal.privacy' | translate }}</a
+          >
+        </div>
+        <div>
+          <a
+            class="links__item"
+            href="https://policies.google.com/terms?hl"
+            target="_blank"
+            >{{ 'layout.modal.condition' | translate }}</a
+          >
+        </div>
+      </div>
     </div>
   </div>
 }

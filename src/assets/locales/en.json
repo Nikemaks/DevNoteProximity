@@ -7,7 +7,10 @@
   "layout": {
     "modal": {
       "hello": "Hello",
-      "logout": "Logout"
+      "manage": "Manage your Google Account",
+      "logout": "Logout",
+      "privacy": "Privacy Policy",
+      "condition": "Conditions of Use"
     },
     "home": "Home",
     "test_accounts": "Test Accounts",
