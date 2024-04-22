@@ -53,7 +53,8 @@
       "cancel_btn": "Скасувати",
       "task_title": "Завдання",
       "task_description": "Опис завдання",
-      "task_btn": "Додати завдання"
+      "task_btn": "Додати завдання",
+      "task_update": "Оновити завдання"
     },
     "full_notes": {
       "title": "Нотатки",
