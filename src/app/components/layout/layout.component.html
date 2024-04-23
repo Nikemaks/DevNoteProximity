@@ -1,4 +1,4 @@
-<header>
+<header class="header">
   <mat-toolbar color="primary">
     <button
       (click)="drawer.toggle()"
@@ -15,14 +15,58 @@
       [routerLink]="['/settings']">
       <mat-icon>settings</mat-icon>
     </button>
-    <button aria-label="icon-button" mat-icon-button>
+    <button
+      (click)="toggleModalAboutUser()"
+      aria-label="icon-button"
+      mat-icon-button>
       <mat-icon>account_circle</mat-icon>
-    </button>
-    <button (click)="logout()" aria-label="icon-button" mat-icon-button>
-      <mat-icon>logout</mat-icon>
     </button>
   </mat-toolbar>
 </header>
+@if (isOpenedInformationUser && userInformation) {
+  <div class="modal-container">
+    <div class="relative-con">
+      <button
+        class="close-btn"
+        (click)="toggleModalAboutUser()"
+        aria-label="icon-button"
+        mat-icon-button>
+        <mat-icon>close</mat-icon>
+      </button>
+      <div class="email">{{ userInformation.email }}</div>
+      <img class="user-img" src="{{ userInformation.photoURL }}" alt="" />
+      <div class="hello-user">
+        {{ 'layout.modal.hello' | translate }}, {{ userInformation.name }}
+      </div>
+      <button class="manage-btn">
+        {{ 'layout.modal.manage' | translate }}
+      </button>
+      <button (click)="logout()" class="logout-btn">
+        <mat-icon>logout</mat-icon>
+        <span class="logout-text">{{ 'layout.modal.logout' | translate }}</span>
+      </button>
+      <div class="links">
+        <div>
+          <a
+            class="links__item"
+            href="https://policies.google.com/terms?hl"
+            target="_blank"
+            >{{ 'layout.modal.privacy' | translate }}</a
+          >
+        </div>
+        <div>
+          <a
+            class="links__item"
+            href="https://policies.google.com/terms?hl"
+            target="_blank"
+            >{{ 'layout.modal.condition' | translate }}</a
+          >
+        </div>
+      </div>
+    </div>
+  </div>
+}
+
 <main [className]="theme$ | async">
   <mat-drawer-container class="container">
     <mat-drawer #drawer mode="side" opened>

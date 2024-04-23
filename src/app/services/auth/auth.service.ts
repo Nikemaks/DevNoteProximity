@@ -60,4 +60,14 @@ export class AuthService {
   logout() {
     this.auth.signOut().then(() => this.router.navigate(['auth/sign-in']));
   }
+
+  get userInfo() {
+    const user = this.auth.currentUser;
+
+    if (!user) return null;
+
+    const { email, photoURL, displayName: name } = user;
+
+    return { email, photoURL, name };
+  }
 }

@@ -5,6 +5,13 @@
     "language": "Language"
   },
   "layout": {
+    "modal": {
+      "hello": "Hello",
+      "manage": "Manage your Google Account",
+      "logout": "Logout",
+      "privacy": "Privacy Policy",
+      "condition": "Conditions of Use"
+    },
     "home": "Home",
     "test_accounts": "Test Accounts",
     "notes": "Notes",

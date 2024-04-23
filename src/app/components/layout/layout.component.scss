@@ -23,3 +23,96 @@ mat-drawer {
 .active {
   background-color: #b4b4b4;
 }
+
+.header {
+  position: relative;
+}
+
+.modal-container {
+  position: absolute;
+  z-index: 10;
+  top: 12%;
+  right: 2%;
+  width: 400px;
+  height: 360px;
+  border-radius: 20px;
+
+  background-color: #292a2c;
+  color: white;
+}
+
+.relative-con {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.close-btn {
+  position: absolute;
+  top: 5px;
+  right: 5px;
+}
+
+.email {
+  margin-top: 20px;
+  text-align: center;
+  font-weight: 500;
+}
+
+.user-img {
+  margin-top: 30px;
+  width: 80px;
+  height: 80px;
+  border-radius: 100px;
+  text-align: center;
+}
+
+.hello-user {
+  margin-top: 15px;
+  font-size: 20px;
+}
+
+.manage-btn {
+  margin-top: 15px;
+  padding: 10px 20px;
+  background-color: transparent;
+  border: 1px solid #8e918f;
+  border-radius: 40px;
+  color: #a8c7fa;
+}
+
+.logout-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-top: 15px;
+  border: none;
+  border-radius: 40px;
+  width: 320px;
+  padding: 15px 0;
+  background-color: #1b1b1b;
+  color: white;
+}
+
+.logout-btn:hover {
+  background-color: #3a3a3a;
+}
+.logout-text {
+  margin-left: 15px;
+  font-weight: 600;
+}
+
+.links {
+  margin-top: 15px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 15px;
+  font-size: 12px;
+}
+
+.links__item {
+  text-underline: none;
+  color: white;
+}

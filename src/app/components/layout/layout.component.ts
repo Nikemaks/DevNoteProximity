@@ -39,6 +39,8 @@ export class LayoutComponent implements OnInit {
   panelOpenState = false;
   theme$: Observable<Theme> = this.userSettingsStoreService.selectTheme$;
   loading$ = this.loadingService.loading$;
+  userInformation = this.authService.userInfo;
+  isOpenedInformationUser: boolean = false;
 
   constructor(
     private userSettingsStoreService: UserSettingStoreService,
@@ -56,6 +58,10 @@ export class LayoutComponent implements OnInit {
         this.translate.use(language);
       }
     );
+  }
+
+  toggleModalAboutUser() {
+    this.isOpenedInformationUser = !this.isOpenedInformationUser;
   }
 
   logout() {
