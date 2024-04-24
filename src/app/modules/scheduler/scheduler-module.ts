@@ -7,7 +7,6 @@ import { SchedulerModule } from 'angular-calendar-scheduler';
 import moment from 'moment';
 import { DateAdapter, MatCommonModule } from '@angular/material/core';
 import { adapterFactory } from 'angular-calendar/date-adapters/date-fns';
-import { CalendarService } from './services/calendar.service';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
 import { MatButtonToggleModule } from '@angular/material/button-toggle';
@@ -35,7 +34,6 @@ import { MatFormFieldModule } from '@angular/material/form-field';
   providers: [
     { provide: LOCALE_ID, useValue: 'en-US' },
     { provide: MOMENT, useValue: moment },
-    CalendarService,
   ],
   declarations: [SchedulerComponent],
   exports: [SchedulerComponent],

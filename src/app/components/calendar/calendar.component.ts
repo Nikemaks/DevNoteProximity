@@ -10,6 +10,7 @@ import { CalendarEventsStore } from '../../store/calendar-events/calendar-events
 import { CalendarSchedulerEvent } from 'angular-calendar-scheduler';
 import { FormValue } from '../../interfaces/event-model';
 import { SegmentActionEvent } from '../../modules/scheduler/interfaces';
+import { ConfirmActionComponent } from '../modals/confirm-action/confirm-action.component';
 
 @Component({
   selector: 'app-calendar',
@@ -58,5 +59,20 @@ export class CalendarComponent {
 
   onUpdateEvents(events: CalendarSchedulerEvent[]) {
     this.store.updateAllEvents$(events as EventModel[]);
+  }
+
+  onDeleteEvent(removeId: string) {
+    this.dialog
+      .open(ConfirmActionComponent)
+      .afterClosed()
+      .subscribe(result => {
+        if (result) {
+          this.store.deleteCalendarEvent$(removeId);
+        }
+      });
+  }
+
+  onToggleCancelEvent(event: CalendarSchedulerEvent) {
+    this.store.toggleCancelCalendarEvent$(event as EventModel);
   }
 }

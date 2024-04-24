@@ -15,7 +15,6 @@ import {
   SchedulerViewHour,
   SchedulerViewHourSegment,
   CalendarSchedulerEvent,
-  CalendarSchedulerEventAction,
   startOfPeriod,
   endOfPeriod,
   addPeriod,
@@ -23,6 +22,7 @@ import {
   SchedulerDateFormatter,
   SchedulerEventTimesChangedEvent,
   CalendarSchedulerViewComponent,
+  CalendarSchedulerEventAction,
 } from 'angular-calendar-scheduler';
 import {
   CalendarView,
@@ -30,7 +30,6 @@ import {
   DateAdapter,
 } from 'angular-calendar';
 
-import { CalendarService } from '../../services/calendar.service';
 import { SegmentActionEvent } from '../../interfaces';
 
 export type hourSegmentsType = 1 | 2 | 4 | 6;
@@ -73,12 +72,20 @@ export class SchedulerComponent {
 
   actions: CalendarSchedulerEventAction[] = [
     {
+      label:
+        '<span class="valign-center"><i class="material-icons md-18 md-red-500">delete</i></span>',
+      title: 'Delete',
+      onClick: (event: CalendarSchedulerEvent): void => {
+        this.deleteEvent.emit(event.id);
+      },
+    },
+    {
       when: 'enabled',
       label:
         '<span class="valign-center"><i class="material-icons md-18 md-red-500">cancel</i></span>',
-      title: 'Delete',
+      title: 'Cancel',
       onClick: (event: CalendarSchedulerEvent): void => {
-        console.log("Pressed action 'Delete' on event " + event.id);
+        this.toggleCancelEvent.emit(event);
       },
     },
     {
@@ -87,7 +94,7 @@ export class SchedulerComponent {
         '<span class="valign-center"><i class="material-icons md-18 md-red-500">autorenew</i></span>',
       title: 'Restore',
       onClick: (event: CalendarSchedulerEvent): void => {
-        console.log("Pressed action 'Restore' on event " + event.id);
+        this.toggleCancelEvent.emit(event);
       },
     },
   ];
@@ -95,18 +102,24 @@ export class SchedulerComponent {
   events!: CalendarSchedulerEvent[];
 
   @Input() set calendarEvents(events: CalendarSchedulerEvent[]) {
-    this.events = events;
+    this.events = events.map((event: CalendarSchedulerEvent) => {
+      return {
+        ...event,
+        actions: this.actions,
+      };
+    });
   }
 
   @Output() segmentClickedEmit = new EventEmitter<SegmentActionEvent>();
   @Output() updateEvents = new EventEmitter<CalendarSchedulerEvent[]>();
+  @Output() deleteEvent = new EventEmitter<string>();
+  @Output() toggleCancelEvent = new EventEmitter<CalendarSchedulerEvent>();
 
   @ViewChild(CalendarSchedulerViewComponent)
   calendarScheduler!: CalendarSchedulerViewComponent;
 
   constructor(
     @Inject(LOCALE_ID) locale: string,
-    private appService: CalendarService,
     private dateAdapter: DateAdapter
   ) {
     this.locale = locale;
