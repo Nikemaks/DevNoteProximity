@@ -1,8 +1,7 @@
 import { Injectable } from '@angular/core';
-import { StorageService } from '../storage/storage.service';
 import { EventModel } from '../../models/EventModel';
-import { switchMap, tap } from 'rxjs/operators';
-import { Observable, of } from 'rxjs';
+import { switchMap, take } from 'rxjs/operators';
+import { Observable, of, combineLatest } from 'rxjs';
 import { FireBaseDbService } from '../firebase/firebase-db.service';
 
 @Injectable({
@@ -11,60 +10,52 @@ import { FireBaseDbService } from '../firebase/firebase-db.service';
 export class CalendarEventsService {
   storageKey = 'CALENDAR_EVENTS';
 
-  constructor(
-    private localStorage: StorageService,
-    private _fbDb: FireBaseDbService
-  ) {}
+  constructor(private _fbDb: FireBaseDbService) {}
 
   fetchAllEvents(): Observable<EventModel[]> {
     return this._fbDb.getCollection<EventModel>(this.storageKey);
   }
 
-  saveCalendarEvent(event: EventModel): Observable<EventModel[]> {
+  saveCalendarEvent(event: EventModel): Observable<EventModel> {
     return this._fbDb.saveCollection({ ...event }, this.storageKey).pipe(
       switchMap(({ id }) => {
         event.id = id;
-        return of([event]);
+        return of(event);
       })
     );
   }
 
   updateCalendarEvents(events: EventModel[]): Observable<EventModel[]> {
-    this.localStorage.setStorage<EventModel[]>(this.storageKey, events);
-    return of(events);
-  }
+    const updateObservables = events.map(event =>
+      this._fbDb
+        .updateCollection({ ...event, actions: null }, this.storageKey)
+        .pipe(switchMap(() => of(event).pipe(take(1))))
+    );
 
-  removeEvent(removeId: string): Observable<EventModel[]> {
-    return this.fetchAllEvents().pipe(
-      switchMap((events: EventModel[]) => {
-        const newArray = events.filter(({ id }) => id !== removeId);
-        return of(newArray);
-      }),
-      tap(updatedEvents => {
-        this.localStorage.setStorage<EventModel[]>(
-          this.storageKey,
-          updatedEvents
-        );
+    return combineLatest(updateObservables).pipe(
+      switchMap(updatedEvents => {
+        return of(updatedEvents);
       })
     );
   }
 
-  toggleCancelEvent(cancelId: string): Observable<EventModel[]> {
-    return this.fetchAllEvents().pipe(
-      switchMap((events: EventModel[]) => {
-        const newArray = events.map(event => {
-          if (event.id == cancelId) {
-            event.isCancelled = !event.isCancelled;
-          }
-          return event;
-        });
-        return of(newArray);
-      }),
-      tap(updatedEvents => {
-        this.localStorage.setStorage<EventModel[]>(
-          this.storageKey,
-          updatedEvents
-        );
+  removeEvent(removeId: string): Observable<string> {
+    return this._fbDb.deleteCollection(removeId, this.storageKey).pipe(
+      switchMap(() => {
+        return of(removeId);
+      })
+    );
+  }
+
+  toggleCancelEvent(eventModel: EventModel): Observable<EventModel> {
+    const updatedEventModel = {
+      ...eventModel,
+      isCancelled: !eventModel.isCancelled,
+      actions: null,
+    } as EventModel;
+    return this._fbDb.updateCollection(updatedEventModel, this.storageKey).pipe(
+      switchMap(() => {
+        return of(updatedEventModel);
       })
     );
   }

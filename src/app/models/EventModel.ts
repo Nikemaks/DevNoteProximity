@@ -12,7 +12,7 @@ import {
 } from '../constants/calendar-events';
 
 export class EventModel {
-  actions?: CalendarSchedulerEventAction[];
+  actions?: CalendarSchedulerEventAction[] | null;
   color: EventColor;
   content: string;
   draggable: boolean;
