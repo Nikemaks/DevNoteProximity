@@ -115,21 +115,12 @@
           }
         },
         "deploy": {
-          "builder": "@angular/fire:deploy",
+          "builder": "angular-cli-ghpages:deploy",
           "options": {
-            "version": 2
-          },
-          "configurations": {
-            "production": {
-              "buildTarget": "devnoteproximity:build:production",
-              "serveTarget": "devnoteproximity:serve:production"
-            },
-            "development": {
-              "buildTarget": "devnoteproximity:build:development",
-              "serveTarget": "devnoteproximity:serve:development"
-            }
-          },
-          "defaultConfiguration": "production"
+            "baseHref": "https://nikemaks.github.io/DevNoteProximity",
+            "name": "Devnote",
+            "email": "javaker007@gmail.com"
+          }
         }
       }
     }
