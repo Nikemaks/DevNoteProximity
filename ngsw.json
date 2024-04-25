@@ -1,6 +1,6 @@
 {
   "configVersion": 1,
-  "timestamp": 1714080737346,
+  "timestamp": 1714081186816,
   "index": "/DevNoteProximity/index.html",
   "assetGroups": [
     {
@@ -63,12 +63,12 @@
   "hashTable": {
     "/DevNoteProximity/assets/fonts/FontAwesome.otf": "da39a3ee5e6b4b0d3255bfef95601890afd80709",
     "/DevNoteProximity/assets/fonts/fontawesome-webfont.eot": "da39a3ee5e6b4b0d3255bfef95601890afd80709",
-    "/DevNoteProximity/assets/fonts/fontawesome-webfont.svg": "b5483b11f8ba213e733b5b8af9927a04fec996f6",
+    "/DevNoteProximity/assets/fonts/fontawesome-webfont.svg": "98a8aa5cf7d62c2eff5f07ede8d844b874ef06ed",
     "/DevNoteProximity/assets/fonts/fontawesome-webfont.ttf": "13b1eab65a983c7a73bc7997c479d66943f7c6cb",
     "/DevNoteProximity/assets/fonts/fontawesome-webfont.woff": "da39a3ee5e6b4b0d3255bfef95601890afd80709",
     "/DevNoteProximity/assets/fonts/fontawesome-webfont.woff2": "da39a3ee5e6b4b0d3255bfef95601890afd80709",
-    "/DevNoteProximity/assets/i18n/en.json": "a7ef0f134a547f76da32fbfd5288a8c940073fc0",
-    "/DevNoteProximity/assets/i18n/ua.json": "f98e0e70ddbbe2d9202b10bcfae09760e9b85018",
+    "/DevNoteProximity/assets/i18n/en.json": "91595d413434fab9582f2bebf313f5ab39c77503",
+    "/DevNoteProximity/assets/i18n/ua.json": "8a012ca99d0746a0a4958da9d4cb375f17c3f988",
     "/DevNoteProximity/assets/icons/icon-128x128.png": "f912963bdc6d5a38d8f1dd0afbaab2ce8d657acb",
     "/DevNoteProximity/assets/icons/icon-144x144.png": "b155fd5f2fd5d2ea7760721063003c4cd95fd783",
     "/DevNoteProximity/assets/icons/icon-152x152.png": "eae6e0f0c8afb8aaae339e2a569b43e9238e5e6c",
@@ -91,7 +91,7 @@
     "/DevNoteProximity/favicon.ico": "9c39f434fe1261f68c5e3eefdf734630d99c5670",
     "/DevNoteProximity/index.html": "ab9ebfe5ccaf39f2a5118dac0945ed3ea5730a12",
     "/DevNoteProximity/main-22E6MNPA.js": "c7999cdbd02c33a3f811464fd2a0ae094e5ac686",
-    "/DevNoteProximity/manifest.webmanifest": "7aedb7e5343c5d0d69ae4f396cfdd044cd71281b",
+    "/DevNoteProximity/manifest.webmanifest": "ff62e42ed6b80d07fc69c5e70f816055b65afe12",
     "/DevNoteProximity/polyfills-RT5I6R6G.js": "fe9f024576f21ff6314cf8f8332cde58b9a12416",
     "/DevNoteProximity/styles-ODJLMG2V.css": "41a9088551a3d3045618ed150cd2be1fc84f157f"
   },
