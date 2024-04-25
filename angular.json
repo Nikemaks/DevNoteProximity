@@ -117,7 +117,6 @@
         "deploy": {
           "builder": "angular-cli-ghpages:deploy",
           "options": {
-            "baseHref": "https://nikemaks.github.io/DevNoteProximity",
             "name": "Devnote",
             "email": "javaker007@gmail.com"
           }
