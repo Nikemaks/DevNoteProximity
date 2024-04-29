@@ -40,6 +40,12 @@ export class HomeComponent {
       description: 'home.full_notes.description',
       route: 'notes-full',
     },
+    {
+      title: 'home.calendar.title',
+      img: '/assets/preview/calendar.png',
+      description: 'home.calendar.description',
+      route: 'calendar',
+    },
   ];
 
   constructor(private router: Router) {}

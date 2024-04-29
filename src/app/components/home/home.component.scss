@@ -1,10 +1,12 @@
 .container {
   display: flex;
+  flex-wrap: wrap;
 }
 
 .card {
   width: 400px;
   margin-left: 90px;
+  margin-top: 40px;
 }
 
 .item__img {
@@ -17,6 +19,6 @@
   overflow: hidden;
   text-overflow: ellipsis;
   display: -webkit-box;
-  -webkit-line-clamp: 5;
+  -webkit-line-clamp: 4;
   -webkit-box-orient: vertical;
 }
