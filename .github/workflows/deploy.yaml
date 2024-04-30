@@ -1,8 +1,8 @@
-name: Angular GitHub CI/CD
+name: Angular GitHub Deploy
 on:
   push:
     branches:
-      - '**'
+      - 'main'
 jobs:
   ci:
     runs-on: ubuntu-latest
@@ -48,3 +48,8 @@ jobs:
       - name: Prettier check
         run: |
           npm run prettier:check
+      - name: Deploy
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN  }}
+        run: |
+          npm run deploy
