@@ -34,6 +34,11 @@
       "title": "Full Notes",
       "description": "Welcome to our note board where you can easily organize your thoughts, ideas, tasks, and anything else that is important to you. Our note board offers a simple and intuitive interface so you can concentrate on what's important. You are free to express your thoughts, make plans and keep track of your projects in one place.",
       "button": "View"
+    },
+    "calendar": {
+      "title": "Calendar",
+      "description": "Our calendar provides you with everything you need to effectively plan and manage your schedule. Whether you need to manage business meetings, events or personal plans, we offer an intuitive and easy-to-use calendar.",
+      "button": "View"
     }
   },
   "test_accounts": {
