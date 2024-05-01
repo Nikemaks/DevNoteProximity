@@ -2,7 +2,10 @@ import { Component, ViewChild } from '@angular/core';
 import { MatPaginator, MatPaginatorModule } from '@angular/material/paginator';
 import { MatTabsModule } from '@angular/material/tabs';
 import { MatTableDataSource, MatTableModule } from '@angular/material/table';
-import { TestUserAccount } from '../../../interfaces/test-user-account';
+import {
+  HidePassword,
+  TestUserAccount,
+} from '../../../interfaces/test-user-account';
 import { TestAccountsServiceStore } from '../../../store/test-accounts-store/test-accounts-store.service';
 import { MatIconModule } from '@angular/material/icon';
 import { MatButtonModule } from '@angular/material/button';
@@ -76,5 +79,9 @@ export class TableUsersAccountComponent {
     this._snackBar.open(`Value "${value}" copied to clipboard!`, 'Close', {
       duration: 2500,
     });
+  }
+
+  toggleVisibility(element: HidePassword) {
+    element.hidePassword = !element.hidePassword;
   }
 }
