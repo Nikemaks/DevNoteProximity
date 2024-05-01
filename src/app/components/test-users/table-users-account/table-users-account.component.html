@@ -43,13 +43,25 @@
         </th>
         <td mat-cell *matCellDef="let element">
           <div class="table-align">
-            {{ element?.password }}
+            <input
+              matInput
+              [type]="hide ? 'password' : 'text'"
+              [value]="element?.password"
+              [disabled]="true" />
             <button
               [cdkCopyToClipboard]="element?.password"
               (click)="notifyCopy(element?.password)"
               mat-icon-button
               aria-label="copy">
               <mat-icon>content_copy</mat-icon>
+            </button>
+            <button
+              mat-icon-button
+              matSuffix
+              (click)="hide = !hide"
+              [attr.aria-label]="'Hide password'"
+              [attr.aria-pressed]="hide">
+              <mat-icon>{{ hide ? 'visibility_off' : 'visibility' }}</mat-icon>
             </button>
           </div>
         </td>

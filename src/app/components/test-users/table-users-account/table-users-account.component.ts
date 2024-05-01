@@ -14,6 +14,8 @@ import { CommonModule } from '@angular/common';
 import { MatCardModule } from '@angular/material/card';
 import { TranslateModule } from '@ngx-translate/core';
 import { map } from 'rxjs/operators';
+import { MatSuffix } from '@angular/material/form-field';
+import { MatInput } from '@angular/material/input';
 
 @Component({
   selector: 'table-users-account',
@@ -28,12 +30,15 @@ import { map } from 'rxjs/operators';
     ClipboardModule,
     MatCardModule,
     TranslateModule,
+    MatSuffix,
+    MatInput,
   ],
   templateUrl: './table-users-account.component.html',
   styleUrl: './table-users-account.component.scss',
 })
 export class TableUsersAccountComponent {
   @ViewChild(MatPaginator) paginator!: MatPaginator;
+  hide = true;
 
   displayedColumns: string[] = [
     'avatar',
