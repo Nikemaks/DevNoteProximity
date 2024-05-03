@@ -41,7 +41,6 @@ import { MatInput } from '@angular/material/input';
 })
 export class TableUsersAccountComponent {
   @ViewChild(MatPaginator) paginator!: MatPaginator;
-  hide = true;
 
   displayedColumns: string[] = [
     'avatar',
