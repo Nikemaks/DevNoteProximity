@@ -24,25 +24,25 @@ export class HomeComponent {
   items: Items[] = [
     {
       title: 'home.test_accounts.title',
-      img: '../../../assets/preview/test_accounts.png',
+      img: 'assets/preview/test_accounts.png',
       description: 'home.test_accounts.description',
       route: 'test-accounts',
     },
     {
       title: 'home.short_notes.title',
-      img: '../../../assets/preview/short_notes.png',
+      img: 'assets/preview/short_notes.png',
       description: 'home.short_notes.description',
       route: 'notes-short',
     },
     {
       title: 'home.full_notes.title',
-      img: '../../../assets/preview/full_notes.png',
+      img: 'assets/preview/full_notes.png',
       description: 'home.full_notes.description',
       route: 'notes-full',
     },
     {
       title: 'home.calendar.title',
-      img: '/assets/preview/calendar.png',
+      img: 'assets/preview/calendar.png',
       description: 'home.calendar.description',
       route: 'calendar',
     },
