@@ -51,7 +51,7 @@
               }}</mat-card-title>
             </mat-card-header>
             <mat-card-content>
-              <p class="item__text">{{ note.htmlContent }}</p>
+              <p class="item__text" [innerHTML]="note.htmlContent"></p>
             </mat-card-content>
             <mat-card-actions class="item__btn">
               <button mat-button class="card__btn" (click)="viewItem(note.id)">
