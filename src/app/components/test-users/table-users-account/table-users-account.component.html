@@ -45,7 +45,7 @@
           <div class="table-align">
             <input
               matInput
-              [type]="element.hidePassword ? 'text' : 'password'"
+              [type]="element.hide ? 'text' : 'password'"
               [value]="element?.password"
               [disabled]="true" />
             <button
@@ -58,13 +58,13 @@
             <button
               mat-icon-button
               matSuffix
-              (click)="toggleVisibility(element)"
+              (click)="element.hide = !element.hide"
               [attr.aria-label]="
-                element.hidePassword ? 'Show password' : 'Hide password'
+                element.hide ? 'Show password' : 'Hide password'
               "
-              [attr.aria-pressed]="!element.hidePassword">
+              [attr.aria-pressed]="!element.hide">
               <mat-icon>{{
-                element.hidePassword ? 'visibility' : 'visibility_off'
+                element.hide ? 'visibility' : 'visibility_off'
               }}</mat-icon>
             </button>
           </div>

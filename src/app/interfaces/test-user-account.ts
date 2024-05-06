@@ -5,7 +5,3 @@ export interface TestUserAccount {
   addComment: string;
   id: string;
 }
-
-export interface HidePassword {
-  hidePassword: boolean;
-}
