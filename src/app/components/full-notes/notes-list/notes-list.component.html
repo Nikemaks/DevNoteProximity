@@ -22,11 +22,11 @@
     </div>
   }
 }
-@if (filteredData$ | async; as data) {
-  @if (data?.notes?.length) {
-    @if (data.isDisplayType) {
+@if (filteredNotes$ | async; as filteredNotes) {
+  @if (filteredNotes?.notes?.length) {
+    @if (filteredNotes.isDisplayType) {
       <div class="list-container">
-        @for (note of data.notes; track note) {
+        @for (note of filteredNotes.notes; track note) {
           <mat-card class="list-card">
             <mat-card-header>
               <mat-card-title class="card__title">{{
@@ -46,7 +46,7 @@
       </div>
     } @else {
       <div class="container grid-container">
-        @for (note of data.notes; track note) {
+        @for (note of filteredNotes.notes; track note) {
           <mat-card class="card grid-item">
             <mat-card-header>
               <mat-card-title class="card__title">{{

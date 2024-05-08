@@ -33,7 +33,7 @@ import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
   styleUrl: './notes-list.component.scss',
 })
 export class NotesListComponent implements OnInit {
-  filteredData$!: Observable<NotesData>;
+  filteredNotes$!: Observable<NotesData>;
   allNotes$!: Observable<NotesData>;
   searchControl = new FormControl('');
   private destroyRef = inject(DestroyRef);
@@ -47,7 +47,7 @@ export class NotesListComponent implements OnInit {
 
   ngOnInit() {
     const isDisplayType$ = this.store.selectDisplayType$;
-    this.filteredData$ = combineLatest([
+    this.filteredNotes$ = combineLatest([
       this.store.selectFilteredNotes$,
       isDisplayType$,
     ]).pipe(map(([notes, isDisplayType]) => ({ notes, isDisplayType })));
