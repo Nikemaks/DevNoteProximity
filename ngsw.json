@@ -1,6 +1,6 @@
 {
   "configVersion": 1,
-  "timestamp": 1715193531970,
+  "timestamp": 1715196397390,
   "index": "/DevNoteProximity/index.html",
   "assetGroups": [
     {
@@ -68,8 +68,8 @@
     "/DevNoteProximity/assets/fonts/fontawesome-webfont.ttf": "13b1eab65a983c7a73bc7997c479d66943f7c6cb",
     "/DevNoteProximity/assets/fonts/fontawesome-webfont.woff": "da39a3ee5e6b4b0d3255bfef95601890afd80709",
     "/DevNoteProximity/assets/fonts/fontawesome-webfont.woff2": "da39a3ee5e6b4b0d3255bfef95601890afd80709",
-    "/DevNoteProximity/assets/i18n/en.json": "12f0dc44dc119046aaf8aad38befe7a2db29d4d5",
-    "/DevNoteProximity/assets/i18n/ua.json": "311c030b6bf259f53e18349957ea9d80a8a02b14",
+    "/DevNoteProximity/assets/i18n/en.json": "8ee33cfbff4ee049c8ad4687a673ab5dd38c663f",
+    "/DevNoteProximity/assets/i18n/ua.json": "ab7ee72015a94542bab5c9e5d23d80db430e5f3e",
     "/DevNoteProximity/assets/icons/icon-128x128.png": "f912963bdc6d5a38d8f1dd0afbaab2ce8d657acb",
     "/DevNoteProximity/assets/icons/icon-144x144.png": "b155fd5f2fd5d2ea7760721063003c4cd95fd783",
     "/DevNoteProximity/assets/icons/icon-152x152.png": "eae6e0f0c8afb8aaae339e2a569b43e9238e5e6c",
@@ -91,7 +91,7 @@
     "/DevNoteProximity/chunk-T7NMFP77.js": "58d04a6222043d967f7aa6ef700ba32e3b5d0ef6",
     "/DevNoteProximity/chunk-VLID2MQV.js": "1ceb9558d4291720a63a08457ae43dde05f0311c",
     "/DevNoteProximity/favicon.ico": "9c39f434fe1261f68c5e3eefdf734630d99c5670",
-    "/DevNoteProximity/index.html": "3bf7c5174532c807ace6d353bdc4e5183a43e141",
+    "/DevNoteProximity/index.html": "f60edf4969567b97200e1584f49131d0690b00ce",
     "/DevNoteProximity/main-WQCGAHBI.js": "8c3ecd5039b9a4b896134e9ab3e5e5812bc41137",
     "/DevNoteProximity/manifest.webmanifest": "ff62e42ed6b80d07fc69c5e70f816055b65afe12",
     "/DevNoteProximity/polyfills-RT5I6R6G.js": "fe9f024576f21ff6314cf8f8332cde58b9a12416",
