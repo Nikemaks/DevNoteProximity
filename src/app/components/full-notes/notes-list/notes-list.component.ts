@@ -47,14 +47,14 @@ export class NotesListComponent implements OnInit {
 
   ngOnInit() {
     const isDisplayType$ = this.store.selectDisplayType$;
-    const filteredNotes$ = this.store.selectFilteredNotes$;
-    const allNotes$ = this.store.selectAllNotes$;
-    this.filteredData$ = combineLatest([filteredNotes$, isDisplayType$]).pipe(
-      map(([notes, isDisplayType]) => ({ notes, isDisplayType }))
-    );
-    this.allNotes$ = combineLatest([allNotes$, isDisplayType$]).pipe(
-      map(([notes, isDisplayType]) => ({ notes, isDisplayType }))
-    );
+    this.filteredData$ = combineLatest([
+      this.store.selectFilteredNotes$,
+      isDisplayType$,
+    ]).pipe(map(([notes, isDisplayType]) => ({ notes, isDisplayType })));
+    this.allNotes$ = combineLatest([
+      this.store.selectAllNotes$,
+      isDisplayType$,
+    ]).pipe(map(([notes, isDisplayType]) => ({ notes, isDisplayType })));
     this.store.getDisplayType$();
 
     this.searchControl.valueChanges
