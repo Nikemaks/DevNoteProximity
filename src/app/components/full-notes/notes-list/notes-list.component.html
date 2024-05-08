@@ -1,5 +1,5 @@
-@if (filteredData$ | async; as data) {
-  @if (allData$ | async; as data) {
+@if (allData$ | async; as allData) {
+  @if (allData.notes.length) {
     <div class="buttons">
       <mat-form-field class="input" appearance="outline">
         <mat-label>{{ 'test_accounts.placeholder' | translate }}</mat-label>
@@ -16,11 +16,13 @@
       </mat-form-field>
       <button mat-icon-button (click)="switcherDisplayType()">
         <mat-icon>{{
-          data.isDisplayType ? 'view_module' : 'format_list_bulleted'
+          allData.isDisplayType ? 'view_module' : 'format_list_bulleted'
         }}</mat-icon>
       </button>
     </div>
   }
+}
+@if (filteredData$ | async; as data) {
   @if (data.notes.length) {
     @if (data.isDisplayType) {
       <div class="list-container">

@@ -34,7 +34,7 @@ import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 })
 export class NotesListComponent implements OnInit {
   filteredData$!: Observable<NotesData>;
-  allData$!: Observable<NotesData>;
+  allData$?: Observable<NotesData>;
   searchControl = new FormControl('');
   private destroyRef = inject(DestroyRef);
 
