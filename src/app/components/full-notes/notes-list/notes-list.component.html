@@ -1,5 +1,5 @@
-@if (allNotes$ | async; as allData) {
-  @if (allData?.notes?.length) {
+@if (allNotes$ | async; as allNotes) {
+  @if (allNotes?.notes?.length) {
     <div class="buttons">
       <mat-form-field class="input" appearance="outline">
         <mat-label>{{ 'test_accounts.placeholder' | translate }}</mat-label>
@@ -16,7 +16,7 @@
       </mat-form-field>
       <button mat-icon-button (click)="switcherDisplayType()">
         <mat-icon>{{
-          allData.isDisplayType ? 'view_module' : 'format_list_bulleted'
+          allNotes.isDisplayType ? 'view_module' : 'format_list_bulleted'
         }}</mat-icon>
       </button>
     </div>
