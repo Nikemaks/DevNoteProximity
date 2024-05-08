@@ -1,5 +1,5 @@
-@if (allData$ | async; as allData) {
-  @if (allData.notes.length) {
+@if (allNotes$ | async; as allData) {
+  @if (allData?.notes?.length) {
     <div class="buttons">
       <mat-form-field class="input" appearance="outline">
         <mat-label>{{ 'test_accounts.placeholder' | translate }}</mat-label>
@@ -23,7 +23,7 @@
   }
 }
 @if (filteredData$ | async; as data) {
-  @if (data.notes.length) {
+  @if (data?.notes?.length) {
     @if (data.isDisplayType) {
       <div class="list-container">
         @for (note of data.notes; track note) {
