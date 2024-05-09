@@ -24,17 +24,9 @@
 }
 @if (filteredNotes$ | async; as filteredNotes) {
   @if (filteredNotes?.notes?.length) {
-    <div
-      [ngClass]="{
-        'list-container': filteredNotes.isDisplayType,
-        'container grid-container': !filteredNotes.isDisplayType
-      }">
+    <div [className]="getContainerClass(filteredNotes.isDisplayType)">
       @for (note of filteredNotes.notes; track note) {
-        <mat-card
-          [ngClass]="{
-            'list-card': filteredNotes.isDisplayType,
-            'card grid-item': !filteredNotes.isDisplayType
-          }">
+        <mat-card [className]="getCardClass(filteredNotes.isDisplayType)">
           <mat-card-header>
             <mat-card-title class="card__title">{{
               note.title
