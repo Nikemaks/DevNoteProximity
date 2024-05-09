@@ -24,47 +24,33 @@
 }
 @if (filteredNotes$ | async; as filteredNotes) {
   @if (filteredNotes?.notes?.length) {
-    @if (filteredNotes.isDisplayType) {
-      <div class="list-container">
-        @for (note of filteredNotes.notes; track note) {
-          <mat-card class="list-card">
-            <mat-card-header>
-              <mat-card-title class="card__title">{{
-                note.title
-              }}</mat-card-title>
-            </mat-card-header>
-            <mat-card-content>
-              <p class="list__text">{{ note.htmlContent }}</p>
-            </mat-card-content>
-            <mat-card-actions class="item__btn">
-              <button mat-button class="card__btn" (click)="viewItem(note.id)">
-                {{ 'notes.full_notes.view' | translate }}
-              </button>
-            </mat-card-actions>
-          </mat-card>
-        }
-      </div>
-    } @else {
-      <div class="container grid-container">
-        @for (note of filteredNotes.notes; track note) {
-          <mat-card class="card grid-item">
-            <mat-card-header>
-              <mat-card-title class="card__title">{{
-                note.title
-              }}</mat-card-title>
-            </mat-card-header>
-            <mat-card-content>
-              <p class="item__text" [innerHTML]="note.htmlContent"></p>
-            </mat-card-content>
-            <mat-card-actions class="item__btn">
-              <button mat-button class="card__btn" (click)="viewItem(note.id)">
-                {{ 'notes.full_notes.view' | translate }}
-              </button>
-            </mat-card-actions>
-          </mat-card>
-        }
-      </div>
-    }
+    <div
+      [ngClass]="{
+        'list-container': filteredNotes.isDisplayType,
+        'container grid-container': !filteredNotes.isDisplayType
+      }">
+      @for (note of filteredNotes.notes; track note) {
+        <mat-card
+          [ngClass]="{
+            'list-card': filteredNotes.isDisplayType,
+            'card grid-item': !filteredNotes.isDisplayType
+          }">
+          <mat-card-header>
+            <mat-card-title class="card__title">{{
+              note.title
+            }}</mat-card-title>
+          </mat-card-header>
+          <mat-card-content>
+            <p class="item__text" [innerHTML]="note.htmlContent"></p>
+          </mat-card-content>
+          <mat-card-actions class="item__btn">
+            <button mat-button class="card__btn" (click)="viewItem(note.id)">
+              {{ 'notes.full_notes.view' | translate }}
+            </button>
+          </mat-card-actions>
+        </mat-card>
+      }
+    </div>
   } @else {
     <div class="notes-message">
       {{ 'notes_message.text' | translate }}
