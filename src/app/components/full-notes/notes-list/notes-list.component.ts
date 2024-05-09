@@ -73,12 +73,4 @@ export class NotesListComponent implements OnInit {
     this.store.setViewIdNotes(id);
     this.router.navigate([`notes-full/${id}`]);
   }
-
-  getCardClass(isDisplayType: boolean) {
-    return isDisplayType ? 'list-card' : 'card grid-item';
-  }
-
-  getContainerClass(isDisplayType: boolean) {
-    return isDisplayType ? 'list-container' : 'container grid-container';
-  }
 }
