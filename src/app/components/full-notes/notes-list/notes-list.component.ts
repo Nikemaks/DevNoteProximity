@@ -14,6 +14,8 @@ import { MatInputModule } from '@angular/material/input';
 import { debounceTime } from 'rxjs/operators';
 import { DEBOUNCE_TIME_INPUTS } from '../../../constants/global-constants';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
+import { DynamicDialogComponent } from '../../modals/dynamic-dialog/dynamic-dialog.component';
+import { MatDialog } from '@angular/material/dialog';
 
 @Component({
   selector: 'notes-list',
@@ -40,7 +42,8 @@ export class NotesListComponent implements OnInit {
 
   constructor(
     private store: FullNotesStoreService,
-    private router: Router
+    private router: Router,
+    public dialog: MatDialog
   ) {
     this.store.getAllNotes$();
   }
@@ -72,5 +75,17 @@ export class NotesListComponent implements OnInit {
   viewItem(id: string) {
     this.store.setViewIdNotes(id);
     this.router.navigate([`notes-full/${id}`]);
+  }
+
+  deleteNote(removeId: string | null) {
+    const dialogRef = this.dialog.open(DynamicDialogComponent, {
+      data: {
+        title: 'dialog-window.title',
+      },
+    });
+    dialogRef.afterClosed().subscribe(result => {
+      if (!result) return;
+      this.store.removeNote$(removeId || '');
+    });
   }
 }

@@ -47,6 +47,13 @@
             <button mat-button class="card__btn" (click)="viewItem(note.id)">
               {{ 'notes.full_notes.view' | translate }}
             </button>
+            <button
+              color="warn"
+              mat-button
+              class="card__btn"
+              (click)="deleteNote(note.id)">
+              <mat-icon>delete</mat-icon>
+            </button>
           </mat-card-actions>
         </mat-card>
       }
