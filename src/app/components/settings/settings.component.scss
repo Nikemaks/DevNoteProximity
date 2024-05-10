@@ -1,7 +1,3 @@
-.settings__section {
-  padding: 25px;
-}
-
 .title {
   font-size: 26px;
   font-weight: bold;
@@ -9,23 +5,33 @@
 
 .settings {
   margin-top: 25px;
+
+  &__section {
+    padding: 25px;
+  }
+
+  &__item {
+    margin-top: 25px;
+    display: flex;
+  }
+
+  &__props {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+
+  &__name {
+    display: flex;
+    align-items: center;
+
+    width: 20%;
+    gap: 10px;
+  }
 }
 
-.settings__item {
-  margin-top: 25px;
-  display: flex;
-}
-
-.settings__name {
-  display: flex;
-  align-items: center;
-
-  width: 20%;
-  gap: 10px;
-}
-
-.settings__props {
-  width: 80%;
+.add-profile {
+  margin-left: 15px;
 }
 
 .language-switcher {

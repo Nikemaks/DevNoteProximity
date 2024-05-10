@@ -50,8 +50,7 @@ export class LayoutComponent implements OnInit {
   ) {}
 
   ngOnInit() {
-    this.userSettingsStoreService.getTheme$();
-    this.userSettingsStoreService.getLanguage$();
+    this.userSettingsStoreService.getSettings$();
 
     this.userSettingsStoreService.selectLanguage$.subscribe(
       (language: Language) => {
