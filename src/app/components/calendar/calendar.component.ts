@@ -11,6 +11,7 @@ import { CalendarSchedulerEvent } from 'angular-calendar-scheduler';
 import { FormValue } from '../../interfaces/event-model';
 import { SegmentActionEvent } from '../../modules/scheduler/interfaces';
 import { ConfirmActionComponent } from '../modals/confirm-action/confirm-action.component';
+import { TranslateModule } from '@ngx-translate/core';
 
 @Component({
   selector: 'app-calendar',
@@ -20,6 +21,7 @@ import { ConfirmActionComponent } from '../modals/confirm-action/confirm-action.
     SchedulerCalendarModule,
     MatButtonModule,
     MatIconModule,
+    TranslateModule,
   ],
   templateUrl: './calendar.component.html',
   styleUrl: './calendar.component.scss',
