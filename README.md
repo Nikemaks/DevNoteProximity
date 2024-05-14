@@ -1,29 +1,31 @@
-[![Angular GitHub CI/CD](https://github.com/Nikemaks/DevNoteProximity/actions/workflows/main.yaml/badge.svg)](https://github.com/Nikemaks/DevNoteProximity/actions/workflows/main.yaml)
-
 # DevNoteProximity
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 17.0.3.
+DevNoteProximity - application with an intuitive interface, providing a wide range of tools for efficient work
 
-## Development server
+# Tools:
 
-Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The application will automatically reload if you change any of the source files.
+### Test Accounts
 
-## Code scaffolding
+This page allows users to swiftly create new accounts with ease. Simply fill in the required fields such as email and password, and you're all set to access our platform's features. Our streamlined process ensures a hassle-free registration experience. Once your account is created, easily copy your generated password and email for convenient access.
 
-Run `ng generate component component-name` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module`.
+![img](src/assets/preview/test_accounts.png)
 
-## Build
+### Short Notes
 
-Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory.
+Here, you'll find a user-friendly interface with customizable boards where you can effortlessly add new notes or simply drag and drop existing ones. Stay organized and inspired with our intuitive platform.
 
-## Running unit tests
+![img](src/assets/preview/short_notes.png)
 
-Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
+### Notes
 
-## Running end-to-end tests
+Welcome to our note board where you can easily organize your thoughts, ideas, tasks, and anything else that is important to you. Our note board offers a simple and intuitive interface so you can concentrate on what's important. You are free to express your thoughts, make plans and keep track of your projects in one place.
 
-Run `ng e2e` to execute the end-to-end tests via a platform of your choice. To use this command, you need to first add a package that implements end-to-end testing capabilities.
+![img](src/assets/preview/full_notes.png)
 
-## Further help
+### Calendar
 
-To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI Overview and Command Reference](https://angular.io/cli) page.
+Our calendar provides you with everything you need to effectively plan and manage your schedule. Whether you need to manage business meetings, events or personal plans, we offer an intuitive and easy-to-use calendar.
+
+![img](src/assets/preview/calendar.png)
+
+# Application: https://nikemaks.github.io/DevNoteProximity/
