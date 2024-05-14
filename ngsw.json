@@ -1,6 +1,6 @@
 {
   "configVersion": 1,
-  "timestamp": 1715550502123,
+  "timestamp": 1715711287989,
   "index": "/DevNoteProximity/index.html",
   "assetGroups": [
     {
@@ -11,17 +11,17 @@
         "ignoreVary": true
       },
       "urls": [
-        "/DevNoteProximity/chunk-3W5UOWP6.js",
         "/DevNoteProximity/chunk-7LQXRQCB.js",
         "/DevNoteProximity/chunk-DLDOR3YA.js",
+        "/DevNoteProximity/chunk-MH2XTEF7.js",
         "/DevNoteProximity/chunk-P5SZMPLO.js",
-        "/DevNoteProximity/chunk-RKK6RHLW.js",
         "/DevNoteProximity/chunk-RLHOG3FB.js",
+        "/DevNoteProximity/chunk-SWMS7LYM.js",
         "/DevNoteProximity/chunk-T7NMFP77.js",
         "/DevNoteProximity/chunk-VLID2MQV.js",
         "/DevNoteProximity/favicon.ico",
         "/DevNoteProximity/index.html",
-        "/DevNoteProximity/main-BAEI7GV7.js",
+        "/DevNoteProximity/main-CWW43YVU.js",
         "/DevNoteProximity/manifest.webmanifest",
         "/DevNoteProximity/polyfills-RT5I6R6G.js",
         "/DevNoteProximity/styles-ODJLMG2V.css"
@@ -82,17 +82,17 @@
     "/DevNoteProximity/assets/preview/full_notes.png": "9856c2671ed1a4d747b5ba7c0eac8ea2ee4a165e",
     "/DevNoteProximity/assets/preview/short_notes.png": "cb4211a5cbda5b618f570a4db623096152acc638",
     "/DevNoteProximity/assets/preview/test_accounts.png": "441ab3f15f16470f173034ccdb5e83a05989ede2",
-    "/DevNoteProximity/chunk-3W5UOWP6.js": "705dc00d523587be153a82eeecd8be232d638d17",
     "/DevNoteProximity/chunk-7LQXRQCB.js": "4d2615b6f029ca9f7fbdf2e982ad3aa8350fca6c",
     "/DevNoteProximity/chunk-DLDOR3YA.js": "0e61127d3fc19c6e841632a6dc532e7e01ef819a",
+    "/DevNoteProximity/chunk-MH2XTEF7.js": "ced8824a5329d13134ecf745598d751c42bbdc05",
     "/DevNoteProximity/chunk-P5SZMPLO.js": "9afd2a61fc0aaa98d2bb2169e5f5b0d0466b9d6c",
-    "/DevNoteProximity/chunk-RKK6RHLW.js": "10870b4241fe1995e2248466cb3fbad62bfc5a68",
     "/DevNoteProximity/chunk-RLHOG3FB.js": "a5fa82b18ccec19ad4d0c5a49cb007c104718ffd",
+    "/DevNoteProximity/chunk-SWMS7LYM.js": "8d8fc20956bf5d948786f8d5eab022782f1e831f",
     "/DevNoteProximity/chunk-T7NMFP77.js": "58d04a6222043d967f7aa6ef700ba32e3b5d0ef6",
     "/DevNoteProximity/chunk-VLID2MQV.js": "1ceb9558d4291720a63a08457ae43dde05f0311c",
     "/DevNoteProximity/favicon.ico": "9c39f434fe1261f68c5e3eefdf734630d99c5670",
-    "/DevNoteProximity/index.html": "761f468d8424b4b639b3f782e6eccaa3b7b8ebd9",
-    "/DevNoteProximity/main-BAEI7GV7.js": "195355c4b9ed8577bc6a4e10462b7ec7f59458c3",
+    "/DevNoteProximity/index.html": "ad3ebead96991d91b773f07bec0461e3b7dffa6a",
+    "/DevNoteProximity/main-CWW43YVU.js": "0eddba31b104ccaccf33ac4907e2c3852ee3391a",
     "/DevNoteProximity/manifest.webmanifest": "ff62e42ed6b80d07fc69c5e70f816055b65afe12",
     "/DevNoteProximity/polyfills-RT5I6R6G.js": "fe9f024576f21ff6314cf8f8332cde58b9a12416",
     "/DevNoteProximity/styles-ODJLMG2V.css": "41a9088551a3d3045618ed150cd2be1fc84f157f"
