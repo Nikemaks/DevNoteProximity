@@ -1,3 +1,5 @@
+[![Angular GitHub CI/CD](https://github.com/Nikemaks/DevNoteProximity/actions/workflows/main.yaml/badge.svg)](https://github.com/Nikemaks/DevNoteProximity/actions/workflows/main.yaml)
+
 # DevNoteProximity
 
 DevNoteProximity - application with an intuitive interface, providing a wide range of tools for efficient work
