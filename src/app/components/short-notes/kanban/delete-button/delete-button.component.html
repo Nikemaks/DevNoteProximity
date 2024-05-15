@@ -1,15 +1,3 @@
-<button
-  mat-button
-  color="warn"
-  (click)="canDelete ? deleteBoard() : prepareForDelete()">
+<button mat-button color="warn" (click)="deleteBoard()">
   <mat-icon>delete</mat-icon>
-  <span *ngIf="canDelete">{{
-    'notes.short_notes.confirm_btn' | translate
-  }}</span>
 </button>
-
-@if (canDelete) {
-  <button mat-button (click)="cancel()">
-    {{ 'notes.short_notes.cancel_btn' | translate }}
-  </button>
-}

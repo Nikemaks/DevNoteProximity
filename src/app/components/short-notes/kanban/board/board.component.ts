@@ -14,6 +14,7 @@ import { DeleteButtonComponent } from '../delete-button/delete-button.component'
 import { MatIconModule } from '@angular/material/icon';
 import { MatButtonModule } from '@angular/material/button';
 import { BoardStoreService } from '../../../../store/board-store/board-store.service';
+import { DynamicDialogComponent } from '../../../modals/dynamic-dialog/dynamic-dialog.component';
 
 @Component({
   selector: 'app-board',
@@ -80,6 +81,14 @@ export class BoardComponent {
   }
 
   handleDelete() {
-    this.boardStore.removeBoard$(this.board.id || '');
+    const dialogRef = this.dialog.open(DynamicDialogComponent, {
+      data: {
+        title: 'dialog-window.board.title',
+      },
+    });
+    dialogRef.afterClosed().subscribe(result => {
+      if (!result) return;
+      this.boardStore.removeBoard$(this.board.id || '');
+    });
   }
 }

@@ -15,6 +15,7 @@
     (cdkDropListDropped)="taskDrop($event)">
     <div class="inner-card">
       <a
+        class="task"
         cdkDrag
         href="javascript:void(0)"
         *ngFor="let task of board.tasks; let i = index"

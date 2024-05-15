@@ -18,14 +18,6 @@ export class DeleteButtonComponent {
 
   constructor() {}
 
-  prepareForDelete() {
-    this.canDelete = true;
-  }
-
-  cancel() {
-    this.canDelete = false;
-  }
-
   deleteBoard() {
     this.delete.emit(true);
     this.canDelete = false;
