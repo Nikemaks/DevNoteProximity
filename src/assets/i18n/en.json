@@ -94,7 +94,10 @@
     "title": "Remove Note?",
     "sub_title": "Are you sure about removing?",
     "cancel_btn": "Cancel",
-    "remove_btn": "Remove"
+    "remove_btn": "Remove",
+    "board": {
+      "title": "Remove board?"
+    }
   },
   "notes_message": {
     "text": "The notes list is empty."

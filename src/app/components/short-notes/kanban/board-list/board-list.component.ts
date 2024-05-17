@@ -13,6 +13,7 @@ import { BoardComponent } from '../board/board.component';
 import { MatIconModule } from '@angular/material/icon';
 import { MatButtonModule } from '@angular/material/button';
 import { BoardStoreService } from '../../../../store/board-store/board-store.service';
+import { MatCard } from '@angular/material/card';
 
 @Component({
   selector: 'app-board-list',
@@ -24,6 +25,7 @@ import { BoardStoreService } from '../../../../store/board-store/board-store.ser
     BoardComponent,
     MatIconModule,
     MatButtonModule,
+    MatCard,
   ],
   standalone: true,
 })
