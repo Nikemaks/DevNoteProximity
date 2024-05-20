@@ -47,7 +47,7 @@ export class BoardListComponent implements OnInit {
 
   drop(event: CdkDragDrop<string[]>) {
     moveItemInArray(this.boards, event.previousIndex, event.currentIndex);
-    this.boardService.sortBoards(this.boards);
+    this.boardStore.saveOrderBoards$(this.boards);
   }
 
   openBoardDialog(): void {

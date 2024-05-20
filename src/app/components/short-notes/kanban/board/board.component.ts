@@ -4,7 +4,6 @@ import {
   DragDropModule,
   moveItemInArray,
 } from '@angular/cdk/drag-drop';
-import { BoardService } from '../board.service';
 import { Task, Board } from '../board.model';
 import { MatDialog } from '@angular/material/dialog';
 import { TaskDialogComponent } from '../dialogs/task-dialog.component';
@@ -34,7 +33,6 @@ export class BoardComponent {
   @Input() board!: Board;
 
   constructor(
-    private boardService: BoardService,
     private dialog: MatDialog,
     private boardStore: BoardStoreService
   ) {}
