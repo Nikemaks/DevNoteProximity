@@ -13,6 +13,7 @@ import {
   StoreBoards,
   UpdateInterface,
 } from '../../interfaces/borad';
+import { sortByField } from '../../utils/array.utils';
 
 @Injectable({
   providedIn: 'root',
@@ -23,8 +24,8 @@ export class BoardStoreService extends ComponentStore<StoreBoards> {
   }
 
   // select
-  readonly selectBoards$: Observable<Board[]> = this.select(
-    state => state.boards
+  readonly selectBoards$: Observable<Board[]> = this.select(state =>
+    sortByField(state.boards, 'order')
   );
 
   // updaters
@@ -90,9 +91,22 @@ export class BoardStoreService extends ComponentStore<StoreBoards> {
   readonly saveBoard$ = this.effect((board$: Observable<Board>) => {
     return board$.pipe(
       switchMap(board =>
-        this.boardService.saveBoards(board).pipe(
+        this.boardService.saveBoard(board).pipe(
           tapResponse(
             boards$ => this.addBoard(boards$),
+            (error: HttpErrorResponse) => console.log(error)
+          )
+        )
+      )
+    );
+  });
+
+  readonly saveOrderBoards$ = this.effect((board$: Observable<Board[]>) => {
+    return board$.pipe(
+      switchMap(board =>
+        this.boardService.saveOrderBoards(board).pipe(
+          tapResponse(
+            boards$ => this.setBoards(boards$),
             (error: HttpErrorResponse) => console.log(error)
           )
         )

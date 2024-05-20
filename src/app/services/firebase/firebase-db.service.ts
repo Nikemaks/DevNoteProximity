@@ -10,11 +10,12 @@ import {
   DocumentReference,
   WithFieldValue,
   Timestamp,
+  QueryDocumentSnapshot,
 } from '@angular/fire/firestore';
 import { from, map, Observable } from 'rxjs';
 import { DocumentData } from '@angular/fire/compat/firestore';
 import { Auth, user, User } from '@angular/fire/auth';
-import { switchMap } from 'rxjs/operators';
+import { mergeMap, switchMap } from 'rxjs/operators';
 
 @Injectable({
   providedIn: 'root',
@@ -67,6 +68,38 @@ export class FireBaseDbService {
         const docRef = doc(this.fireStore, `${user?.uid}_${key}`, id);
 
         return from(updateDoc(docRef, data));
+      })
+    );
+  }
+
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  updateAllDocumentsInCollection(collectionName: string, updateData: any) {
+    return this.user$.pipe(
+      switchMap((user: User | null) => {
+        const refCollection = collection(
+          this.fireStore,
+          `${user?.uid}_${collectionName}`
+        );
+        return from(getDocs(refCollection)).pipe(
+          mergeMap(
+            (querySnapshot: {
+              docs: QueryDocumentSnapshot<DocumentData, DocumentData>[];
+            }) => {
+              const updateObservables = querySnapshot.docs.map(document => {
+                const docRef = doc(
+                  this.fireStore,
+                  `${user?.uid}_${collectionName}`,
+                  document.id
+                );
+                const updatedDoc = updateData.find(
+                  (oldDoc: { id: string }) => oldDoc.id === document.id
+                );
+                return from(updateDoc(docRef, updatedDoc));
+              });
+              return from(Promise.all(updateObservables));
+            }
+          )
+        );
       })
     );
   }
