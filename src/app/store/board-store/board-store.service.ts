@@ -106,7 +106,7 @@ export class BoardStoreService extends ComponentStore<StoreBoards> {
       switchMap(boards =>
         this.boardService.saveOrderBoards(boards).pipe(
           tapResponse(
-            boards$ => this.setBoards(boards$),
+            boards => this.setBoards(boards),
             (error: HttpErrorResponse) => console.log(error)
           )
         )

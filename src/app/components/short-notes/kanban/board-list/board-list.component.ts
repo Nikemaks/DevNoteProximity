@@ -33,7 +33,6 @@ export class BoardListComponent implements OnInit {
   boards!: Board[];
 
   constructor(
-    public boardService: BoardService,
     public dialog: MatDialog,
     private boardStore: BoardStoreService
   ) {}
