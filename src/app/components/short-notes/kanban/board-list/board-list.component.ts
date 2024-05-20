@@ -5,7 +5,6 @@ import {
   moveItemInArray,
 } from '@angular/cdk/drag-drop';
 import { Board } from '../board.model';
-import { BoardService } from '../board.service';
 import { MatDialog } from '@angular/material/dialog';
 import { BoardDialogComponent } from '../dialogs/board-dialog.component';
 import { CommonModule } from '@angular/common';
@@ -33,7 +32,6 @@ export class BoardListComponent implements OnInit {
   boards!: Board[];
 
   constructor(
-    public boardService: BoardService,
     public dialog: MatDialog,
     private boardStore: BoardStoreService
   ) {}

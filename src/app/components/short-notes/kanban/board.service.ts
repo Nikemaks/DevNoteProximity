@@ -85,6 +85,6 @@ export class BoardService {
     });
     return this._fbDb
       .updateAllDocumentsInCollection(this.storageKey, updateOrder)
-      .pipe(map(() => boards));
+      .pipe(map(() => updateOrder));
   }
 }
