@@ -1,6 +1,6 @@
 {
   "configVersion": 1,
-  "timestamp": 1715938322523,
+  "timestamp": 1716321086046,
   "index": "/DevNoteProximity/index.html",
   "assetGroups": [
     {
@@ -21,7 +21,7 @@
         "/DevNoteProximity/chunk-VLID2MQV.js",
         "/DevNoteProximity/favicon.ico",
         "/DevNoteProximity/index.html",
-        "/DevNoteProximity/main-6K5CNULJ.js",
+        "/DevNoteProximity/main-UZNQFUQN.js",
         "/DevNoteProximity/manifest.webmanifest",
         "/DevNoteProximity/polyfills-RT5I6R6G.js",
         "/DevNoteProximity/styles-ODJLMG2V.css"
@@ -91,8 +91,8 @@
     "/DevNoteProximity/chunk-T7NMFP77.js": "58d04a6222043d967f7aa6ef700ba32e3b5d0ef6",
     "/DevNoteProximity/chunk-VLID2MQV.js": "1ceb9558d4291720a63a08457ae43dde05f0311c",
     "/DevNoteProximity/favicon.ico": "9c39f434fe1261f68c5e3eefdf734630d99c5670",
-    "/DevNoteProximity/index.html": "9f39b0f2f3450c76e96babf8f955421c8b80a137",
-    "/DevNoteProximity/main-6K5CNULJ.js": "888279549926d4bededbf235e1e4304abe500ceb",
+    "/DevNoteProximity/index.html": "74e02aced3639aa0a58b4fde3916f44e9c6d42af",
+    "/DevNoteProximity/main-UZNQFUQN.js": "30092f244f30353f228f0a4af4edcb85c5c89a6a",
     "/DevNoteProximity/manifest.webmanifest": "ff62e42ed6b80d07fc69c5e70f816055b65afe12",
     "/DevNoteProximity/polyfills-RT5I6R6G.js": "fe9f024576f21ff6314cf8f8332cde58b9a12416",
     "/DevNoteProximity/styles-ODJLMG2V.css": "41a9088551a3d3045618ed150cd2be1fc84f157f"
