@@ -22,11 +22,11 @@ export class BoardService {
   /**
    * Save board
    */
-  saveBoards(newBoards: Board) {
-    return this._fbDb.saveCollection(newBoards, this.storageKey).pipe(
+  saveBoard(newBoard: Board) {
+    return this._fbDb.saveCollection(newBoard, this.storageKey).pipe(
       switchMap(({ id }) => {
-        newBoards.id = id;
-        return of(newBoards);
+        newBoard.id = id;
+        return of(newBoard);
       })
     );
   }
@@ -78,8 +78,13 @@ export class BoardService {
   /**
    * Run a batch write to change the priority of each board for sorting
    */
-  sortBoards(boards: Board[]) {
-    // @todo(implement)
-    console.log(boards);
+  saveOrderBoards(boards: Board[]) {
+    const updateOrder = boards.map((itm, idx) => {
+      itm.order = ++idx;
+      return itm;
+    });
+    return this._fbDb
+      .updateAllDocumentsInCollection(this.storageKey, updateOrder)
+      .pipe(map(() => updateOrder));
   }
 }

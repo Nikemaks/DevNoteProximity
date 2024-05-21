@@ -5,7 +5,6 @@ import {
   moveItemInArray,
 } from '@angular/cdk/drag-drop';
 import { Board } from '../board.model';
-import { BoardService } from '../board.service';
 import { MatDialog } from '@angular/material/dialog';
 import { BoardDialogComponent } from '../dialogs/board-dialog.component';
 import { CommonModule } from '@angular/common';
@@ -33,7 +32,6 @@ export class BoardListComponent implements OnInit {
   boards!: Board[];
 
   constructor(
-    public boardService: BoardService,
     public dialog: MatDialog,
     private boardStore: BoardStoreService
   ) {}
@@ -47,7 +45,7 @@ export class BoardListComponent implements OnInit {
 
   drop(event: CdkDragDrop<string[]>) {
     moveItemInArray(this.boards, event.previousIndex, event.currentIndex);
-    this.boardService.sortBoards(this.boards);
+    this.boardStore.saveOrderBoards$(this.boards);
   }
 
   openBoardDialog(): void {
