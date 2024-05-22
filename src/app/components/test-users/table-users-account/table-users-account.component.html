@@ -1,112 +1,123 @@
 @if (dataSource$ | async; as dataSource) {
-  <div class="mat-elevation-z8">
-    <table mat-table [dataSource]="dataSource">
-      <!-- Group Column -->
-      <ng-container matColumnDef="avatar">
-        <th mat-header-cell *matHeaderCellDef></th>
-        <td mat-cell *matCellDef="let element">
-          <span class="header-image">{{ element?.email[0] | uppercase }}</span>
-        </td>
-      </ng-container>
+  <mat-form-field>
+    <mat-label>{{ 'test_accounts.placeholder' | translate }}</mat-label>
+    <input matInput type="text" [formControl]="searchControl" />
+    @if (searchControl.value) {
+      <button
+        matSuffix
+        mat-icon-button
+        aria-label="Clear"
+        (click)="searchControl.reset('')">
+        <mat-icon>close</mat-icon>
+      </button>
+    }
+  </mat-form-field>
 
-      <!-- Group Column -->
-      <ng-container matColumnDef="group">
-        <th mat-header-cell *matHeaderCellDef>
-          {{ 'test_accounts.group' | translate }}
-        </th>
-        <td mat-cell *matCellDef="let element">{{ element?.group }}</td>
-      </ng-container>
+  <table mat-table [dataSource]="dataSource" class="mat-elevation-z8">
+    <!-- Group Column -->
+    <ng-container matColumnDef="avatar">
+      <th mat-header-cell *matHeaderCellDef></th>
+      <td mat-cell *matCellDef="let element">
+        <span class="header-image">{{ element?.email[0] | uppercase }}</span>
+      </td>
+    </ng-container>
 
-      <!-- Email Column -->
-      <ng-container matColumnDef="email">
-        <th mat-header-cell *matHeaderCellDef>
-          {{ 'test_accounts.email' | translate }}
-        </th>
-        <td mat-cell *matCellDef="let element">
-          <div class="table-align">
-            {{ element?.email }}
-            <button
-              [cdkCopyToClipboard]="element?.email"
-              mat-icon-button
-              aria-label="copy"
-              (click)="notifyCopy(element?.email)">
-              <mat-icon>content_copy</mat-icon>
-            </button>
-          </div>
-        </td>
-      </ng-container>
+    <!-- Group Column -->
+    <ng-container matColumnDef="group">
+      <th mat-header-cell *matHeaderCellDef>
+        {{ 'test_accounts.group' | translate }}
+      </th>
+      <td mat-cell *matCellDef="let element">{{ element?.group }}</td>
+    </ng-container>
 
-      <!-- password Column -->
-      <ng-container matColumnDef="password">
-        <th mat-header-cell *matHeaderCellDef>
-          {{ 'test_accounts.password' | translate }}
-        </th>
-        <td mat-cell *matCellDef="let element">
-          <div class="table-align">
-            <input
-              matInput
-              [type]="element.hide ? 'text' : 'password'"
-              [value]="element?.password"
-              [disabled]="true" />
-            <button
-              [cdkCopyToClipboard]="element?.password"
-              (click)="notifyCopy(element?.password)"
-              mat-icon-button
-              aria-label="copy">
-              <mat-icon>content_copy</mat-icon>
-            </button>
-            <button
-              mat-icon-button
-              matSuffix
-              (click)="element.hide = !element.hide"
-              [attr.aria-label]="
-                element.hide ? 'Show password' : 'Hide password'
-              "
-              [attr.aria-pressed]="!element.hide">
-              <mat-icon>{{
-                element.hide ? 'visibility' : 'visibility_off'
-              }}</mat-icon>
-            </button>
-          </div>
-        </td>
-      </ng-container>
+    <!-- Email Column -->
+    <ng-container matColumnDef="email">
+      <th mat-header-cell *matHeaderCellDef>
+        {{ 'test_accounts.email' | translate }}
+      </th>
+      <td mat-cell *matCellDef="let element">
+        <div class="table-align">
+          {{ element?.email }}
+          <button
+            [cdkCopyToClipboard]="element?.email"
+            mat-icon-button
+            aria-label="copy"
+            (click)="notifyCopy(element?.email)">
+            <mat-icon>content_copy</mat-icon>
+          </button>
+        </div>
+      </td>
+    </ng-container>
 
-      <ng-container matColumnDef="addComment">
-        <th mat-header-cell *matHeaderCellDef>
-          {{ 'test_accounts.comment' | translate }}
-        </th>
-        <td mat-cell *matCellDef="let element">{{ element?.addComment }}</td>
-      </ng-container>
-
-      <ng-container matColumnDef="action">
-        <th mat-header-cell *matHeaderCellDef>
-          {{ 'test_accounts.action' | translate }}
-        </th>
-        <td mat-cell *matCellDef="let element">
+    <!-- password Column -->
+    <ng-container matColumnDef="password">
+      <th mat-header-cell *matHeaderCellDef>
+        {{ 'test_accounts.password' | translate }}
+      </th>
+      <td mat-cell *matCellDef="let element">
+        <div class="table-align">
+          <input
+            class="input"
+            matInput
+            [type]="element.hide ? 'text' : 'password'"
+            [value]="element?.password"
+            [disabled]="true" />
+          <button
+            [cdkCopyToClipboard]="element?.password"
+            (click)="notifyCopy(element?.password)"
+            mat-icon-button
+            aria-label="copy">
+            <mat-icon>content_copy</mat-icon>
+          </button>
           <button
             mat-icon-button
-            color="primary"
-            (click)="delete(element?.id)"
-            aria-label="Icon button with a delete icon">
-            <mat-icon>delete</mat-icon>
+            matSuffix
+            (click)="element.hide = !element.hide"
+            [attr.aria-label]="element.hide ? 'Show password' : 'Hide password'"
+            [attr.aria-pressed]="!element.hide">
+            <mat-icon>{{
+              element.hide ? 'visibility' : 'visibility_off'
+            }}</mat-icon>
           </button>
-        </td>
-      </ng-container>
+        </div>
+      </td>
+    </ng-container>
 
-      <tr class="mat-row" *matNoDataRow>
-        <td class="mat-cell" [attr.colspan]="displayedColumns.length">
-          {{ 'test_accounts.not_user' | translate }}
-        </td>
-      </tr>
+    <ng-container matColumnDef="addComment">
+      <th mat-header-cell *matHeaderCellDef>
+        {{ 'test_accounts.comment' | translate }}
+      </th>
+      <td mat-cell *matCellDef="let element">{{ element?.addComment }}</td>
+    </ng-container>
 
-      <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-      <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
-    </table>
+    <ng-container matColumnDef="action">
+      <th mat-header-cell *matHeaderCellDef>
+        {{ 'test_accounts.action' | translate }}
+      </th>
+      <td mat-cell *matCellDef="let element">
+        <button
+          mat-icon-button
+          color="primary"
+          (click)="delete(element?.id)"
+          aria-label="Icon button with a delete icon">
+          <mat-icon>delete</mat-icon>
+        </button>
+      </td>
+    </ng-container>
 
-    <mat-paginator
-      [pageSizeOptions]="[5, 10, 20]"
-      showFirstLastButtons
-      aria-label="Select page of periodic elements">
-    </mat-paginator>
-  </div>
+    <tr class="mat-row" *matNoDataRow>
+      <td class="mat-cell" [attr.colspan]="displayedColumns.length">
+        {{ 'test_accounts.not_user' | translate }}
+      </td>
+    </tr>
+
+    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+    <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
+  </table>
+
+  <mat-paginator
+    [pageSizeOptions]="[5, 10, 20]"
+    showFirstLastButtons
+    aria-label="Select page of periodic elements">
+  </mat-paginator>
 }

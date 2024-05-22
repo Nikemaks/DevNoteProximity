@@ -8,21 +8,6 @@
 </div>
 <mat-card>
   <mat-card-content>
-    <div class="search">
-      <mat-form-field appearance="outline" class="search-form-field">
-        <mat-label>{{ 'test_accounts.placeholder' | translate }}</mat-label>
-        <input matInput type="text" [formControl]="searchControl" />
-        @if (searchControl.value) {
-          <button
-            matSuffix
-            mat-icon-button
-            aria-label="Clear"
-            (click)="searchControl.reset('')">
-            <mat-icon>close</mat-icon>
-          </button>
-        }
-      </mat-form-field>
-    </div>
     <div class="content">
       <table-users-account></table-users-account>
     </div>

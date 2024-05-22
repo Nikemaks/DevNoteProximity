@@ -1,4 +1,4 @@
-import { Component, DestroyRef, inject, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 import { MatButtonModule } from '@angular/material/button';
 import { MatInputModule } from '@angular/material/input';
 import { MatFormFieldModule } from '@angular/material/form-field';
@@ -11,12 +11,8 @@ import { CommonModule } from '@angular/common';
 import { TableUsersAccountComponent } from './table-users-account/table-users-account.component';
 import { TestAccountsServiceStore } from '../../store/test-accounts-store/test-accounts-store.service';
 import { MatCardModule } from '@angular/material/card';
-import { FormControl, ReactiveFormsModule } from '@angular/forms';
-import { debounceTime } from 'rxjs/operators';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { TranslateModule } from '@ngx-translate/core';
-import { DEBOUNCE_TIME_INPUTS } from '../../constants/global-constants';
-import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 
 @Component({
   selector: 'test-users',
@@ -30,17 +26,12 @@ import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
     MatIconModule,
     TableUsersAccountComponent,
     MatCardModule,
-    ReactiveFormsModule,
     TranslateModule,
   ],
   templateUrl: './test-users.component.html',
   styleUrl: './test-users.component.scss',
 })
-export class TestUsersComponent implements OnInit {
-  dataSource$ = this.testAccountsServiceStore.selectUserAccounts$;
-  private destroyRef = inject(DestroyRef);
-  searchControl = new FormControl('');
-
+export class TestUsersComponent {
   constructor(
     public dialog: MatDialog,
     private testAccountsServiceStore: TestAccountsServiceStore,
@@ -60,17 +51,5 @@ export class TestUsersComponent implements OnInit {
         duration: 2500,
       });
     });
-  }
-
-  ngOnInit(): void {
-    this.testAccountsServiceStore.getAllUserAccounts$();
-    this.searchControl.valueChanges
-      .pipe(
-        debounceTime(DEBOUNCE_TIME_INPUTS),
-        takeUntilDestroyed(this.destroyRef)
-      )
-      .subscribe(value => {
-        this.testAccountsServiceStore.changeFilters(value || '');
-      });
   }
 }

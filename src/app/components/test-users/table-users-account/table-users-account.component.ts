@@ -1,4 +1,10 @@
-import { Component, ViewChild } from '@angular/core';
+import {
+  Component,
+  DestroyRef,
+  inject,
+  OnInit,
+  ViewChild,
+} from '@angular/core';
 import { MatPaginator, MatPaginatorModule } from '@angular/material/paginator';
 import { MatTabsModule } from '@angular/material/tabs';
 import { MatTableDataSource, MatTableModule } from '@angular/material/table';
@@ -13,9 +19,16 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 import { CommonModule } from '@angular/common';
 import { MatCardModule } from '@angular/material/card';
 import { TranslateModule } from '@ngx-translate/core';
-import { map } from 'rxjs/operators';
-import { MatSuffix } from '@angular/material/form-field';
+import { debounceTime, map } from 'rxjs/operators';
+import {
+  MatFormField,
+  MatLabel,
+  MatSuffix,
+} from '@angular/material/form-field';
 import { MatInput } from '@angular/material/input';
+import { FormControl, ReactiveFormsModule } from '@angular/forms';
+import { DEBOUNCE_TIME_INPUTS } from '../../../constants/global-constants';
+import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 
 @Component({
   selector: 'table-users-account',
@@ -32,12 +45,17 @@ import { MatInput } from '@angular/material/input';
     TranslateModule,
     MatSuffix,
     MatInput,
+    MatFormField,
+    MatLabel,
+    ReactiveFormsModule,
   ],
   templateUrl: './table-users-account.component.html',
   styleUrl: './table-users-account.component.scss',
 })
-export class TableUsersAccountComponent {
+export class TableUsersAccountComponent implements OnInit {
   @ViewChild(MatPaginator) paginator!: MatPaginator;
+  private destroyRef = inject(DestroyRef);
+  searchControl = new FormControl('');
 
   displayedColumns: string[] = [
     'avatar',
@@ -75,5 +93,17 @@ export class TableUsersAccountComponent {
     this._snackBar.open(`Value "${value}" copied to clipboard!`, 'Close', {
       duration: 2500,
     });
+  }
+
+  ngOnInit() {
+    this.testAccountsServiceStore.getAllUserAccounts$();
+    this.searchControl.valueChanges
+      .pipe(
+        debounceTime(DEBOUNCE_TIME_INPUTS),
+        takeUntilDestroyed(this.destroyRef)
+      )
+      .subscribe(value => {
+        this.testAccountsServiceStore.changeFilters(value || '');
+      });
   }
 }
