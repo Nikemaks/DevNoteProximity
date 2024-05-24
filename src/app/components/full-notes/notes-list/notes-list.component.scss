@@ -74,3 +74,33 @@
   display: flex;
   justify-content: space-between;
 }
+
+@media (max-width: 400px) {
+  .card__title {
+    font-size: 24px;
+  }
+
+  .item__text {
+    height: 100px;
+    text-align: justify;
+    overflow: hidden;
+  }
+
+  .buttons {
+    width: 100%;
+    align-items: center;
+  }
+
+  .input {
+    width: 100%;
+  }
+
+  .grid-container {
+    margin-left: -30px;
+  }
+
+  .type {
+    margin-top: -20px;
+    margin-left: 30px;
+  }
+}
