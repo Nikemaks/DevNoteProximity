@@ -29,3 +29,35 @@ table {
   background: none;
   border: none;
 }
+
+@media (max-width: 600px) {
+  .mat-form-field {
+    width: 100%;
+  }
+
+  .mat-table {
+    display: block;
+    overflow-x: auto;
+  }
+
+  .mat-header-cell,
+  .mat-cell {
+    display: block;
+    width: 100%;
+    box-sizing: border-box;
+  }
+
+  .table-align {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  .input {
+    width: 70%;
+  }
+
+  .mat-icon-button {
+    padding: 0;
+  }
+}
