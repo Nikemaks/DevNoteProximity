@@ -32,3 +32,23 @@
 mat-form-field {
   width: 400px;
 }
+
+@media (max-width: 400px) {
+  .notes {
+    padding: 10px 20px;
+  }
+
+  .title {
+    font-size: 20px;
+  }
+
+  .buttons button {
+    width: 50%;
+    margin-left: 20px;
+    margin-bottom: 5px;
+  }
+
+  .content {
+    width: 100%;
+  }
+}
