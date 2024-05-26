@@ -56,6 +56,31 @@
   margin-top: 35px;
 }
 
+@media (max-width: 768px) {
+  .boards {
+    padding: 16px;
+    overflow-x: hidden;
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+
+  .card {
+    padding: 10px;
+    margin-top: 20px;
+  }
+}
+
+@media (max-width: 480px) {
+  .boards {
+    padding: 8px;
+  }
+
+  .card {
+    padding: 8px;
+    margin-top: 15px;
+  }
+}
+
 @media (max-width: 400px) {
   .boards {
     padding: 2px;

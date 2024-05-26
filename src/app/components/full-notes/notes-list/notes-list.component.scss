@@ -75,6 +75,16 @@
   justify-content: space-between;
 }
 
+@media (max-width: 741px) {
+  .grid-container {
+    justify-content: center;
+  }
+
+  .input {
+    width: auto;
+  }
+}
+
 @media (max-width: 400px) {
   .card__title {
     font-size: 24px;
