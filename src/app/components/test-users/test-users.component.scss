@@ -31,3 +31,9 @@
   font-size: 14px;
   width: 20%;
 }
+
+@media (max-width: 768px) {
+  button {
+    bottom: 60px;
+  }
+}
