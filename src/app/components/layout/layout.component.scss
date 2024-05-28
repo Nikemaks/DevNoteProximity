@@ -31,8 +31,8 @@ mat-drawer {
 .modal-container {
   position: absolute;
   z-index: 10;
-  top: 12%;
-  right: 2%;
+  top: 6%;
+  right: 1%;
   width: 400px;
   height: 360px;
   border-radius: 20px;
@@ -93,6 +93,7 @@ mat-drawer {
   padding: 15px 0;
   background-color: #1b1b1b;
   color: white;
+  cursor: pointer;
 }
 
 .logout-btn:hover {
@@ -115,4 +116,8 @@ mat-drawer {
 .links__item {
   text-underline: none;
   color: white;
+}
+
+.user-photo {
+  border-radius: 50%;
 }
