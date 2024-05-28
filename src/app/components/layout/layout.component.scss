@@ -121,3 +121,20 @@ mat-drawer {
 .user-photo {
   border-radius: 50%;
 }
+
+@media (max-width: 768px) {
+  .modal-container {
+    top: 6%;
+  }
+}
+
+@media (max-width: 400px) {
+  .modal-container {
+    top: 6%;
+    width: 340px;
+  }
+
+  .logout-btn {
+    width: 222px;
+  }
+}
