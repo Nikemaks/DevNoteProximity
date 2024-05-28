@@ -27,3 +27,18 @@
   font-weight: bold;
   font-size: 26px;
 }
+
+@media (max-width: 1024px) {
+  .card {
+    margin: 10px auto;
+    max-width: 100%;
+  }
+
+  .item__text {
+    font-size: 0.8rem;
+  }
+
+  .title {
+    font-size: 22px;
+  }
+}

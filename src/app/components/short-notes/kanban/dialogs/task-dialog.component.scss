@@ -32,3 +32,23 @@ textarea {
 .red {
   color: #e74a4a;
 }
+
+@media (max-width: 400px) {
+  .content {
+    padding: 10px;
+    width: 100%;
+  }
+
+  mat-form-field {
+    width: 100%;
+  }
+
+  textarea {
+    font-size: 14px;
+  }
+
+  mat-button-toggle-group {
+    display: flex;
+    flex-wrap: wrap;
+  }
+}

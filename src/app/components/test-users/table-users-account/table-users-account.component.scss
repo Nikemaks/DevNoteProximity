@@ -29,3 +29,11 @@ table {
   background: none;
   border: none;
 }
+
+@media (max-width: 768px) {
+  mat-paginator {
+    justify-content: start;
+    margin-top: 20px;
+    width: 100%;
+  }
+}

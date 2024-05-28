@@ -32,3 +32,43 @@
 mat-form-field {
   width: 400px;
 }
+
+@media (max-width: 768px) {
+  .notes {
+    padding: 10px 20px;
+  }
+
+  .title {
+    width: auto;
+    font-size: 20px;
+    margin-right: 50px;
+  }
+
+  .buttons button {
+    margin-bottom: 5px;
+  }
+
+  .content {
+    width: 100%;
+  }
+}
+
+@media (max-width: 400px) {
+  .notes {
+    padding: 10px 20px;
+  }
+
+  .title {
+    width: 100%;
+    font-size: 20px;
+  }
+
+  .buttons button {
+    margin-left: 20px;
+    margin-bottom: 5px;
+  }
+
+  .content {
+    width: 100%;
+  }
+}

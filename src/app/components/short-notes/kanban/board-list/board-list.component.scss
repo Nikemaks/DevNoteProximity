@@ -55,3 +55,54 @@
   padding: 15px;
   margin-top: 35px;
 }
+
+@media (max-width: 768px) {
+  .boards {
+    padding: 16px;
+    overflow-x: hidden;
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+
+  .card {
+    padding: 10px;
+    margin-top: 20px;
+  }
+}
+
+@media (max-width: 480px) {
+  .boards {
+    padding: 8px;
+  }
+
+  .card {
+    padding: 8px;
+    margin-top: 15px;
+  }
+}
+
+@media (max-width: 400px) {
+  .boards {
+    padding: 2px;
+    flex-direction: column;
+    overflow-x: hidden;
+  }
+
+  .board-button {
+    width: 100%;
+    height: auto;
+    padding: 16px;
+  }
+
+  .board-button button {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    z-index: 9999;
+  }
+
+  .card {
+    padding: 10px;
+    margin-top: 20px;
+  }
+}
