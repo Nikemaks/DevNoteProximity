@@ -19,7 +19,10 @@
       (click)="toggleModalAboutUser()"
       aria-label="icon-button"
       mat-icon-button>
-      <mat-icon>account_circle</mat-icon>
+      <img
+        [src]="userInformation?.photoURL"
+        alt="userPhoto"
+        class="user-photo" />
     </button>
   </mat-toolbar>
 </header>
